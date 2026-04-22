@@ -1,0 +1,10 @@
+services:
+  bun:
+    image: oven/bun:1.3.13
+    entrypoint: ["bun"]
+    volumes:
+      - ${HOST_PROJECT_PATH:-.}:/app
+    working_dir: /app
+    ports:
+      - "8080:5173"
+    command: run dev

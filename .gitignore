@@ -1,0 +1,26 @@
+# Dependencies
+node_modules
+
+# Build
+dist
+dist-ssr
+
+# Logs
+*.log
+
+# Bun
+bun.lock
+
+# OS
+.DS_Store
+
+# Editor
+.vscode
+.idea
+*.sw?
+
+# Test
+coverage
+
+# Local env
+*.local

@@ -1,0 +1,14 @@
+# Generated report files - don't format
+.claude/
+.cache/
+
+# Standard ignores
+.git
+node_modules
+dist
+build
+.next
+out
+coverage
+.turbo
+*.log

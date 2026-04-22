@@ -1,0 +1,38 @@
+{
+  "version": "0.2",
+  "dictionaries": [
+    "en_US",
+    "companies",
+    "typescript",
+    "softwareTerms",
+    "bash",
+    "css",
+    "html",
+    "node",
+    "npm",
+    "filetypes",
+    "fonts"
+  ],
+  "language": "en",
+  "words": [
+    "oxlintrc",
+    "oxlint",
+    "tsgolint",
+    "bunx",
+    "lucide-vue-next",
+    "pinia",
+    "rizzardi",
+    "shadcn",
+    "valibot",
+    "vueuse",
+    "yinzerflow",
+    "composables",
+    "tailwindcss",
+    "devcontainer",
+    "redact"
+  ],
+  "flagWords": [""],
+  "ignorePaths": ["cspell.json", "*.svg"],
+  "useGitignore": true,
+  "allowCompoundWords": true
+}

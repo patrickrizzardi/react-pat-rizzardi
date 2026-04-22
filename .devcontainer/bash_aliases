@@ -1,0 +1,21 @@
+# Portable aliases — shared across host and dev containers
+# Host-specific aliases (vpm, deploy, cursor) stay in .bashrc
+
+# General
+alias ll='ls -alF --color=auto'
+alias reload="source ~/.bashrc"
+
+# Git
+alias uncommit="git reset --soft HEAD~1"
+alias clean="git branch | grep -v '*' | grep -v 'main' | grep -v  'staging' | grep -v 'development' | xargs git branch -D && git reset --hard && git clean -df && git remote prune origin"
+
+# Docker
+alias dstop="docker stop \$(docker ps -a -q)"
+alias dstart="docker compose up"
+alias dc="docker compose exec"
+alias dprune="CONTAINERS=\$(docker ps -a -q) && if [ -n \"\$CONTAINERS\" ]; then docker stop \$CONTAINERS && docker rm -f \$CONTAINERS; fi && docker image prune --all -f && docker system prune -f --volumes=false && docker builder prune -a -f"
+alias dr="/workspaces/redact-digital/.devcontainer/docker-run.sh"
+
+
+# Claude
+alias claude="claude --dangerously-skip-permissions"
