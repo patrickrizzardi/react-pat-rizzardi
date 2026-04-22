@@ -1,13 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { useTheme } from '@/composables/useTheme';
+  import AppNav from '@/components/layout/AppNav.vue';
+  import AppFooter from '@/components/layout/AppFooter.vue';
+
+  useTheme();
+</script>
 
 <template>
-  <div class="min-h-screen bg-navy text-white">
-    <main class="flex min-h-screen items-center justify-center">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold text-cyan">Patrick Rizzardi</h1>
-        <p class="mt-4 text-lg text-gray-400">Backend Engineer</p>
-        <p class="mt-2 text-sm text-gray-500">Scaffold working. Tailwind v4 active.</p>
-      </div>
+  <div class="min-h-screen bg-navy text-white dark:bg-navy dark:text-white">
+    <AppNav />
+    <main class="pt-16">
+      <RouterView />
     </main>
+    <AppFooter />
   </div>
 </template>
