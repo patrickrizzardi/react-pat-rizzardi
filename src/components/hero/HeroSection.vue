@@ -2,6 +2,7 @@
   import { ref, onMounted } from 'vue';
   import { ArrowDown, Mail } from 'lucide-vue-next';
   import HeroMetrics from './HeroMetrics.vue';
+  import NeuralGrid from './NeuralGrid.vue';
 
   const visible = ref(false);
 
@@ -22,6 +23,7 @@
     class="hero-bg relative flex min-h-screen items-center justify-center overflow-hidden"
   >
     <div class="hero-orbs pointer-events-none absolute inset-0" />
+    <NeuralGrid />
 
     <div
       class="hero-content relative z-10 w-full max-w-4xl px-6 text-center"
@@ -29,7 +31,7 @@
     >
       <h1 class="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">Patrick Rizzardi</h1>
 
-      <p class="mt-4 text-xl text-cyan sm:text-2xl">Backend &amp; Infrastructure Engineer</p>
+      <p class="mt-4 text-xl text-cyan sm:text-2xl">Engineering Lead &amp; Architect</p>
 
       <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-400">
         I architect backend systems that stay profitable at scale — from a trading platform that pays its own bills to
@@ -66,10 +68,6 @@
 <style scoped>
   .hero-bg {
     background-color: var(--color-navy);
-    background-image: radial-gradient(rgba(34, 211, 238, 0.25) 1px, transparent 1px);
-    background-size: 28px 28px;
-    mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 30%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 30%, transparent 100%);
   }
 
   .hero-orbs {

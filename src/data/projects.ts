@@ -10,7 +10,52 @@ export const projects: ReadonlyArray<Project> = [
     tech: ['Rust', 'CUDA', 'burn', 'Transformer', 'BPE', 'Linux'],
     archNotes:
       "Custom attention kernels bypass burn's built-in ops for 2-3x throughput on consumer GPUs. The tradeoff was months of low-level debugging for full control over memory layout and kernel fusion.",
-    snippets: [],
+    snippets: [
+      {
+        label: 'Grouped Query Attention',
+        language: 'rust',
+        code: `// GQA: expand KV heads to match Q heads
+let repeat_factor = self.num_heads / self.num_kv_heads;
+let k = Self::expand_kv_heads(k, repeat_factor);
+let v = Self::expand_kv_heads(v, repeat_factor);
+
+// Scaled dot-product attention
+let scale = (self.head_dim as f64).sqrt();
+let scores = q.matmul(k.swap_dims(2, 3)) / scale;
+
+let scores = self.apply_causal_mask(scores, seq_len, device);
+let attn_weights = burn::tensor::activation::softmax(scores, 3);
+let out = attn_weights.matmul(v);
+
+// [batch, num_heads, seq_len, head_dim] → [batch, seq_len, hidden_dim]
+let out = out.swap_dims(1, 2)
+    .reshape([batch, seq_len, self.num_heads * self.head_dim]);`,
+      },
+      {
+        label: 'Rotary Position Embeddings',
+        language: 'rust',
+        code: `pub fn new(head_dim: usize, max_seq_len: usize, theta: f64) -> Self {
+    let half_dim = head_dim / 2;
+    let mut cos_cached = vec![0.0f32; max_seq_len * half_dim];
+    let mut sin_cached = vec![0.0f32; max_seq_len * half_dim];
+
+    // freq_i = 1.0 / (theta ^ (2i / head_dim))
+    let freqs: Vec<f64> = (0..half_dim)
+        .map(|i| 1.0 / theta.powf(2.0 * i as f64 / head_dim as f64))
+        .collect();
+
+    for pos in 0..max_seq_len {
+        for (i, &freq) in freqs.iter().enumerate() {
+            let angle = pos as f64 * freq;
+            cos_cached[pos * half_dim + i] = angle.cos() as f32;
+            sin_cached[pos * half_dim + i] = angle.sin() as f32;
+        }
+    }
+
+    Self { cos_cached, sin_cached, head_dim, max_seq_len }
+}`,
+      },
+    ],
   },
   {
     id: 'trading-v3',
@@ -77,13 +122,14 @@ export const projects: ReadonlyArray<Project> = [
     role: 'Co-Lead Developer & Infrastructure Lead',
     period: '2021 — Present',
     responsibilities: [
-      'Designed and scaled the API from early-stage to 88 models and 282 controllers serving production traffic',
-      'Built 10+ third-party integrations end-to-end — payment processing, background checks, contractor compliance',
-      'Owned infrastructure: Docker orchestration, CI/CD pipelines, database optimization, production monitoring',
+      "Grew the API from early-stage to 88 models and 282 controllers — made the scaling decisions as the system 10x'd",
+      'Scoped, built, and shipped 10+ third-party integrations end-to-end, several solo across both Vue frontend and API',
+      'Manage 4 junior developers — code review, mentorship, architecture guidance',
+      'Own infrastructure decisions: Docker orchestration, CI/CD, database optimization, AWS cost reduction',
     ],
     highlights: [
-      'Solo full-stack delivery of HubStaff time-tracking integration — both Vue frontend and API (Vue + API)',
-      'Solo full-stack delivery of Wingspan contractor payments integration — scoped, built, and shipped alone (Vue + API)',
+      'Delivered HubStaff and Wingspan integrations solo full-stack — from scoping with stakeholders to production deploy',
+      'Drive technical direction alongside one co-lead — involved in all business, feature, and infrastructure decisions',
     ],
     liveUrl: 'https://app.vpmsolutions.com',
   },

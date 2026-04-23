@@ -29,20 +29,22 @@
       <div class="mt-8 grid gap-12 lg:grid-cols-2">
         <div>
           <p class="text-lg leading-relaxed text-gray-400">
-            Most of my career has been spent on the parts of software nobody sees — until they break. I've led
-            infrastructure for an enterprise platform processing
-            <span class="text-white">$2M in monthly cashflow</span>, built a trading system that's been
-            <span class="text-white">profitable for over a year</span>, and I'm currently training an LLM from scratch
-            because I wanted to understand transformers at the CUDA kernel level, not just the API level.
+            Self-taught engineer,
+            <span class="text-white">12 years US Army</span> including 4 as a Staff Sergeant. I went from leading
+            soldiers to leading engineering teams — the problems are different but the accountability isn't. Today I
+            manage a team of 4 developers, sit in every business meeting, and share technical leadership of a platform
+            processing <span class="text-white">$2M in monthly cashflow</span>.
           </p>
           <p class="mt-4 text-lg leading-relaxed text-gray-400">
             I think in systems, not features. My best work is the migration nobody noticed, the indexing strategy that
-            kept queries under 50ms at 500M rows, and the monitoring that caught the problem before anyone filed a
-            ticket. I build things that let other engineers move faster.
+            kept queries under 50ms at 500M rows, and the cost optimization that saved thousands without anyone asking
+            me to. I build things that let other engineers move faster — and I make sure the budget makes sense while
+            doing it.
           </p>
           <p class="mt-4 text-lg leading-relaxed text-gray-400">
-            When I'm not writing Rust or TypeScript, I'm probably debugging why my LLM's attention kernels are 3x slower
-            than they should be, or figuring out how to partition another quarter-billion rows without downtime.
+            On the side, I built a <span class="text-white">profitable trading platform</span> and I'm training an
+            <span class="text-white">LLM from bare metal</span> — custom CUDA kernels, not API wrappers. No CS degree,
+            no bootcamp. Just a decade of solving problems that got progressively harder.
           </p>
         </div>
 

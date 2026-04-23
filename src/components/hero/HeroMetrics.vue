@@ -12,10 +12,10 @@
   }
 
   const metrics: ReadonlyArray<Metric & MetricConfig> = [
-    { value: 2, suffix: 'M+', label: 'Monthly Cashflow Processed', prefix: '$' },
-    { value: 500, suffix: 'M+', label: 'Production Database Rows', prefix: '' },
-    { value: 100, suffix: 'K+', label: 'Platform Users', prefix: '' },
-    { value: 6, suffix: '', label: 'Microservices in Prod', prefix: '' },
+    { value: 2, suffix: 'M+/mo', label: 'Cashflow Processed', prefix: '$' },
+    { value: 500, suffix: 'M+', label: 'Database Rows Managed', prefix: '' },
+    { value: 12, suffix: '+', label: 'Microservices Built', prefix: '' },
+    { value: 100, suffix: 'K+', label: 'Users Served', prefix: '' },
   ];
 
   const counts = ref<Array<number>>(metrics.map(() => 0));
