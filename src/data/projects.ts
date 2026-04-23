@@ -6,10 +6,10 @@ export const projects: ReadonlyArray<Project> = [
     tier: 'featured',
     title: 'Tessa AI',
     description:
-      'Large language model built from scratch in Rust using the burn framework. Custom CUDA kernels for attention, BPE tokenizer trained on a 34GB corpus, and a LLaMA-style transformer architecture. Everything from data pipeline to inference — no wrapper libraries.',
+      'I wanted to understand transformers at the kernel level, not just call an API. So I built an LLM from scratch in Rust — custom CUDA attention kernels, a BPE tokenizer trained on 34GB of text, and a LLaMA-style architecture. No PyTorch, no HuggingFace, no wrapper libraries.',
     tech: ['Rust', 'CUDA', 'burn', 'Transformer', 'BPE', 'Linux'],
     archNotes:
-      "Custom attention kernels bypass burn's built-in ops for 2-3x throughput on consumer GPUs. Tokenizer trains offline then compiles to a static vocabulary for zero-allocation inference.",
+      "Custom attention kernels bypass burn's built-in ops for 2-3x throughput on consumer GPUs. The tradeoff was months of low-level debugging for full control over memory layout and kernel fusion.",
     snippets: [],
   },
   {
@@ -17,10 +17,10 @@ export const projects: ReadonlyArray<Project> = [
     tier: 'featured',
     title: 'Trading Platform v3',
     description:
-      '6-microservice trading platform processing real-time market data with sub-50ms latency. Pub/sub architecture on Redis Streams, 300-500M rows of carefully indexed and partitioned PostgreSQL, and 451 automated tests.',
+      'Third iteration of an automated trading system — the first two taught me what not to do. This version has been profitable for over a year. 6 microservices, each owning a single domain, connected via Redis Streams with exactly-once delivery. The database holds 300-500M carefully partitioned rows and every query stays under 50ms.',
     tech: ['TypeScript', 'PostgreSQL', 'Redis Streams', 'Docker', 'Sequelize', 'Bun'],
     archNotes:
-      'Each microservice owns a single domain: ingestion, indicators, strategy execution, order management, market data serving, and the dashboard. Redis Streams provide exactly-once delivery with consumer groups.',
+      'The hardest problem was partitioning: time-range queries across 500M rows need the right partition strategy or you wait seconds, not milliseconds. Window functions with ROW_NUMBER() OVER (PARTITION BY ...) turned a 12-second query into a 40ms one.',
     snippets: [
       {
         label: 'Redis Streams Consumer',
@@ -72,18 +72,18 @@ export const projects: ReadonlyArray<Project> = [
     tier: 'experience',
     title: 'VPM Solutions',
     description:
-      'Enterprise workforce management platform serving 100K+ users with $2M monthly cashflow. Full-stack development across Vue 3 frontend and Node.js/Sequelize API with 88 models and 282 controllers.',
+      'Enterprise workforce management platform processing $2M+ in monthly cashflow for 100K+ users. I joined early and grew into co-lead — owning the API architecture, infrastructure, and most of the complex integrations.',
     tech: ['TypeScript', 'Vue 3', 'Node.js', 'PostgreSQL', 'Sequelize', 'Redis', 'Docker'],
     role: 'Co-Lead Developer & Infrastructure Lead',
     period: '2021 — Present',
     responsibilities: [
-      'Architected and maintained API layer with 88 Sequelize models and 282 controllers',
-      'Built and owned 10+ third-party integrations (payment processing, background checks, contractor compliance)',
-      'Led infrastructure: Docker orchestration, CI/CD, database optimization, monitoring',
+      'Designed and scaled the API from early-stage to 88 models and 282 controllers serving production traffic',
+      'Built 10+ third-party integrations end-to-end — payment processing, background checks, contractor compliance',
+      'Owned infrastructure: Docker orchestration, CI/CD pipelines, database optimization, production monitoring',
     ],
     highlights: [
-      'Solo full-stack implementation of HubStaff time-tracking integration (Vue + API)',
-      'Solo full-stack implementation of Wingspan contractor payments integration (Vue + API)',
+      'Solo full-stack delivery of HubStaff time-tracking integration — both Vue frontend and API (Vue + API)',
+      'Solo full-stack delivery of Wingspan contractor payments integration — scoped, built, and shipped alone (Vue + API)',
     ],
     liveUrl: 'https://app.vpmsolutions.com',
   },
@@ -92,7 +92,7 @@ export const projects: ReadonlyArray<Project> = [
     tier: 'standard',
     title: 'Error Decoder',
     description:
-      'Browser extension and web app that decodes cryptic production error messages into human-readable explanations. Supports React, Vue, Angular, and Node.js error codes.',
+      'Got tired of Googling cryptic minified error codes. Built a browser extension and web app that decodes production errors from React, Vue, Angular, and Node.js into human-readable explanations. Monetized and actively maintained.',
     tech: ['TypeScript', 'Chrome Extension API', 'Vue 3', 'Vite'],
     liveUrl: 'https://errordecoder.dev',
     extensionUrl: 'https://chromewebstore.google.com/detail/error-decoder',
@@ -102,7 +102,7 @@ export const projects: ReadonlyArray<Project> = [
     tier: 'standard',
     title: 'YinzerFlow',
     description:
-      'Security-first web framework for Node.js with built-in CSRF protection, rate limiting, and input sanitization. Published on npm with 66+ tests and full TypeScript support.',
+      'Most Node.js frameworks bolt on security as middleware. I wanted it built into the foundation — CSRF protection, rate limiting, and input sanitization out of the box. Published on npm with 66+ tests.',
     tech: ['TypeScript', 'Node.js', 'Security', 'npm'],
     repoUrl: 'https://github.com/yinzers/YinzerFlow',
     npmUrl: 'https://www.npmjs.com/package/yinzerflow',
@@ -112,7 +112,7 @@ export const projects: ReadonlyArray<Project> = [
     tier: 'standard',
     title: 'WoW Inventory Manager',
     description:
-      'World of Warcraft addon for tracking inventory across multiple characters and guilds. Event-driven architecture using the WoW API with real-time updates on item changes.',
+      'An addon for tracking inventory across characters and guilds in World of Warcraft. Event-driven architecture on the WoW API — built it because the existing solutions were slow and I wanted real-time sync.',
     tech: ['Lua', 'WoW API', 'Event-Driven', 'XML'],
     repoUrl: 'https://github.com/patrickrizzardi/wow-inventory-management',
   },

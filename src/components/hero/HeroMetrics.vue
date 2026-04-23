@@ -7,11 +7,15 @@
     label: string;
   }
 
-  const metrics: ReadonlyArray<Metric> = [
-    { value: 500, suffix: 'M+', label: 'Database Rows' },
-    { value: 100, suffix: 'K+', label: 'Users Served' },
-    { value: 50, suffix: 'ms', label: 'P99 Latency' },
-    { value: 34, suffix: 'GB', label: 'Training Corpus' },
+  interface MetricConfig {
+    prefix: string;
+  }
+
+  const metrics: ReadonlyArray<Metric & MetricConfig> = [
+    { value: 2, suffix: 'M+', label: 'Monthly Cashflow Processed', prefix: '$' },
+    { value: 500, suffix: 'M+', label: 'Production Database Rows', prefix: '' },
+    { value: 100, suffix: 'K+', label: 'Platform Users', prefix: '' },
+    { value: 6, suffix: '', label: 'Microservices in Prod', prefix: '' },
   ];
 
   const counts = ref<Array<number>>(metrics.map(() => 0));
@@ -63,9 +67,7 @@
       :key="metric.label"
       class="text-center"
     >
-      <p class="text-3xl font-bold text-white sm:text-4xl">
-        <span v-if="metric.label === 'P99 Latency'">&lt;</span>{{ counts[i] }}{{ metric.suffix }}
-      </p>
+      <p class="text-3xl font-bold text-cyan sm:text-4xl">{{ metric.prefix }}{{ counts[i] }}{{ metric.suffix }}</p>
       <p class="mt-1 text-sm text-gray-500">{{ metric.label }}</p>
     </div>
   </div>

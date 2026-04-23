@@ -29,11 +29,11 @@
     >
       <h1 class="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">Patrick Rizzardi</h1>
 
-      <p class="mt-4 text-xl text-cyan sm:text-2xl">Backend Engineer</p>
+      <p class="mt-4 text-xl text-cyan sm:text-2xl">Backend &amp; Infrastructure Engineer</p>
 
-      <p class="mx-auto mt-6 max-w-xl text-lg text-gray-400">
-        Building high-throughput systems, training LLMs from scratch, and shipping production infrastructure that
-        handles hundreds of millions of rows.
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-400">
+        I architect backend systems that stay profitable at scale — from a trading platform that pays its own bills to
+        an LLM trained from bare metal. I care about the systems nobody sees until they break.
       </p>
 
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -66,7 +66,7 @@
 <style scoped>
   .hero-bg {
     background-color: var(--color-navy);
-    background-image: radial-gradient(rgba(34, 211, 238, 0.12) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(34, 211, 238, 0.25) 1px, transparent 1px);
     background-size: 28px 28px;
     mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 30%, transparent 100%);
     -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 30%, transparent 100%);
@@ -74,9 +74,9 @@
 
   .hero-orbs {
     background:
-      radial-gradient(600px circle at 25% 30%, rgba(34, 211, 238, 0.06), transparent),
-      radial-gradient(500px circle at 75% 60%, rgba(34, 211, 238, 0.04), transparent),
-      radial-gradient(400px circle at 50% 80%, rgba(34, 211, 238, 0.03), transparent);
+      radial-gradient(600px circle at 25% 30%, rgba(34, 211, 238, 0.1), transparent),
+      radial-gradient(500px circle at 75% 60%, rgba(34, 211, 238, 0.07), transparent),
+      radial-gradient(400px circle at 50% 80%, rgba(34, 211, 238, 0.05), transparent);
   }
 
   .hero-content {

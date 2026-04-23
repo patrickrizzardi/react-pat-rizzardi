@@ -29,16 +29,20 @@
       <div class="mt-8 grid gap-12 lg:grid-cols-2">
         <div>
           <p class="text-lg leading-relaxed text-gray-400">
-            I'm a backend engineer focused on building systems that handle real scale — hundreds of millions of database
-            rows, sub-50ms latencies, and multi-service architectures that stay reliable under pressure.
+            Most of my career has been spent on the parts of software nobody sees — until they break. I've led
+            infrastructure for an enterprise platform processing
+            <span class="text-white">$2M in monthly cashflow</span>, built a trading system that's been
+            <span class="text-white">profitable for over a year</span>, and I'm currently training an LLM from scratch
+            because I wanted to understand transformers at the CUDA kernel level, not just the API level.
           </p>
           <p class="mt-4 text-lg leading-relaxed text-gray-400">
-            Currently training a large language model from scratch in Rust with custom CUDA kernels, and running a
-            profitable automated trading platform. Previously spent 4+ years as co-lead developer on an enterprise
-            workforce management platform serving 100K+ users.
+            I think in systems, not features. My best work is the migration nobody noticed, the indexing strategy that
+            kept queries under 50ms at 500M rows, and the monitoring that caught the problem before anyone filed a
+            ticket. I build things that let other engineers move faster.
           </p>
           <p class="mt-4 text-lg leading-relaxed text-gray-400">
-            I care about strict types, thorough tests, and infrastructure that doesn't wake people up at 3am.
+            When I'm not writing Rust or TypeScript, I'm probably debugging why my LLM's attention kernels are 3x slower
+            than they should be, or figuring out how to partition another quarter-billion rows without downtime.
           </p>
         </div>
 
