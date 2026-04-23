@@ -6,7 +6,7 @@ export const projects: ReadonlyArray<Project> = [
     tier: 'featured',
     title: 'Tessa AI',
     description:
-      'I wanted to understand transformers at the kernel level, not just call an API. So I built an LLM from scratch in Rust — custom CUDA attention kernels, a BPE tokenizer trained on 34GB of text, and a LLaMA-style architecture. No PyTorch, no HuggingFace, no wrapper libraries.',
+      'I wanted to understand transformers at the kernel level, not just call an API. So I built an LLM from scratch in Rust — custom CUDA attention kernels, a BPE tokenizer trained on 34GB of text, and a LLaMA-style architecture. Everything from the data pipeline to inference, built from the ground up.',
     tech: ['Rust', 'CUDA', 'burn', 'Transformer', 'BPE', 'Linux'],
     archNotes:
       "Custom attention kernels bypass burn's built-in ops for 2-3x throughput on consumer GPUs. The tradeoff was months of low-level debugging for full control over memory layout and kernel fusion.",

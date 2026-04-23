@@ -30,8 +30,8 @@
         <div>
           <p class="text-lg leading-relaxed text-gray-400">
             Self-taught engineer,
-            <span class="text-white">12 years US Army</span> including 4 as a Staff Sergeant. I went from leading
-            soldiers to leading engineering teams — the problems are different but the accountability isn't. Today I
+            <span class="text-white">12 years Army National Guard</span> including 4 as a Staff Sergeant. I went from
+            leading soldiers to leading engineering teams — the problems are different but the accountability isn't. Today I
             manage a team of 4 developers, sit in every business meeting, and share technical leadership of a platform
             processing <span class="text-white">$2M in monthly cashflow</span>.
           </p>
