@@ -12,4 +12,9 @@ export const routes: Array<RouteRecordRaw> = [
     name: 'blog',
     component: () => import('@/views/BlogView.vue'),
   },
+  {
+    path: '/blog/:slug',
+    name: 'blog-post',
+    component: () => import('@/views/BlogPostView.vue'),
+  },
 ];
