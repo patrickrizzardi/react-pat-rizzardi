@@ -22,7 +22,7 @@
     {
       icon: Linkedin,
       label: 'LinkedIn',
-      href: 'https://linkedin.com/in/patrickrizzardi',
+      href: 'https://www.linkedin.com/in/patrick-rizzardi/',
       text: 'patrickrizzardi',
     },
     {

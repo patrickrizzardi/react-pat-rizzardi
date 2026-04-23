@@ -3,7 +3,7 @@
 
   const socialLinks = [
     { icon: Github, href: 'https://github.com/patrickrizzardi', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/patrickrizzardi', label: 'LinkedIn' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/patrick-rizzardi/', label: 'LinkedIn' },
     { icon: Mail, href: 'mailto:patrick.rizzardi@gmail.com', label: 'Email' },
   ] as const;
 </script>
