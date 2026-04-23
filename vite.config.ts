@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue';
 import tailwindcss from '@tailwindcss/vite';
 import Markdown from 'unplugin-vue-markdown/vite';
 import Shiki from '@shikijs/markdown-it';
+import generateSitemap from 'vite-ssg-sitemap';
 
 export default defineConfig({
   plugins: [
@@ -36,6 +37,12 @@ export default defineConfig({
         .filter((f) => f.endsWith('.md'))
         .map((f) => `/blog/${f.replace(/\.md$/, '')}`);
       return [...paths, ...blogSlugs];
+    },
+    onFinished: () => {
+      generateSitemap({
+        hostname: 'https://redact.digital',
+        exclude: ['/blog/:slug'],
+      });
     },
   },
 });
