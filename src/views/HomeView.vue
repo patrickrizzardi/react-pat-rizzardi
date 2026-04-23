@@ -1,15 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import HeroSection from '@/components/hero/HeroSection.vue';
+</script>
 
 <template>
   <div>
-    <section id="hero">
-      <div class="flex min-h-screen items-center justify-center">
-        <div class="text-center">
-          <h1 class="text-4xl font-bold text-cyan">Patrick Rizzardi</h1>
-          <p class="mt-4 text-lg text-gray-400">Backend Engineer</p>
-        </div>
-      </div>
-    </section>
+    <HeroSection />
 
     <section
       id="projects"
