@@ -10,8 +10,8 @@
     {
       icon: Mail,
       label: 'Email',
-      href: 'mailto:patrick.rizzardi@gmail.com',
-      text: 'patrick.rizzardi@gmail.com',
+      href: 'mailto:patrick@redact.digital',
+      text: 'patrick@redact.digital',
     },
     {
       icon: Github,

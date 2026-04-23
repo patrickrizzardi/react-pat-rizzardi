@@ -4,7 +4,7 @@
   const socialLinks = [
     { icon: Github, href: 'https://github.com/patrickrizzardi', label: 'GitHub' },
     { icon: Linkedin, href: 'https://www.linkedin.com/in/patrick-rizzardi/', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:patrick.rizzardi@gmail.com', label: 'Email' },
+    { icon: Mail, href: 'mailto:patrick@redact.digital', label: 'Email' },
   ] as const;
 </script>
 
