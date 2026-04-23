@@ -1,3 +1,4 @@
+import { readdirSync } from 'node:fs';
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -27,5 +28,14 @@ export default defineConfig({
   server: {
     host: true,
     port: 5173,
+  },
+  ssgOptions: {
+    includedRoutes: (paths) => {
+      const blogDir = fileURLToPath(new URL('./src/content/blog', import.meta.url));
+      const blogSlugs = readdirSync(blogDir)
+        .filter((f) => f.endsWith('.md'))
+        .map((f) => `/blog/${f.replace(/\.md$/, '')}`);
+      return [...paths, ...blogSlugs];
+    },
   },
 });
