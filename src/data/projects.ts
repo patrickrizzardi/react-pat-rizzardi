@@ -94,7 +94,6 @@ export const projects: ReadonlyArray<Project> = [
     description:
       'Browser extension and web app that decodes cryptic production error messages into human-readable explanations. Supports React, Vue, Angular, and Node.js error codes.',
     tech: ['TypeScript', 'Chrome Extension API', 'Vue 3', 'Vite'],
-    repoUrl: 'https://github.com/patrickrizzardi/error-decoder-extension',
     liveUrl: 'https://errordecoder.dev',
     extensionUrl: 'https://chromewebstore.google.com/detail/error-decoder',
   },

@@ -24,3 +24,6 @@ coverage
 
 # Local env
 *.local
+
+# Playwright MCP
+.playwright-mcp
