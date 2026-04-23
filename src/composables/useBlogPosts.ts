@@ -1,9 +1,10 @@
+import type { DefineComponent } from 'vue';
 import type { BlogFrontmatter, BlogPost } from '@/types/blog';
 
 const WORDS_PER_MINUTE = 200;
 
 interface BlogModule {
-  default: ReturnType<typeof import('vue')['defineComponent']>;
+  default: DefineComponent;
   title: string;
   date: string;
   description: string;
@@ -40,15 +41,16 @@ const allPosts: ReadonlyArray<BlogPost> = Object.entries(modules)
     };
   })
   .filter((post) => !post.frontmatter.draft)
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.date).getTime() -
-      new Date(a.frontmatter.date).getTime(),
-  );
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
 
-export const useBlogPosts = () => {
-  const getBySlug = (slug: string): BlogPost | undefined =>
-    allPosts.find((post) => post.frontmatter.slug === slug);
+interface UseBlogPostsReturn {
+  readonly posts: ReadonlyArray<BlogPost>;
+  readonly getBySlug: (slug: string) => BlogPost | undefined;
+  readonly getAllTags: () => ReadonlyArray<string>;
+}
+
+export const useBlogPosts = (): UseBlogPostsReturn => {
+  const getBySlug = (slug: string): BlogPost | undefined => allPosts.find((post) => post.frontmatter.slug === slug);
 
   const getAllTags = (): ReadonlyArray<string> => {
     const tags = new Set<string>();

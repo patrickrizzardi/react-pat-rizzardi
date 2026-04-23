@@ -26,7 +26,7 @@
       Back to blog
     </RouterLink>
 
-    <h1 class="text-3xl font-bold leading-tight text-white md:text-4xl">
+    <h1 class="text-3xl leading-tight font-bold text-white md:text-4xl">
       {{ post.frontmatter.title }}
     </h1>
 

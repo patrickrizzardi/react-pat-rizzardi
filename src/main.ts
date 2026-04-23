@@ -1,10 +1,10 @@
-import { ViteSSG } from 'vite-ssg';
+import { ViteSSG as createSSGApp } from 'vite-ssg';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import { routes } from './router';
 import './assets/main.css';
 
-export const createApp = ViteSSG(
+export const createApp = createSSGApp(
   App,
   {
     routes,

@@ -3,17 +3,17 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import tailwindcss from '@tailwindcss/vite';
-import Markdown from 'unplugin-vue-markdown/vite';
-import Shiki from '@shikijs/markdown-it';
+import markdown from 'unplugin-vue-markdown/vite';
+import shikiPlugin from '@shikijs/markdown-it';
 import generateSitemap from 'vite-ssg-sitemap';
 
 export default defineConfig({
   plugins: [
     vue({ include: [/\.vue$/, /\.md$/] }),
-    Markdown({
+    markdown({
       async markdownItSetup(md) {
         md.use(
-          await Shiki({
+          await shikiPlugin({
             theme: 'github-dark',
           }),
         );
@@ -31,7 +31,7 @@ export default defineConfig({
     port: 5173,
   },
   ssgOptions: {
-    includedRoutes: (paths) => {
+    includedRoutes: (paths: Array<string>) => {
       const blogDir = fileURLToPath(new URL('./src/content/blog', import.meta.url));
       const blogSlugs = readdirSync(blogDir)
         .filter((f) => f.endsWith('.md'))

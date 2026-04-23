@@ -1,3 +1,5 @@
+import type { DefineComponent } from 'vue';
+
 export interface BlogFrontmatter {
   title: string;
   date: string;
@@ -11,5 +13,5 @@ export interface BlogFrontmatter {
 export interface BlogPost {
   frontmatter: BlogFrontmatter;
   readingTime: number;
-  component: ReturnType<typeof import('vue')['defineComponent']>;
+  component: DefineComponent;
 }

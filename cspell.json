@@ -37,7 +37,10 @@
     "composables",
     "tailwindcss",
     "devcontainer",
-    "redact"
+    "redact",
+    "shikijs",
+    "unhead",
+    "println"
   ],
   "flagWords": [""],
   "ignorePaths": ["cspell.json", "*.svg"],

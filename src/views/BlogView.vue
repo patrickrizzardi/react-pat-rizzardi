@@ -7,8 +7,7 @@
 
   useSeo({
     title: 'Blog — Patrick Rizzardi',
-    description:
-      'Engineering leadership, AI/ML architecture, and lessons from building systems at scale.',
+    description: 'Engineering leadership, AI/ML architecture, and lessons from building systems at scale.',
     url: 'https://redact.digital/blog',
   });
 
@@ -17,8 +16,9 @@
   const activeTag = ref<string | null>(null);
 
   const filteredPosts = computed(() => {
-    if (!activeTag.value) return posts;
-    return posts.filter((post) => post.frontmatter.tags.includes(activeTag.value!));
+    const tag = activeTag.value;
+    if (!tag) return posts;
+    return posts.filter((post) => post.frontmatter.tags.includes(tag));
   });
 
   const toggleTag = (tag: string): void => {
@@ -38,9 +38,7 @@
     >
       <header class="mb-12 text-center">
         <h1 class="text-4xl font-bold text-white">Blog</h1>
-        <p class="mt-3 text-lg text-gray-400">
-          Engineering leadership, architecture, and building things that work.
-        </p>
+        <p class="mt-3 text-lg text-gray-400">Engineering leadership, architecture, and building things that work.</p>
       </header>
 
       <div
@@ -53,9 +51,9 @@
           type="button"
           class="rounded-full border px-3 py-1 text-xs transition-colors"
           :class="
-            activeTag === tag
-              ? 'border-cyan bg-cyan/20 text-cyan'
-              : 'border-white/10 text-gray-400 hover:border-cyan/30 hover:text-cyan'
+            activeTag === tag ?
+              'border-cyan bg-cyan/20 text-cyan'
+            : 'border-white/10 text-gray-400 hover:border-cyan/30 hover:text-cyan'
           "
           @click="toggleTag(tag)"
         >

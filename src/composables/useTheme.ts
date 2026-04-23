@@ -3,8 +3,7 @@ import { ref, watchEffect } from 'vue';
 const STORAGE_KEY = 'theme';
 const isClient = typeof window !== 'undefined';
 
-const getSystemPreference = (): boolean =>
-  isClient && window.matchMedia('(prefers-color-scheme: dark)').matches;
+const getSystemPreference = (): boolean => isClient && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 const getInitialTheme = (): boolean => {
   if (!isClient) return true;

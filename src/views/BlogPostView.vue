@@ -16,19 +16,11 @@
     return getBySlug(slug);
   });
 
-  const currentIndex = computed(() =>
-    posts.findIndex((p) => p.frontmatter.slug === post.value?.frontmatter.slug),
-  );
+  const currentIndex = computed(() => posts.findIndex((p) => p.frontmatter.slug === post.value?.frontmatter.slug));
 
-  const prevPost = computed(() =>
-    currentIndex.value > 0 ? posts[currentIndex.value - 1] : undefined,
-  );
+  const prevPost = computed(() => (currentIndex.value > 0 ? posts[currentIndex.value - 1] : undefined));
 
-  const nextPost = computed(() =>
-    currentIndex.value < posts.length - 1
-      ? posts[currentIndex.value + 1]
-      : undefined,
-  );
+  const nextPost = computed(() => (currentIndex.value < posts.length - 1 ? posts[currentIndex.value + 1] : undefined));
 
   useSeo({
     title: computed(() => post.value?.frontmatter.title ?? 'Blog — Patrick Rizzardi'),
@@ -55,7 +47,9 @@
     <BlogJsonLd :post="post" />
     <BlogPostHeader :post="post" />
 
-    <article class="prose prose-invert max-w-none prose-headings:text-white prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline prose-blockquote:border-cyan/30 prose-code:text-cyan-300 prose-pre:bg-navy-800 prose-pre:border prose-pre:border-white/10">
+    <article
+      class="prose max-w-none prose-invert prose-headings:text-white prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline prose-blockquote:border-cyan/30 prose-code:text-cyan-300 prose-pre:border prose-pre:border-white/10 prose-pre:bg-navy-800"
+    >
       <component :is="post.component" />
     </article>
 

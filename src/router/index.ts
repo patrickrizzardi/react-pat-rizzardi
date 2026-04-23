@@ -10,11 +10,11 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: '/blog',
     name: 'blog',
-    component: () => import('@/views/BlogView.vue'),
+    component: async () => import('@/views/BlogView.vue'),
   },
   {
     path: '/blog/:slug',
     name: 'blog-post',
-    component: () => import('@/views/BlogPostView.vue'),
+    component: async () => import('@/views/BlogPostView.vue'),
   },
 ];

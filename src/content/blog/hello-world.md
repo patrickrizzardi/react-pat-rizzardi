@@ -1,10 +1,10 @@
 ---
-title: "Test Post: Verifying the Pipeline"
-date: "2026-04-23"
-description: "A test post to verify markdown rendering, code highlighting, and frontmatter extraction."
-tags: ["engineering", "meta"]
-slug: "hello-world"
-author: "Patrick Rizzardi"
+title: 'Test Post: Verifying the Pipeline'
+date: '2026-04-23'
+description: 'A test post to verify markdown rendering, code highlighting, and frontmatter extraction.'
+tags: ['engineering', 'meta']
+slug: 'hello-world'
+author: 'Patrick Rizzardi'
 draft: false
 ---
 
@@ -44,7 +44,7 @@ fn main() {
 
 ## Formatting
 
-This paragraph has **bold text**, *italic text*, and `inline code`. It also has a [link](https://redact.digital) to test anchor rendering.
+This paragraph has **bold text**, _italic text_, and `inline code`. It also has a [link](https://redact.digital) to test anchor rendering.
 
 > This is a blockquote. It should render with proper styling in the prose container.
 
