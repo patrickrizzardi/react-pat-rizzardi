@@ -1,9 +1,14 @@
 <script setup lang="ts">
+  import { ref } from 'vue';
   import { Github, ExternalLink, Package, Chrome } from 'lucide-vue-next';
   import type { StandardProject } from '@/types/project';
+  import { useSpotlight } from '@/composables/useSpotlight';
   import TechBadge from './TechBadge.vue';
 
   defineProps<{ project: StandardProject }>();
+
+  const cardRef = ref<HTMLElement | null>(null);
+  useSpotlight(cardRef);
 
   const linkConfig = {
     repoUrl: { icon: Github, text: 'Source' },
@@ -19,7 +24,8 @@
 
 <template>
   <article
-    class="rounded-2xl border border-white/10 bg-navy-800 p-6 transition-all duration-300 hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5"
+    ref="cardRef"
+    class="spotlight-card relative overflow-hidden rounded-2xl border border-white/10 bg-navy-800 p-6 transition-all duration-300 hover:border-cyan/30"
   >
     <h3 class="text-xl font-bold text-white">{{ project.title }}</h3>
     <p class="mt-3 text-sm text-gray-400">{{ project.description }}</p>

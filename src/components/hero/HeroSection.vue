@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue';
   import { ArrowDown, Mail } from 'lucide-vue-next';
-  import AnimatedWave from './AnimatedWave.vue';
+  import HeroMetrics from './HeroMetrics.vue';
 
   const visible = ref(false);
 
@@ -19,10 +19,12 @@
 <template>
   <section
     id="hero"
-    class="relative flex min-h-screen items-center justify-center overflow-hidden bg-navy"
+    class="hero-bg relative flex min-h-screen items-center justify-center overflow-hidden"
   >
+    <div class="hero-orbs pointer-events-none absolute inset-0" />
+
     <div
-      class="hero-content relative z-10 px-6 text-center"
+      class="hero-content relative z-10 w-full max-w-4xl px-6 text-center"
       :class="visible ? 'is-visible' : ''"
     >
       <h1 class="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">Patrick Rizzardi</h1>
@@ -53,13 +55,30 @@
           Get in Touch
         </button>
       </div>
+
+      <HeroMetrics />
     </div>
 
-    <AnimatedWave />
+    <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-navy" />
   </section>
 </template>
 
 <style scoped>
+  .hero-bg {
+    background-color: var(--color-navy);
+    background-image: radial-gradient(rgba(34, 211, 238, 0.12) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 30%, transparent 100%);
+  }
+
+  .hero-orbs {
+    background:
+      radial-gradient(600px circle at 25% 30%, rgba(34, 211, 238, 0.06), transparent),
+      radial-gradient(500px circle at 75% 60%, rgba(34, 211, 238, 0.04), transparent),
+      radial-gradient(400px circle at 50% 80%, rgba(34, 211, 238, 0.03), transparent);
+  }
+
   .hero-content {
     opacity: 0;
     transform: translateY(24px);

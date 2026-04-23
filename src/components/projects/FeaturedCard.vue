@@ -1,14 +1,20 @@
 <script setup lang="ts">
+  import { ref } from 'vue';
   import type { FeaturedProject } from '@/types/project';
+  import { useSpotlight } from '@/composables/useSpotlight';
   import TechBadge from './TechBadge.vue';
   import CodeSnippet from './CodeSnippet.vue';
 
   defineProps<{ project: FeaturedProject }>();
+
+  const cardRef = ref<HTMLElement | null>(null);
+  useSpotlight(cardRef);
 </script>
 
 <template>
   <article
-    class="rounded-2xl border border-white/10 bg-navy-800 p-6 transition-all duration-300 hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 sm:p-8"
+    ref="cardRef"
+    class="spotlight-card relative overflow-hidden rounded-2xl border border-white/10 bg-navy-800 p-6 transition-all duration-300 hover:border-cyan/30 sm:p-8"
   >
     <div class="mb-4 flex items-start justify-between">
       <div>

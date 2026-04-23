@@ -1,14 +1,21 @@
 <script setup lang="ts">
+  import { ref } from 'vue';
   import { projects } from '@/data/projects';
+  import { useScrollReveal } from '@/composables/useScrollReveal';
   import FeaturedCard from './FeaturedCard.vue';
   import ExperienceCard from './ExperienceCard.vue';
   import ProjectCard from './ProjectCard.vue';
+
+  const sectionRef = ref<HTMLElement | null>(null);
+  const { revealed } = useScrollReveal(sectionRef);
 </script>
 
 <template>
   <section
     id="projects"
-    class="px-6 py-24"
+    ref="sectionRef"
+    class="reveal px-6 py-24"
+    :class="{ 'is-revealed': revealed }"
   >
     <div class="mx-auto max-w-6xl">
       <h2 class="text-3xl font-bold text-white">Projects</h2>

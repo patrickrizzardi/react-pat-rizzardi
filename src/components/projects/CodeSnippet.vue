@@ -10,7 +10,7 @@
   const highlightedHtml = ref('');
 
   onMounted(async () => {
-    const [{ createHighlighterCore }, { createJavaScriptRegExpEngine }, theme, langTs, langSql] = await Promise.all([
+    const [{ createHighlighterCore }, { createJavaScriptRegexEngine }, theme, langTs, langSql] = await Promise.all([
       import('shiki/core'),
       import('shiki/engine/javascript'),
       import('shiki/themes/github-dark.mjs'),
@@ -20,7 +20,7 @@
     const highlighter = await createHighlighterCore({
       themes: [theme],
       langs: [langTs, langSql],
-      engine: createJavaScriptRegExpEngine(),
+      engine: createJavaScriptRegexEngine(),
     });
     highlightedHtml.value = highlighter.codeToHtml(props.code, {
       lang: props.language,

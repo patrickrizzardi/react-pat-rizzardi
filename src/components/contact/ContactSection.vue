@@ -1,5 +1,10 @@
 <script setup lang="ts">
+  import { ref } from 'vue';
   import { Github, Linkedin, Mail, FileText } from 'lucide-vue-next';
+  import { useScrollReveal } from '@/composables/useScrollReveal';
+
+  const sectionRef = ref<HTMLElement | null>(null);
+  const { revealed } = useScrollReveal(sectionRef);
 
   const links = [
     {
@@ -32,7 +37,9 @@
 <template>
   <section
     id="contact"
-    class="px-6 py-24"
+    ref="sectionRef"
+    class="reveal px-6 py-24"
+    :class="{ 'is-revealed': revealed }"
   >
     <div class="mx-auto max-w-6xl">
       <h2 class="text-3xl font-bold text-white">Get in Touch</h2>
