@@ -34,6 +34,8 @@
     "source=${localEnv:HOME}/.claude/memory,target=/home/ubuntu/.claude/memory,type=bind",
     "source=${localEnv:HOME}/.claude/.credentials.json,target=/home/ubuntu/.claude/.credentials.json,type=bind",
     "source=${localEnv:HOME}/.claude/plugins,target=/home/ubuntu/.claude/plugins,type=bind",
+    // Shared shell aliases (single source of truth, host + all devcontainers)
+    "source=${localEnv:HOME}/.dev-shared,target=/home/ubuntu/.dev-shared,type=bind,readonly",
     // Docker socket
     "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
     // Persistent container-only storage

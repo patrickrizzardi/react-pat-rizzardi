@@ -1,21 +1,20 @@
-# Portable aliases — shared across host and dev containers
-# Host-specific aliases (vpm, deploy, cursor) stay in .bashrc
+# Container-side ~/.bash_aliases for redact-digital devcontainer.
+# Bind-mounted from .devcontainer/bash_aliases (this file).
+# Sourced automatically by Ubuntu's stock ~/.bashrc.
 
-# General
-alias ll='ls -alF --color=auto'
-alias reload="source ~/.bashrc"
+# Inherit shared aliases (host + all devcontainers)
+[ -f ~/.dev-shared/aliases.sh ] && . ~/.dev-shared/aliases.sh
 
-# Git
-alias uncommit="git reset --soft HEAD~1"
-alias clean="git branch | grep -v '*' | grep -v 'main' | grep -v  'staging' | grep -v 'development' | xargs git branch -D && git reset --hard && git clean -df && git remote prune origin"
+# ───── Container-specific overrides ─────
 
-# Docker
+# dr points to the in-container path of docker-run.sh (host's lives elsewhere)
+alias dr="/workspaces/redact-digital/.devcontainer/docker-run.sh"
+
+# Redact-digital has the host docker socket mounted, so docker aliases work
+# and target the host daemon. Re-define them here because dev-shared gates
+# them off in any /.dockerenv environment.
+alias dps="docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}' | sed 's/0.0.0.0://g; s/\/tcp//g; s/, / /g'"
 alias dstop="docker stop \$(docker ps -a -q)"
 alias dstart="docker compose up"
 alias dc="docker compose exec"
 alias dprune="CONTAINERS=\$(docker ps -a -q) && if [ -n \"\$CONTAINERS\" ]; then docker stop \$CONTAINERS && docker rm -f \$CONTAINERS; fi && docker image prune --all -f && docker system prune -f --volumes=false && docker builder prune -a -f"
-alias dr="/workspaces/redact-digital/.devcontainer/docker-run.sh"
-
-
-# Claude
-alias claude="claude --dangerously-skip-permissions"
