@@ -204,3 +204,20 @@ section {
   position: relative;
   z-index: 2;
 }
+
+/* Shiki syntax-highlighted code blocks — normalize across prose and code peeks */
+.shiki {
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* Suppress extra padding when prose wraps a Shiki block */
+.prose pre.shiki {
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}

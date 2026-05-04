@@ -1,12 +1,10 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
-  import { Calendar, Clock } from 'lucide-vue-next';
   import type { BlogPost } from '@/types/blog';
-  import { useSpotlight } from '@/composables/useSpotlight';
+
   const props = defineProps<{ post: BlogPost }>();
 
-  const cardRef = ref<HTMLElement | null>(null);
-  useSpotlight(cardRef);
+  const hovered = ref(false);
 
   const formattedDate = computed(() => {
     const date = new Date(props.post.frontmatter.date);
@@ -22,31 +20,47 @@
   <RouterLink
     :to="`/blog/${post.frontmatter.slug}`"
     class="group block"
+    style="text-decoration: none"
   >
     <article
-      ref="cardRef"
-      class="spotlight-card bg-navy-800 hover:border-cyan/30 relative overflow-hidden rounded-2xl border border-white/10 p-6 transition-all duration-300"
+      class="relative flex h-full flex-col overflow-hidden rounded-2xl border transition-colors duration-200"
+      :style="{
+        padding: '24px',
+        background: 'var(--card)',
+        borderColor: hovered ? 'var(--burnt)' : 'var(--line)',
+        boxShadow: 'var(--card-shadow)',
+      }"
+      @mouseenter="hovered = true"
+      @mouseleave="hovered = false"
     >
-      <div class="mb-3 flex items-center gap-4 text-xs text-gray-500">
-        <span class="inline-flex items-center gap-1">
-          <Calendar :size="12" />
-          {{ formattedDate }}
-        </span>
-        <span class="inline-flex items-center gap-1">
-          <Clock :size="12" />
-          {{ post.readingTime }} min read
-        </span>
+      <div
+        class="mb-3 flex items-center gap-4"
+        style="font-family: var(--font-mono); font-size: 11px; color: var(--text-4)"
+      >
+        <span>{{ formattedDate }}</span>
+        <span>{{ post.readingTime }} min</span>
       </div>
 
-      <h3 class="group-hover:text-cyan text-xl font-bold text-white transition-colors">
+      <h3
+        class="mb-3 flex-1"
+        style="
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-size: 18px;
+          letter-spacing: -0.01em;
+          line-height: 1.3;
+          color: var(--text);
+          margin: 0 0 12px;
+        "
+      >
         {{ post.frontmatter.title }}
       </h3>
 
-      <p class="mt-3 text-sm leading-relaxed text-gray-400">
+      <p style="font-size: 13px; line-height: 1.65; color: var(--text-3); margin: 0 0 16px">
         {{ post.frontmatter.description }}
       </p>
 
-      <div class="mt-4 flex flex-wrap gap-2">
+      <div class="mt-auto flex flex-wrap gap-1.5">
         <span
           v-for="tag in post.frontmatter.tags"
           :key="tag"

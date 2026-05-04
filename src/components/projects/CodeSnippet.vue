@@ -39,17 +39,15 @@
     >
       {{ label }}
     </div>
-    <div
-      class="overflow-x-auto rounded-xl"
-      style="background: #0d1117; padding: 20px; font-size: 13px; line-height: 1.6"
-    >
+    <div class="overflow-x-auto rounded-xl">
       <div
         v-if="highlightedHtml"
         v-html="highlightedHtml"
       />
       <pre
         v-else
-        style="color: var(--text-3); margin: 0"
+        class="shiki"
+        style="background: #24292e; color: var(--text-3)"
       ><code>{{ code }}</code></pre>
     </div>
   </div>

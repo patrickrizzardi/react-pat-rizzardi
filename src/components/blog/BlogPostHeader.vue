@@ -1,7 +1,8 @@
 <script setup lang="ts">
   import { computed } from 'vue';
-  import { Calendar, Clock, ArrowLeft } from 'lucide-vue-next';
+  import { ArrowLeft } from 'lucide-vue-next';
   import type { BlogPost } from '@/types/blog';
+
   const props = defineProps<{ post: BlogPost }>();
 
   const formattedDate = computed(() => {
@@ -15,34 +16,46 @@
 </script>
 
 <template>
-  <div class="mb-10">
+  <div class="mb-12">
     <RouterLink
       to="/blog"
-      class="hover:text-cyan mb-6 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors"
+      class="mb-8 inline-flex items-center gap-1.5 transition-colors duration-150"
+      style="font-family: var(--font-mono); font-size: 12px; color: var(--text-4); text-decoration: none"
     >
-      <ArrowLeft :size="14" />
-      Back to blog
+      <ArrowLeft :size="12" />
+      back to blog
     </RouterLink>
 
-    <h1 class="text-3xl leading-tight font-bold text-white md:text-4xl">
+    <h1
+      style="
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: clamp(28px, 4vw, 48px);
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        color: var(--text);
+        margin: 0 0 20px;
+      "
+    >
       {{ post.frontmatter.title }}
     </h1>
 
-    <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-500">
-      <span class="inline-flex items-center gap-1.5">
-        <Calendar :size="14" />
-        {{ formattedDate }}
-      </span>
-      <span class="inline-flex items-center gap-1.5">
-        <Clock :size="14" />
-        {{ post.readingTime }} min read
-      </span>
-      <span v-if="post.frontmatter.author">
-        {{ post.frontmatter.author }}
-      </span>
+    <div
+      class="flex flex-wrap items-center gap-4"
+      style="font-family: var(--font-mono); font-size: 12px; color: var(--text-4); margin-bottom: 16px"
+    >
+      <span>{{ formattedDate }}</span>
+      <span style="color: var(--line)">·</span>
+      <span>{{ post.readingTime }} min read</span>
+      <span
+        v-if="post.frontmatter.author"
+        style="color: var(--line)"
+        >·</span
+      >
+      <span v-if="post.frontmatter.author">{{ post.frontmatter.author }}</span>
     </div>
 
-    <div class="mt-4 flex flex-wrap gap-2">
+    <div class="flex flex-wrap gap-2">
       <RouterLink
         v-for="tag in post.frontmatter.tags"
         :key="tag"
@@ -59,6 +72,9 @@
       >
     </div>
 
-    <hr class="mt-8 border-white/10" />
+    <hr
+      class="mt-10"
+      style="border-color: var(--line-soft)"
+    />
   </div>
 </template>

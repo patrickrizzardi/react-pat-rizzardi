@@ -42,13 +42,14 @@
 <template>
   <div
     v-if="post"
-    class="mx-auto max-w-3xl px-6 py-24"
+    class="mx-auto max-w-3xl px-6"
+    style="padding-top: 120px; padding-bottom: 96px"
   >
     <BlogJsonLd :post="post" />
     <BlogPostHeader :post="post" />
 
     <article
-      class="prose-blockquote:border-cyan/30 prose-pre:bg-navy-800 prose max-w-none prose-invert prose-headings:text-white prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline prose-code:text-cyan-300 prose-pre:border prose-pre:border-white/10"
+      class="prose max-w-none prose-invert prose-headings:font-display prose-headings:tracking-tight prose-headings:text-[var(--text)] prose-p:leading-relaxed prose-p:text-[var(--text-2)] prose-a:text-[var(--burnt-hi)] prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-[var(--burnt)] prose-blockquote:text-[var(--text-3)] prose-strong:text-[var(--text)] prose-code:text-[var(--cheddar)] prose-pre:rounded-xl prose-pre:border prose-pre:border-[var(--line)] prose-li:text-[var(--text-2)] prose-hr:border-[var(--line-soft)]"
     >
       <component :is="post.component" />
     </article>
