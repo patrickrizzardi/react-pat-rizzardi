@@ -3,8 +3,6 @@
   import { Calendar, Clock } from 'lucide-vue-next';
   import type { BlogPost } from '@/types/blog';
   import { useSpotlight } from '@/composables/useSpotlight';
-  import TechBadge from '@/components/projects/TechBadge.vue';
-
   const props = defineProps<{ post: BlogPost }>();
 
   const cardRef = ref<HTMLElement | null>(null);
@@ -49,11 +47,19 @@
       </p>
 
       <div class="mt-4 flex flex-wrap gap-2">
-        <TechBadge
+        <span
           v-for="tag in post.frontmatter.tags"
           :key="tag"
-          :label="tag"
-        />
+          class="rounded-full px-2.5 py-1"
+          style="
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-3);
+            background: var(--bg-3);
+            border: 1px solid var(--line-soft);
+          "
+          >{{ tag }}</span
+        >
       </div>
     </article>
   </RouterLink>

@@ -33,15 +33,23 @@
 
 <template>
   <div>
-    <p class="mb-2 text-xs font-medium text-gray-500">{{ label }}</p>
-    <div class="overflow-x-auto rounded-lg bg-[#0d1117] p-4 text-sm">
+    <div
+      class="eyebrow mb-3"
+      style="color: var(--text-4); font-size: 10px"
+    >
+      {{ label }}
+    </div>
+    <div
+      class="overflow-x-auto rounded-xl"
+      style="background: #0d1117; padding: 20px; font-size: 13px; line-height: 1.6"
+    >
       <div
         v-if="highlightedHtml"
         v-html="highlightedHtml"
       />
       <pre
         v-else
-        class="text-gray-400"
+        style="color: var(--text-3); margin: 0"
       ><code>{{ code }}</code></pre>
     </div>
   </div>

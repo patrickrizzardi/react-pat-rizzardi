@@ -2,8 +2,6 @@
   import { computed } from 'vue';
   import { Calendar, Clock, ArrowLeft } from 'lucide-vue-next';
   import type { BlogPost } from '@/types/blog';
-  import TechBadge from '@/components/projects/TechBadge.vue';
-
   const props = defineProps<{ post: BlogPost }>();
 
   const formattedDate = computed(() => {
@@ -49,9 +47,16 @@
         v-for="tag in post.frontmatter.tags"
         :key="tag"
         :to="`/blog?tag=${tag}`"
+        class="rounded-full px-2.5 py-1 no-underline transition-colors duration-150"
+        style="
+          font-family: var(--font-mono);
+          font-size: 11px;
+          color: var(--text-3);
+          background: var(--bg-3);
+          border: 1px solid var(--line-soft);
+        "
+        >{{ tag }}</RouterLink
       >
-        <TechBadge :label="tag" />
-      </RouterLink>
     </div>
 
     <hr class="mt-8 border-white/10" />
