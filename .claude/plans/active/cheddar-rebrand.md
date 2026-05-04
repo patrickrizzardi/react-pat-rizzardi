@@ -1,7 +1,7 @@
 ---
 slug: cheddar-rebrand
 owner: patrick
-status: active
+status: done
 files:
   - src/**
   - public/**
@@ -9,6 +9,7 @@ files:
   - vite.config.ts
 created: 2026-04-30
 last_updated: 2026-05-04
+completed: 2026-05-04
 ---
 
 <!-- Round 1 review: BLOCK with 7 required fixes — all addressed. -->
@@ -39,7 +40,13 @@ last_updated: 2026-05-04
 - CodeSnippet double-background bug fixed via `.shiki` CSS normalizer in main.css
 - Blog prose modifiers cleaned up (removed conflicting prose-code:text-sm / font-mono)
 
-## M4 next: SEO + Cleanup + Ship
+## M4 COMPLETE — committed 2026-05-04 (commit 9c551e9)
+
+- useSpotlight.ts deleted; useSeo/BlogJsonLd/all views use siteConfig
+- article.tags added to SeoOptions interface
+- lint/type/build clean — branch is merge-ready
+
+## PLAN COMPLETE — cheddar-v1 ready for merge to main
 
 Deliverable: entire home page visually complete in Cheddar. All 6 sections render.
 

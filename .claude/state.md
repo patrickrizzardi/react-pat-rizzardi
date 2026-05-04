@@ -18,23 +18,24 @@
 
 ## Current Context (REPLACE each update)
 
-**Goal**: Cheddar rebrand — full visual overhaul of redact.digital portfolio
-**Status**: M1 (hero/nav/theme) COMPLETE + M2 (home sections) COMPLETE. Branch `cheddar-v1`. M3 (blog restyle) is next.
+**Goal**: Cheddar rebrand — COMPLETE. All 4 milestones shipped on `cheddar-v1`.
+**Status**: Branch ready for Patrick to merge to main.
 **Active Plan**: `.claude/plans/active/cheddar-rebrand.md`
 
 **Git**: `patrickrizzardi/react-pat-rizzardi` on GitHub (SSH). Branch `cheddar-v1`, ahead of origin.
 **User boundary**: Do NOT push or merge to main — Patrick handles that.
 
-**What's been built (committed to cheddar-v1):**
-- `1da501d` M1: theme tokens, pill nav, CheddarWordmark, NeuronCanvas, HeroSection, useDecoder, useMagneticButton, siteConfig.ts. index.html 733KB → 38KB.
-- `8ab2b9c` M2: PrinciplesSection (6-cell grid), SystemsSection (featured cards + code peek + arch note + secondary grid), LeadershipSection (timeline + stack table), WritingSection (live useBlogPosts()), ContactSection (glow card). Orphaned old components deleted.
-- `3596c69` M3: BlogView, BlogPostCard, BlogPostHeader, BlogPostView, BlogPostNav all restyled to cheddar. CodeSnippet double-bg fixed (.shiki CSS normalizer). Blog prose modifiers cleaned up.
+**What's been built (cheddar-v1 — merge-ready):**
+- `1da501d` M1: cheddar palette, Geist/JBMono/Newsreader fonts, NeuronCanvas, HeroSection, pill nav, siteConfig. 733KB → 38KB.
+- `8ab2b9c` M2: all 6 home sections (Principles, Systems, Leadership, Writing, Contact). Old components deleted.
+- `3596c69` M3: blog restyle (BlogView, BlogPostCard, BlogPostHeader, BlogPostView, BlogPostNav). .shiki CSS normalizer.
+- `9c551e9` M4: SEO cleanup — siteConfig in useSeo/BlogJsonLd/all views, useSpotlight deleted, article.tags added to SeoOptions.
 
-**M4 next — SEO + Cleanup + Ship:**
-- Update `useSeo` calls + JSON-LD to "Cheddar — Patrick Rizzardi" branding
-- Delete `useSpotlight.ts` (orphaned — BlogPostCard was last consumer, now gone)
-- Final lint/type-check/build pass
-- Patrick merges cheddar-v1 → main
+**Next (if any): post-launch polish**
+- Iterate "Hiring a founding CTO?" contact heading after a week
+- Create branded OG image (1200×630)
+- Lighthouse a11y on production
+- Rename GitHub repo from react-pat-rizzardi
 
 ---
 

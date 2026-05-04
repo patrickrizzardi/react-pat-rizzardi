@@ -25,13 +25,22 @@ Cheddar rebrand — `.claude/plans/active/cheddar-rebrand.md`
 - [x] BlogPostNav restyled (cheddar card borders, burnt hover)
 - [x] CodeSnippet double-background fixed; .shiki CSS normalizer added
 
-## Cheddar Rebrand: M4 — NEXT (SEO + Cleanup + Ship)
-- [ ] Delete orphaned `useSpotlight.ts` (last consumer was BlogPostCard, now gone)
-- [ ] Update useSeo title/description in HomeView to "Cheddar — Patrick Rizzardi" copy
-- [ ] Update JSON-LD (BlogJsonLd) author + site name to match Cheddar branding
-- [ ] Lighthouse a11y pass (verify ≥ 95, fix any contrast issues on text-3 over bg)
-- [ ] Final lint + type-check + build clean
-- [ ] Commit M4 to cheddar-v1 — branch is ready for Patrick to merge to main
+## Cheddar Rebrand: M4 — COMPLETE (commit 9c551e9)
+- [x] useSpotlight.ts deleted (orphaned)
+- [x] useSeo: SITE_NAME/SITE_URL replaced with siteConfig, article.tags added to interface
+- [x] BlogJsonLd: author/publisher via siteConfig
+- [x] HomeView, BlogView, BlogPostView: URLs via siteConfig.siteUrl
+- [x] lint/type-check/build clean
+
+## REBRAND COMPLETE — cheddar-v1 is merge-ready
+
+Patrick merges cheddar-v1 → main when ready.
+
+## Post-Launch Polish
+- [ ] Iterate "Hiring a founding CTO?" heading after a week
+- [ ] Create branded OG image (1200×630)
+- [ ] Lighthouse a11y on production deploy
+- [ ] Rename GitHub repo from react-pat-rizzardi
 
 ## Post-Launch Polish
 - [ ] Iterate "Hiring a founding CTO?" heading after a week
