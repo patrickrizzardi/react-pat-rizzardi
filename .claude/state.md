@@ -28,16 +28,13 @@
 **What's been built (committed to cheddar-v1):**
 - `1da501d` M1: theme tokens, pill nav, CheddarWordmark, NeuronCanvas, HeroSection, useDecoder, useMagneticButton, siteConfig.ts. index.html 733KB → 38KB.
 - `8ab2b9c` M2: PrinciplesSection (6-cell grid), SystemsSection (featured cards + code peek + arch note + secondary grid), LeadershipSection (timeline + stack table), WritingSection (live useBlogPosts()), ContactSection (glow card). Orphaned old components deleted.
+- `3596c69` M3: BlogView, BlogPostCard, BlogPostHeader, BlogPostView, BlogPostNav all restyled to cheddar. CodeSnippet double-bg fixed (.shiki CSS normalizer). Blog prose modifiers cleaned up.
 
-**M3 next — Blog restyle:**
-- `/blog` (BlogView): restyle with cheddar tokens, new card design
-- `/blog/:slug` (BlogPostView, BlogPostHeader, BlogPostNav): restyle header, prose, prev/next nav
-- Keep all blog functionality (tag filter, JSON-LD, sitemap, slug routes) intact — visual only
-
-**M4 after — SEO + ship:**
-- Update JSON-LD + meta to "Cheddar — Patrick Rizzardi" branding
-- Lighthouse a11y ≥ 95
-- lint/type/build final pass
+**M4 next — SEO + Cleanup + Ship:**
+- Update `useSeo` calls + JSON-LD to "Cheddar — Patrick Rizzardi" branding
+- Delete `useSpotlight.ts` (orphaned — BlogPostCard was last consumer, now gone)
+- Final lint/type-check/build pass
+- Patrick merges cheddar-v1 → main
 
 ---
 

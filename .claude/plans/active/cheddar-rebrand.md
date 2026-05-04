@@ -33,7 +33,13 @@ last_updated: 2026-05-04
 - HomeView wired; orphaned old components deleted
 - lint/type/build clean
 
-## M3 next: Blog Restyle
+## M3 COMPLETE — committed 2026-05-04 (commit 3596c69)
+
+- BlogView, BlogPostCard, BlogPostHeader, BlogPostView, BlogPostNav all restyled
+- CodeSnippet double-background bug fixed via `.shiki` CSS normalizer in main.css
+- Blog prose modifiers cleaned up (removed conflicting prose-code:text-sm / font-mono)
+
+## M4 next: SEO + Cleanup + Ship
 
 Deliverable: entire home page visually complete in Cheddar. All 6 sections render.
 
@@ -46,16 +52,13 @@ Deliverable: entire home page visually complete in Cheddar. All 6 sections rende
 - `src/components/contact/ContactSection.vue` — rewritten glow card
 - Old orphaned components deleted
 
-**M3 pickup checklist:**
-1. Read current BlogView, BlogPostView, BlogPostHeader, BlogPostNav to understand current state.
-2. Restyle each to use cheddar tokens (no navy/cyan, use var(--text), var(--burnt), var(--card), etc.).
-3. BlogView: restyle card grid, tag filter chips, hero-area.
-4. BlogPostView: restyle prose container wrapper (`.prose-cheddar` or similar scope).
-5. BlogPostHeader: already has cheddar chip tags from M2. Restyle title, date, hr.
-6. BlogPostNav: restyle prev/next links.
-7. Keep all functionality (tag filter, JSON-LD, sitemap, slug routes) unchanged.
-8. `bun run lint && bun run build` clean, commit M3 to cheddar-v1.
-9. Do NOT push to main.
+**M4 pickup checklist:**
+1. Delete `src/composables/useSpotlight.ts` (orphaned — last caller removed in M3).
+2. Update HomeView `useSeo` description to match Cheddar brand copy.
+3. Check `BlogJsonLd.vue` for any hardcoded author/site names — update to use siteConfig.
+4. Run `bun run lint && bun run build` clean.
+5. Commit M4 to cheddar-v1. Do NOT push or merge to main.
+6. Report back — Patrick handles the main merge.
 
 ### Locked decisions (do not re-litigate)
 

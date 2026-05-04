@@ -17,19 +17,21 @@ Cheddar rebrand — `.claude/plans/active/cheddar-rebrand.md`
 - [x] ContactSection — glow card with animated link rows
 - [x] HomeView wired, old components deleted, lint/build clean
 
-## Cheddar Rebrand: M3 — NEXT (Blog Restyle)
-- [ ] BlogView (`/blog`) — restyle with cheddar tokens (card bg, eyebrow, tag chips)
-- [ ] BlogPostHeader — restyle (title, date, reading time, tags)
-- [ ] BlogPostView (`/blog/:slug`) — restyle prose container, prev/next nav
-- [ ] BlogPostNav — restyle with cheddar hover states
-- [ ] Keep all functionality intact (tag filter, JSON-LD, sitemap)
-- [ ] lint + build clean, commit M3 to cheddar-v1
+## Cheddar Rebrand: M3 — COMPLETE (commit 3596c69)
+- [x] BlogView restyled (cheddar header, burnt active tag, cheddar card borders)
+- [x] BlogPostCard restyled (burnt hover border, display title, no orphaned useSpotlight)
+- [x] BlogPostHeader restyled (display h1, mono meta, cheddar chips)
+- [x] BlogPostView prose modifiers fixed (removed conflicting font-size/font-family)
+- [x] BlogPostNav restyled (cheddar card borders, burnt hover)
+- [x] CodeSnippet double-background fixed; .shiki CSS normalizer added
 
-## Cheddar Rebrand: M4 — SEO + Ship
-- [ ] Update JSON-LD + meta to "Cheddar — Patrick Rizzardi" branding
-- [ ] Lighthouse a11y ≥ 95
-- [ ] Final lint/type-check/build pass
-- [ ] Patrick merges cheddar-v1 → main
+## Cheddar Rebrand: M4 — NEXT (SEO + Cleanup + Ship)
+- [ ] Delete orphaned `useSpotlight.ts` (last consumer was BlogPostCard, now gone)
+- [ ] Update useSeo title/description in HomeView to "Cheddar — Patrick Rizzardi" copy
+- [ ] Update JSON-LD (BlogJsonLd) author + site name to match Cheddar branding
+- [ ] Lighthouse a11y pass (verify ≥ 95, fix any contrast issues on text-3 over bg)
+- [ ] Final lint + type-check + build clean
+- [ ] Commit M4 to cheddar-v1 — branch is ready for Patrick to merge to main
 
 ## Post-Launch Polish
 - [ ] Iterate "Hiring a founding CTO?" heading after a week
