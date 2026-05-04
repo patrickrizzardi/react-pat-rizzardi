@@ -27,31 +27,35 @@ last_updated: 2026-05-04
 - ✅ **Phase 3** — `NeuronCanvas.vue` (saltatory firing, refractory trails, ember dust, reduced-motion safe), `useDecoder.ts`, `useMagneticButton.ts`, `HeroSection.vue` rewritten (ET clock, callsign chip, GitHub chip, 4-up metrics, side label), deleted `NeuralGrid.vue` + `HeroMetrics.vue`. `dist/index.html` now **38 KB** (was 733 KB).
 - ✅ **Phase 4** — lint clean (0 errors, 5 warnings), type-check via vue-tsc clean, build + all 4 SSG routes clean.
 
-### M2 next: Home Sections
+### M2 COMPLETE — committed 2026-05-04 (commit 8ab2b9c)
+
+- PrinciplesSection, SystemsSection (featured + secondary), LeadershipSection, WritingSection, ContactSection
+- HomeView wired; orphaned old components deleted
+- lint/type/build clean
+
+## M3 next: Blog Restyle
 
 Deliverable: entire home page visually complete in Cheddar. All 6 sections render.
 
-**Sections to build** (in order — each needs a section `id` for nav scroll targets):
-1. `id="principles"` — 6-cell bordered grid, PRINCIPLES data from `data.jsx` (copy already in plan). Subhead = `06 principles` (no year).
-2. `id="systems"` — featured cards with rank numeral, status pill, tagline, tech chips, 3-up metrics, code-peek panel (first snippet from existing `projects.ts`). Adapt `FeaturedCard.vue` or replace.
-3. `id="leadership"` — sticky-left lede + vertical timeline (LEADERSHIP data) + key-value STACK table.
-4. `id="writing"` — real `useBlogPosts()` output (index sidebar of post titles). Q3 answer: real data, not hardcoded.
-5. `id="contact"` — glow-card with sliding link rows (email/github/linkedin/resume). Email = `siteConfig.email`. Contact heading copy: ship with design's "Hiring a founding CTO?" — deferred iteration post-launch.
-6. Footer — already updated (tagline, siteConfig). Full visual rewrite in this milestone.
+**Sections built:**
+- `src/data/principles.ts`, `src/data/leadership.ts` — static content
+- `src/components/principles/PrinciplesSection.vue`
+- `src/components/systems/SystemsSection.vue` — featured (code-peek + arch note) + secondary grid
+- `src/components/leadership/LeadershipSection.vue` — timeline + stack table
+- `src/components/writing/WritingSection.vue` — live useBlogPosts()
+- `src/components/contact/ContactSection.vue` — rewritten glow card
+- Old orphaned components deleted
 
-**Data references for M2:**
-- PRINCIPLES, SYSTEMS (code peeks), SECONDARY, LEADERSHIP, STACK: all in `/tmp/cheddar-design/cheddar/project/cheddar/data.jsx`
-- Design components: `principles.jsx`, `systems.jsx`, `leadership.jsx`, `writing.jsx`, `contact.jsx`
-- Existing data: `src/data/projects.ts` (adapt per Q4 — first snippet → code peek, `archNotes` → architecture note block)
-- Blog data: `src/composables/useBlogPosts.ts` (real `useBlogPosts()` for writing section)
-
-**M2 pickup checklist:**
-1. Read design files for each section before implementing.
-2. Build `HomeView.vue` to import and sequence all 6 sections (currently only has HeroSection).
-3. Implement sections in order above, committing after each pair or when logical.
-4. Run `bun run lint && bun run build` clean before M2 commit.
-5. Visual smoke: `docker compose up` → verify all 6 sections render at desktop + mobile.
-6. Do NOT push to main.
+**M3 pickup checklist:**
+1. Read current BlogView, BlogPostView, BlogPostHeader, BlogPostNav to understand current state.
+2. Restyle each to use cheddar tokens (no navy/cyan, use var(--text), var(--burnt), var(--card), etc.).
+3. BlogView: restyle card grid, tag filter chips, hero-area.
+4. BlogPostView: restyle prose container wrapper (`.prose-cheddar` or similar scope).
+5. BlogPostHeader: already has cheddar chip tags from M2. Restyle title, date, hr.
+6. BlogPostNav: restyle prev/next links.
+7. Keep all functionality (tag filter, JSON-LD, sitemap, slug routes) unchanged.
+8. `bun run lint && bun run build` clean, commit M3 to cheddar-v1.
+9. Do NOT push to main.
 
 ### Locked decisions (do not re-litigate)
 

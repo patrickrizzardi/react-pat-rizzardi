@@ -3,39 +3,36 @@
 ## Current Goal
 Cheddar rebrand — `.claude/plans/active/cheddar-rebrand.md`
 
-## Cheddar Rebrand: M1 — COMPLETE (commit 1da501d, 2026-05-04)
+## Cheddar Rebrand: M1 — COMPLETE (commit 1da501d)
+- [x] Theme tokens, fonts, body grain/glows, scan-grid
+- [x] Pill nav, CheddarWordmark, siteConfig.ts, useTheme deleted, footer tagline
+- [x] NeuronCanvas, useDecoder, useMagneticButton, HeroSection rewrite (ET clock, decoder, GitHub chip, 4-dev-team metric)
+- [x] lint/type-check/build clean
 
-- [x] Phase 1: cheddar palette, fonts, body grain/glows, scan-grid
-- [x] Phase 2: pill nav, CheddarWordmark, siteConfig.ts, useTheme deleted, footer tagline
-- [x] Phase 3: NeuronCanvas, useDecoder, useMagneticButton, HeroSection rewrite
-- [x] Phase 4: lint/type-check/build clean, committed to cheddar-v1
+## Cheddar Rebrand: M2 — COMPLETE (commit 8ab2b9c)
+- [x] PrinciplesSection — 6-cell bordered grid, burnt hover wash
+- [x] SystemsSection — featured cards (code-peek + arch note) + secondary grid
+- [x] LeadershipSection — timeline rail + stack table
+- [x] WritingSection — live useBlogPosts() output
+- [x] ContactSection — glow card with animated link rows
+- [x] HomeView wired, old components deleted, lint/build clean
 
-## Cheddar Rebrand: M2 — NEXT (Home Sections)
+## Cheddar Rebrand: M3 — NEXT (Blog Restyle)
+- [ ] BlogView (`/blog`) — restyle with cheddar tokens (card bg, eyebrow, tag chips)
+- [ ] BlogPostHeader — restyle (title, date, reading time, tags)
+- [ ] BlogPostView (`/blog/:slug`) — restyle prose container, prev/next nav
+- [ ] BlogPostNav — restyle with cheddar hover states
+- [ ] Keep all functionality intact (tag filter, JSON-LD, sitemap)
+- [ ] lint + build clean, commit M3 to cheddar-v1
 
-- [ ] `id="principles"` — 6-cell grid, PRINCIPLES data, subhead = "06 principles"
-- [ ] `id="systems"` — featured cards, code-peek panel (first snippet from projects.ts)
-- [ ] `id="leadership"` — vertical timeline + STACK key-value table
-- [ ] `id="writing"` — real useBlogPosts() index
-- [ ] `id="contact"` — glow-card with link rows (siteConfig.email/github/linkedin)
-- [ ] Footer visual rewrite
-- [ ] Wire all section IDs for nav scroll targets
-- [ ] lint + build clean, commit M2 to cheddar-v1
-
-## Cheddar Rebrand: M3 — Blog Restyle (planned)
-
-- [ ] /blog and /blog/:slug inherit new theme tokens
-- [ ] Blog index cards, post header, prose styles, prev/next nav
-
-## Cheddar Rebrand: M4 — SEO + Cleanup + Ship (planned)
-
-- [ ] Update SEO meta to Cheddar / Patrick Rizzardi branding
-- [ ] a11y verify (Lighthouse ≥ 95)
-- [ ] lint + type-check + build final pass
-- [ ] User merges cheddar-v1 → main
+## Cheddar Rebrand: M4 — SEO + Ship
+- [ ] Update JSON-LD + meta to "Cheddar — Patrick Rizzardi" branding
+- [ ] Lighthouse a11y ≥ 95
+- [ ] Final lint/type-check/build pass
+- [ ] Patrick merges cheddar-v1 → main
 
 ## Post-Launch Polish
-
-- [ ] Iterate "Hiring a founding CTO?" heading after living with it a week
+- [ ] Iterate "Hiring a founding CTO?" heading after a week
 - [ ] Create branded OG image (1200×630)
-- [ ] Lighthouse a11y audit on production (color contrast text-3 over bg)
+- [ ] Lighthouse a11y on production (color contrast text-3 over bg)
 - [ ] Rename GitHub repo from react-pat-rizzardi

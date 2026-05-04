@@ -1,6 +1,6 @@
 # Session State: redact-digital
 
-**Last Updated**: 2026-04-23
+**Last Updated**: 2026-05-04
 
 ---
 
@@ -18,32 +18,26 @@
 
 ## Current Context (REPLACE each update)
 
-**Goal**: Rebuild portfolio site — Vue 3 + Tailwind CSS v4 + TypeScript + Bun
-**Status**: Milestone 2 (Blog) — Phases 1-4 COMPLETE. Phase 4 awaiting commit. Phase 5 (verification sweep) is next.
+**Goal**: Cheddar rebrand — full visual overhaul of redact.digital portfolio
+**Status**: M1 (hero/nav/theme) COMPLETE + M2 (home sections) COMPLETE. Branch `cheddar-v1`. M3 (blog restyle) is next.
+**Active Plan**: `.claude/plans/active/cheddar-rebrand.md`
 
-**Git**: `patrickrizzardi/react-pat-rizzardi` on GitHub (SSH). Multiple commits ahead of origin.
-**Playwright MCP**: working via `http://172.17.0.1:8080` (gateway IP, not localhost)
+**Git**: `patrickrizzardi/react-pat-rizzardi` on GitHub (SSH). Branch `cheddar-v1`, ahead of origin.
+**User boundary**: Do NOT push or merge to main — Patrick handles that.
 
-**Milestone 2 Blog — What's Built:**
-- Phase 1: vite-ssg 28.3.0, unplugin-vue-markdown 30.0.0, @shikijs/markdown-it, @tailwindcss/typography
-- Phase 2: Blog index page with tag filtering, BlogPostCard, useBlogPosts composable, test post
-- Phase 3: BlogPostView with header (title/date/author/tags), prev/next nav, prose styling, SSG route enumeration
-- Phase 4: useSeo composable, OG tags, Twitter cards, JSON-LD BlogPosting, vite-ssg-sitemap
+**What's been built (committed to cheddar-v1):**
+- `1da501d` M1: theme tokens, pill nav, CheddarWordmark, NeuronCanvas, HeroSection, useDecoder, useMagneticButton, siteConfig.ts. index.html 733KB → 38KB.
+- `8ab2b9c` M2: PrinciplesSection (6-cell grid), SystemsSection (featured cards + code peek + arch note + secondary grid), LeadershipSection (timeline + stack table), WritingSection (live useBlogPosts()), ContactSection (glow card). Orphaned old components deleted.
 
-**Key technical findings during implementation:**
-- unplugin-vue-markdown exports frontmatter as individual named exports (mod.title, mod.tags), NOT as mod.frontmatter object
-- `includedRoutes` goes in vite.config.ts ssgOptions, not in ViteSSG() 4th arg
-- `articleAuthor` in @unhead/vue expects string[], not string
-- useTheme needed isClient guard for SSG compatibility (localStorage/window)
-- `exactOptionalPropertyTypes` requires conditional spread for optional fields
+**M3 next — Blog restyle:**
+- `/blog` (BlogView): restyle with cheddar tokens, new card design
+- `/blog/:slug` (BlogPostView, BlogPostHeader, BlogPostNav): restyle header, prose, prev/next nav
+- Keep all blog functionality (tag filter, JSON-LD, sitemap, slug routes) intact — visual only
 
-**Phase 5 (next): Verification Sweep**
-- TODO sweep, todos cross-check, shortcut detection
-- Build + type check + lint
-- Visual verification + pre-rendered HTML check
-
-**Plan**: `.claude/plans/blog-milestone-2-plan.md` — approved 2026-04-23
-**Blog skill**: `.claude/commands/blog.md`
+**M4 after — SEO + ship:**
+- Update JSON-LD + meta to "Cheddar — Patrick Rizzardi" branding
+- Lighthouse a11y ≥ 95
+- lint/type/build final pass
 
 ---
 
@@ -77,13 +71,12 @@ docker compose run --rm bun add <pkg>          # Add dependency
 - [2026-04-22] **Full rebuild from React** — Vue + Tailwind replacing React + MUI
 - [2026-04-22] **Bun via Docker Compose** — not installed in devcontainer, runs as compose service
 - [2026-04-22] **Deploy to DO App Platform** — free static tier, auto-deploy from GitHub
-- [2026-04-23] **Title: "Engineering Lead & Architect"** — signals leadership + technical depth
-- [2026-04-23] **vite-ssg for pre-rendering** — replaces standard vite build
-- [2026-04-23] **Blog URLs: slug-only** — /blog/{slug}, no date prefix
-- [2026-04-23] **Tag filtering: in-place** — no separate tag pages
-- [2026-04-23] **Shiki languages: full stack** — TS, SQL, Rust, Python, Bash, Vue, JSON, YAML, TOML, CSS, HTML, C++
-- [2026-04-23] **No backdating blog posts** — launch fresh with consistent cadence
-- [2026-04-23] **OG image deferred** — path set to /assets/og-default.png, actual image TBD
+- [2026-04-30] **Cheddar rebrand** — warm carbon + burnt orange palette, Geist/Newsreader/JBMono fonts, dark-only
+- [2026-04-30] **Dark-only, no theme toggle** — useTheme deleted, `class="dark"` hardcoded
+- [2026-04-30] **siteConfig.ts single source** — email/github/linkedin/siteUrl all from one const
+- [2026-04-30] **NeuronCanvas replaces NeuralGrid** — canvas-based saltatory firing vs SVG
+- [2026-04-30] **Blog URLs: slug-only** — /blog/{slug}, no date prefix
+- [2026-04-30] **No backdating blog posts** — launch fresh with consistent cadence
 
 ---
 
