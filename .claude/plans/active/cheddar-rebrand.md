@@ -8,38 +8,50 @@ files:
   - index.html
   - vite.config.ts
 created: 2026-04-30
-last_updated: 2026-04-30
+last_updated: 2026-05-04
 ---
 
 <!-- Round 1 review: BLOCK with 7 required fixes — all addressed. -->
 <!-- Round 2 review: PASS. Tier B. -->
 <!-- Status: APPROVED 2026-04-30. Implementation HANDED OFF to Sonnet mid-Phase-1. -->
 
-## Handoff state (2026-04-30) — Opus → Sonnet
+## M1 COMPLETE — committed 2026-05-04 (commit 1da501d)
 
-User halted Opus mid-implementation; Sonnet continues from here.
-
-**Branch**: `cheddar-v1` (uncommitted working tree — see `git status`).
-**User boundary**: do NOT push or merge to `main`. User handles main themselves.
+**Branch**: `cheddar-v1`. **User boundary**: do NOT push or merge to `main`.
 
 ### Phase progress
 
-- ✅ **Phase 0** — baseline build clean. Numbers: `dist/index.html` 733 KB (pre-rebrand SSR bloat from NeuralGrid SVG — canvas swap in Phase 3 fixes this), `dist/blog.html` 7.67 KB, `dist/blog/hello-world.html` 14.36 KB, app CSS 43.57 KB / 7.79 KB gz, app JS 155 KB / 58.72 KB gz, build ~5s.
-- 🔄 **Phase 1 partial** — written but unverified:
-  - `src/assets/main.css` rewritten (full cheddar palette via Tailwind 4 `@theme` + raw `:root` CSS vars, body grain + radial glows, `.scan-grid`, `.eyebrow`, scrollbar, selection). 188 lines.
-  - `index.html` rewritten (Cheddar title, new meta description, Google Fonts preconnect + link for Geist 400/500/700/800/900 + Newsreader italic 400/500 + JetBrains Mono 400/500/700).
-  - **NOT YET RUN**: `bun run build` to verify Phase 1 doesn't break SSG. Existing components (HeroSection, AppNav, etc.) still reference navy/cyan classes — visually mismatched until Phase 2/3, expected.
-- ⏸ **Phase 2** — not started.
-- ⏸ **Phase 3** — not started.
-- ⏸ **Phase 4** — not started.
+- ✅ **Phase 0** — baseline captured: `dist/index.html` 733 KB SSR bloat from NeuralGrid SVG.
+- ✅ **Phase 1** — cheddar palette (`@theme` + `:root` CSS vars), Geist/Newsreader/JBMono fonts, body grain + radial glows, `.scan-grid`, `.eyebrow`, scrollbar, selection. Build verified.
+- ✅ **Phase 2** — `cheddar-emblem.png` (renamed, orphan PNGs deleted), `CheddarWordmark.vue`, pill `AppNav` + `MobileMenu` (no theme toggle), `siteConfig.ts` const, `useTheme.ts` deleted, `AppFooter` updated with tagline.
+- ✅ **Phase 3** — `NeuronCanvas.vue` (saltatory firing, refractory trails, ember dust, reduced-motion safe), `useDecoder.ts`, `useMagneticButton.ts`, `HeroSection.vue` rewritten (ET clock, callsign chip, GitHub chip, 4-up metrics, side label), deleted `NeuralGrid.vue` + `HeroMetrics.vue`. `dist/index.html` now **38 KB** (was 733 KB).
+- ✅ **Phase 4** — lint clean (0 errors, 5 warnings), type-check via vue-tsc clean, build + all 4 SSG routes clean.
 
-### Sonnet pickup checklist
+### M2 next: Home Sections
 
-1. Verify Phase 1 build: `docker compose run --rm bun run build`. If clean, proceed.
-2. Execute Phase 2 per plan (logo rename + delete orphans, AppNav rewrite, MobileMenu rewrite, create `src/data/siteConfig.ts` const, delete `useTheme.ts`, drop `useTheme()` call from `App.vue`).
-3. Execute Phase 3 per plan — **respect the SSR-safety enumeration table for `NeuronCanvas.vue` and the locked decoder hydration fix (initial Ref = final string)**.
-4. Execute Phase 4 verification per plan.
-5. Commit at logical phase boundaries on `cheddar-v1`. Do NOT push to main.
+Deliverable: entire home page visually complete in Cheddar. All 6 sections render.
+
+**Sections to build** (in order — each needs a section `id` for nav scroll targets):
+1. `id="principles"` — 6-cell bordered grid, PRINCIPLES data from `data.jsx` (copy already in plan). Subhead = `06 principles` (no year).
+2. `id="systems"` — featured cards with rank numeral, status pill, tagline, tech chips, 3-up metrics, code-peek panel (first snippet from existing `projects.ts`). Adapt `FeaturedCard.vue` or replace.
+3. `id="leadership"` — sticky-left lede + vertical timeline (LEADERSHIP data) + key-value STACK table.
+4. `id="writing"` — real `useBlogPosts()` output (index sidebar of post titles). Q3 answer: real data, not hardcoded.
+5. `id="contact"` — glow-card with sliding link rows (email/github/linkedin/resume). Email = `siteConfig.email`. Contact heading copy: ship with design's "Hiring a founding CTO?" — deferred iteration post-launch.
+6. Footer — already updated (tagline, siteConfig). Full visual rewrite in this milestone.
+
+**Data references for M2:**
+- PRINCIPLES, SYSTEMS (code peeks), SECONDARY, LEADERSHIP, STACK: all in `/tmp/cheddar-design/cheddar/project/cheddar/data.jsx`
+- Design components: `principles.jsx`, `systems.jsx`, `leadership.jsx`, `writing.jsx`, `contact.jsx`
+- Existing data: `src/data/projects.ts` (adapt per Q4 — first snippet → code peek, `archNotes` → architecture note block)
+- Blog data: `src/composables/useBlogPosts.ts` (real `useBlogPosts()` for writing section)
+
+**M2 pickup checklist:**
+1. Read design files for each section before implementing.
+2. Build `HomeView.vue` to import and sequence all 6 sections (currently only has HeroSection).
+3. Implement sections in order above, committing after each pair or when logical.
+4. Run `bun run lint && bun run build` clean before M2 commit.
+5. Visual smoke: `docker compose up` → verify all 6 sections render at desktop + mobile.
+6. Do NOT push to main.
 
 ### Locked decisions (do not re-litigate)
 
