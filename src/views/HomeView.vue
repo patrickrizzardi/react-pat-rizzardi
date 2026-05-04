@@ -6,12 +6,13 @@
   import WritingSection from '@/components/writing/WritingSection.vue';
   import ContactSection from '@/components/contact/ContactSection.vue';
   import { useSeo } from '@/composables/useSeo';
+  import { siteConfig } from '@/data/siteConfig';
 
   useSeo({
     title: 'Cheddar — Patrick Rizzardi · Engineering Lead & Architect',
     description:
       'Engineering Lead & Architect. Backend systems that stay profitable at scale — from a trading platform that pays its own bills to an LLM trained from bare metal.',
-    url: 'https://redact.digital',
+    url: siteConfig.siteUrl,
   });
 </script>
 

@@ -3,6 +3,7 @@
   import { useRoute, useRouter } from 'vue-router';
   import { useBlogPosts } from '@/composables/useBlogPosts';
   import { useSeo } from '@/composables/useSeo';
+  import { siteConfig } from '@/data/siteConfig';
   import BlogPostHeader from '@/components/blog/BlogPostHeader.vue';
   import BlogPostNav from '@/components/blog/BlogPostNav.vue';
   import BlogJsonLd from '@/components/blog/BlogJsonLd.vue';
@@ -25,10 +26,10 @@
   useSeo({
     title: computed(() => post.value?.frontmatter.title ?? 'Blog — Patrick Rizzardi'),
     description: computed(() => post.value?.frontmatter.description ?? ''),
-    url: computed(() => `https://redact.digital/blog/${post.value?.frontmatter.slug ?? ''}`),
+    url: computed(() => `${siteConfig.siteUrl}/blog/${post.value?.frontmatter.slug ?? ''}`),
     type: 'article',
     article: {
-      author: computed(() => post.value?.frontmatter.author ?? 'Patrick Rizzardi'),
+      author: computed(() => post.value?.frontmatter.author ?? siteConfig.name),
       publishedTime: computed(() => post.value?.frontmatter.date ?? ''),
       tags: computed(() => post.value?.frontmatter.tags ?? []),
     },

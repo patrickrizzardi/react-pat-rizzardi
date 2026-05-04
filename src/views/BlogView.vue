@@ -2,12 +2,13 @@
   import { ref, computed } from 'vue';
   import { useBlogPosts } from '@/composables/useBlogPosts';
   import { useSeo } from '@/composables/useSeo';
+  import { siteConfig } from '@/data/siteConfig';
   import BlogPostCard from '@/components/blog/BlogPostCard.vue';
 
   useSeo({
     title: 'Blog — Patrick Rizzardi',
     description: 'Engineering leadership, AI/ML architecture, and lessons from building systems at scale.',
-    url: 'https://redact.digital/blog',
+    url: `${siteConfig.siteUrl}/blog`,
   });
 
   const { posts, getAllTags } = useBlogPosts();

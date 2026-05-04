@@ -2,6 +2,7 @@
   import { computed } from 'vue';
   import { useHead } from '@unhead/vue';
   import type { BlogPost } from '@/types/blog';
+  import { siteConfig } from '@/data/siteConfig';
 
   const props = defineProps<{ post: BlogPost }>();
 
@@ -15,15 +16,15 @@
       dateModified: props.post.frontmatter.date,
       author: {
         '@type': 'Person',
-        name: props.post.frontmatter.author ?? 'Patrick Rizzardi',
-        url: 'https://redact.digital',
+        name: props.post.frontmatter.author ?? siteConfig.name,
+        url: siteConfig.siteUrl,
       },
       publisher: {
         '@type': 'Person',
-        name: 'Patrick Rizzardi',
-        url: 'https://redact.digital',
+        name: siteConfig.name,
+        url: siteConfig.siteUrl,
       },
-      url: `https://redact.digital/blog/${props.post.frontmatter.slug}`,
+      url: `${siteConfig.siteUrl}/blog/${props.post.frontmatter.slug}`,
       keywords: [...props.post.frontmatter.tags].join(', '),
       wordCount: props.post.readingTime * 200,
     }),

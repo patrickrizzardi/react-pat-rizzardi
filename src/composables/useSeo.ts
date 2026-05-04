@@ -1,10 +1,9 @@
 import { computed, toValue } from 'vue';
 import { useSeoMeta } from '@unhead/vue';
 import type { MaybeRefOrGetter } from 'vue';
+import { siteConfig } from '@/data/siteConfig';
 
-const SITE_NAME = 'Patrick Rizzardi';
-const SITE_URL = 'https://redact.digital';
-const DEFAULT_IMAGE = `${SITE_URL}/assets/og-default.png`;
+const DEFAULT_IMAGE = `${siteConfig.siteUrl}/assets/og-default.png`;
 
 interface SeoOptions {
   title: MaybeRefOrGetter<string>;
@@ -15,6 +14,7 @@ interface SeoOptions {
   article?: {
     author?: MaybeRefOrGetter<string>;
     publishedTime?: MaybeRefOrGetter<string>;
+    tags?: MaybeRefOrGetter<ReadonlyArray<string>>;
   };
 }
 
@@ -25,9 +25,9 @@ export const useSeo = (options: SeoOptions): void => {
     ogTitle: options.title,
     ogDescription: options.description,
     ogImage: options.image ?? DEFAULT_IMAGE,
-    ogUrl: options.url ?? SITE_URL,
+    ogUrl: options.url ?? siteConfig.siteUrl,
     ogType: options.type ?? 'website',
-    ogSiteName: SITE_NAME,
+    ogSiteName: siteConfig.name,
     twitterCard: 'summary_large_image',
     twitterTitle: options.title,
     twitterDescription: options.description,
