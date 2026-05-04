@@ -14,12 +14,12 @@
 <template>
   <article
     ref="cardRef"
-    class="spotlight-card relative overflow-hidden rounded-2xl border border-white/10 bg-navy-800 p-6 transition-all duration-300 hover:border-cyan/30 sm:p-8"
+    class="spotlight-card bg-navy-800 hover:border-cyan/30 relative overflow-hidden rounded-2xl border border-white/10 p-6 transition-all duration-300 sm:p-8"
   >
     <div class="mb-4 flex items-start justify-between">
       <div>
         <h3 class="text-2xl font-bold text-white">{{ project.title }}</h3>
-        <p class="mt-1 text-sm text-cyan">Private Repository</p>
+        <p class="text-cyan mt-1 text-sm">Private Repository</p>
       </div>
     </div>
 
@@ -27,7 +27,7 @@
 
     <p
       v-if="project.archNotes"
-      class="mt-4 border-l-2 border-cyan/30 pl-4 text-sm text-gray-500 italic"
+      class="border-cyan/30 mt-4 border-l-2 pl-4 text-sm text-gray-500 italic"
     >
       {{ project.archNotes }}
     </p>

@@ -52,12 +52,12 @@
           :href="link.href"
           :target="link.href.startsWith('http') ? '_blank' : undefined"
           :rel="link.href.startsWith('http') ? 'noopener noreferrer' : undefined"
-          class="flex items-center gap-4 rounded-xl border border-white/10 bg-navy-800 p-5 transition-all duration-300 hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5"
+          class="bg-navy-800 hover:border-cyan/30 hover:shadow-cyan/5 flex items-center gap-4 rounded-xl border border-white/10 p-5 transition-all duration-300 hover:shadow-lg"
         >
           <component
             :is="link.icon"
             :size="24"
-            class="shrink-0 text-cyan"
+            class="text-cyan shrink-0"
           />
           <div>
             <p class="text-sm font-medium text-white">{{ link.label }}</p>

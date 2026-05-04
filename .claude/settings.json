@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(npx *)",
+      "Bash(npm *)",
+      "Bash(node *)",
+      "Bash(bun *)",
+      "Bash(bunx *)",
+      "Bash(pnpm *)",
+      "Bash(pnpx *)",
+      "Bash(yarn *)"
+    ]
+  }
+}

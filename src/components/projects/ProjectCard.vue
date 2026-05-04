@@ -25,7 +25,7 @@
 <template>
   <article
     ref="cardRef"
-    class="spotlight-card relative overflow-hidden rounded-2xl border border-white/10 bg-navy-800 p-6 transition-all duration-300 hover:border-cyan/30"
+    class="spotlight-card bg-navy-800 hover:border-cyan/30 relative overflow-hidden rounded-2xl border border-white/10 p-6 transition-all duration-300"
   >
     <h3 class="text-xl font-bold text-white">{{ project.title }}</h3>
     <p class="mt-3 text-sm text-gray-400">{{ project.description }}</p>
@@ -48,7 +48,7 @@
           :href="project[key]"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-cyan"
+          class="hover:text-cyan inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors"
         >
           <component
             :is="linkConfig[key].icon"

@@ -1,96 +1,111 @@
 <script setup lang="ts">
-  import { watch } from 'vue';
-  import { X, Moon, Sun } from 'lucide-vue-next';
+  import { watch, onUnmounted } from 'vue';
+  import { X } from 'lucide-vue-next';
 
   const props = defineProps<{
     open: boolean;
-    isDark: boolean;
-    links: ReadonlyArray<{ readonly label: string; readonly href: string }>;
+    links: ReadonlyArray<{ readonly id: string; readonly label: string }>;
   }>();
 
   const emit = defineEmits<{
     close: [];
-    toggleTheme: [];
+    navigate: [id: string];
   }>();
-
-  const handleNav = (): void => {
-    emit('close');
-  };
 
   watch(
     () => props.open,
     (isOpen) => {
+      if (typeof document === 'undefined') return;
       document.body.style.overflow = isOpen ? 'hidden' : '';
     },
   );
+
+  onUnmounted(() => {
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+    }
+  });
 </script>
 
 <template>
-  <Transition name="slide">
+  <Transition name="fade">
     <div
       v-if="open"
-      class="fixed inset-0 z-50 md:hidden"
+      class="fixed inset-0 z-40 md:hidden"
+      @click.self="emit('close')"
     >
       <div
-        class="absolute inset-0 bg-black/60"
-        @click="emit('close')"
+        class="absolute inset-0"
+        style="background: oklch(0 0 0 / 0.6)"
       />
 
-      <div class="absolute top-0 right-0 flex h-full w-64 flex-col bg-navy-800 p-6">
+      <!-- Menu pill — centered below the nav pill -->
+      <div
+        class="absolute top-20 left-1/2 flex min-w-[220px] -translate-x-1/2 flex-col rounded-2xl border px-4 py-5"
+        style="
+          background: var(--card);
+          backdrop-filter: blur(14px) saturate(140%);
+          -webkit-backdrop-filter: blur(14px) saturate(140%);
+          border-color: var(--line);
+          box-shadow:
+            0 20px 60px -20px oklch(0 0 0 / 0.7),
+            inset 0 1px 0 oklch(1 0 0 / 0.04);
+        "
+      >
         <button
           type="button"
           aria-label="Close menu"
-          class="mb-8 self-end text-gray-400 transition-colors hover:text-cyan"
+          class="mb-3 cursor-pointer self-end p-1"
+          style="color: var(--text-3)"
           @click="emit('close')"
         >
-          <X :size="24" />
+          <X :size="16" />
         </button>
 
-        <RouterLink
+        <a
           v-for="link in links"
-          :key="link.label"
-          :to="link.href"
-          class="py-3 text-lg text-gray-300 transition-colors hover:text-cyan"
-          @click="handleNav"
+          :key="link.id"
+          role="button"
+          tabindex="0"
+          class="cursor-pointer rounded-lg px-3 py-2.5 transition-colors duration-150 select-none"
+          style="font-family: var(--font-mono); font-size: 13px; color: var(--text-2)"
+          @click="emit('navigate', link.id)"
+          @keydown.enter="emit('navigate', link.id)"
+          >{{ link.label }}</a
         >
-          {{ link.label }}
-        </RouterLink>
 
-        <button
-          type="button"
-          class="mt-8 flex items-center gap-3 text-gray-400 transition-colors hover:text-cyan"
-          @click="emit('toggleTheme')"
+        <div
+          class="my-3 h-px"
+          style="background: var(--line-soft)"
+        />
+
+        <a
+          role="button"
+          tabindex="0"
+          class="cursor-pointer rounded-lg border px-3 py-2.5 text-center transition-colors duration-150 select-none"
+          style="
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            border-color: var(--burnt);
+          "
+          @click="emit('navigate', 'contact')"
+          @keydown.enter="emit('navigate', 'contact')"
+          >hire ↗</a
         >
-          <Moon
-            v-if="isDark"
-            :size="18"
-          />
-          <Sun
-            v-else
-            :size="18"
-          />
-          <span class="text-sm">{{ isDark ? 'Dark' : 'Light' }} mode</span>
-        </button>
       </div>
     </div>
   </Transition>
 </template>
 
 <style scoped>
-  .slide-enter-active,
-  .slide-leave-active {
-    transition: opacity 0.2s ease;
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.15s ease;
   }
-  .slide-enter-active > div:last-child,
-  .slide-leave-active > div:last-child {
-    transition: transform 0.2s ease;
-  }
-  .slide-enter-from,
-  .slide-leave-to {
+  .fade-enter-from,
+  .fade-leave-to {
     opacity: 0;
-  }
-  .slide-enter-from > div:last-child,
-  .slide-leave-to > div:last-child {
-    transform: translateX(100%);
   }
 </style>

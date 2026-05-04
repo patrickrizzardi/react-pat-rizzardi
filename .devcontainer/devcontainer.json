@@ -6,7 +6,7 @@
   },
   // * Fix docker socket perms for host daemon access
   // * Symlink .claude.json from persistent volume (can't mount volumes to files, only dirs)
-  "postStartCommand": "sudo chmod 666 /var/run/docker.sock; sudo chown -R ubuntu:ubuntu /home/ubuntu/.claude-persist /home/ubuntu/.claude-history-persist /home/ubuntu/.claude/projects /home/ubuntu/.claude/sessions; [ ! -f /home/ubuntu/.claude-persist/.claude.json ] && echo '{}' > /home/ubuntu/.claude-persist/.claude.json; ln -sf /home/ubuntu/.claude-persist/.claude.json /home/ubuntu/.claude.json; [ ! -f /home/ubuntu/.claude-history-persist/history.jsonl ] && echo '' > /home/ubuntu/.claude-history-persist/history.jsonl; ln -sf /home/ubuntu/.claude-history-persist/history.jsonl /home/ubuntu/.claude/history.jsonl",
+  "postStartCommand": "sudo chmod 666 /var/run/docker.sock; sudo chown -R ubuntu:ubuntu /home/ubuntu/.claude-persist /home/ubuntu/.claude-history-persist /home/ubuntu/.claude/projects /home/ubuntu/.claude/sessions; [ ! -f /home/ubuntu/.claude-persist/.claude.json ] && echo '{}' > /home/ubuntu/.claude-persist/.claude.json; ln -sf /home/ubuntu/.claude-persist/.claude.json /home/ubuntu/.claude.json; [ ! -f /home/ubuntu/.claude-history-persist/history.jsonl ] && echo '' > /home/ubuntu/.claude-history-persist/history.jsonl; ln -sf /home/ubuntu/.claude-history-persist/history.jsonl /home/ubuntu/.claude/history.jsonl; jq '.mcpServers[\"code-indexer\"] //= {\"type\":\"stdio\",\"command\":\"docker\",\"args\":[\"exec\",\"-i\",\"claude-code-indexer\",\"npx\",\"@code-indexer/mcp\"],\"env\":{}}' /home/ubuntu/.claude-persist/.claude.json > /tmp/.claude-mcp-tmp.json && mv /tmp/.claude-mcp-tmp.json /home/ubuntu/.claude-persist/.claude.json",
   "mounts": [
     // Claude files from local machine
     // IMPORTANT: Single-FILE bind mounts below are marked `readonly` to prevent
@@ -59,6 +59,9 @@
   // docker-compose.yml can use it: ${HOST_PROJECT_PATH:-.}:/app
   "remoteEnv": {
     "HOST_PROJECT_PATH": "${localWorkspaceFolder}"
+  },
+  "containerEnv": {
+    "ANTHROPIC_MODEL": "${localEnv:ANTHROPIC_MODEL}"
   },
   "customizations": {
     "vscode": {

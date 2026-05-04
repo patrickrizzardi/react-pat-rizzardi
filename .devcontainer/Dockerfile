@@ -3,6 +3,7 @@ FROM ubuntu:latest
 ENV USER=ubuntu
 
 # System essentials
+# jq: used by postStartCommand to inject MCP server config into the persistent .claude.json volume on container start
 RUN apt-get update && apt-get upgrade -y \
 && apt-get install -y --no-install-recommends \
 sudo \

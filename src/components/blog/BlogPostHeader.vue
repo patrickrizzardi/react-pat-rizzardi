@@ -20,7 +20,7 @@
   <div class="mb-10">
     <RouterLink
       to="/blog"
-      class="mb-6 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-cyan"
+      class="hover:text-cyan mb-6 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors"
     >
       <ArrowLeft :size="14" />
       Back to blog

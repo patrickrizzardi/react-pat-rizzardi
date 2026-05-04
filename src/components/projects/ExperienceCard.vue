@@ -14,19 +14,19 @@
 <template>
   <article
     ref="cardRef"
-    class="spotlight-card relative overflow-hidden rounded-2xl border border-white/10 bg-navy-800 p-6 transition-all duration-300 hover:border-cyan/30 sm:p-8"
+    class="spotlight-card bg-navy-800 hover:border-cyan/30 relative overflow-hidden rounded-2xl border border-white/10 p-6 transition-all duration-300 sm:p-8"
   >
     <div class="mb-1 flex flex-wrap items-start justify-between gap-4">
       <div>
         <h3 class="text-2xl font-bold text-white">{{ project.title }}</h3>
-        <p class="mt-1 text-sm text-cyan">{{ project.role }}</p>
+        <p class="text-cyan mt-1 text-sm">{{ project.role }}</p>
         <p class="mt-1 text-xs text-gray-500">{{ project.period }}</p>
       </div>
       <a
         :href="project.liveUrl"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-1.5 rounded-lg border border-cyan/30 px-4 py-2 text-sm text-cyan transition-colors hover:bg-cyan/10"
+        class="border-cyan/30 text-cyan hover:bg-cyan/10 inline-flex items-center gap-1.5 rounded-lg border px-4 py-2 text-sm transition-colors"
       >
         <ExternalLink :size="14" />
         Live Site
@@ -41,16 +41,16 @@
         :key="item"
         class="flex items-start gap-2 text-sm text-gray-400"
       >
-        <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan/50" />
+        <span class="bg-cyan/50 mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" />
         {{ item }}
       </li>
     </ul>
 
     <div
       v-if="project.highlights.length > 0"
-      class="mt-4 rounded-lg border border-cyan/10 bg-cyan/5 p-4"
+      class="border-cyan/10 bg-cyan/5 mt-4 rounded-lg border p-4"
     >
-      <p class="mb-2 text-xs font-semibold tracking-wider text-cyan uppercase">Key Achievements</p>
+      <p class="text-cyan mb-2 text-xs font-semibold tracking-wider uppercase">Key Achievements</p>
       <ul class="space-y-1">
         <li
           v-for="h in project.highlights"

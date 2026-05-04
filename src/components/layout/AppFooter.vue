@@ -1,15 +1,19 @@
 <script setup lang="ts">
   import { Github, Linkedin, Mail } from 'lucide-vue-next';
+  import { siteConfig } from '@/data/siteConfig';
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com/patrickrizzardi', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/patrick-rizzardi/', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:patrick@redact.digital', label: 'Email' },
+    { icon: Github, href: siteConfig.github, label: 'GitHub' },
+    { icon: Linkedin, href: siteConfig.linkedin, label: 'LinkedIn' },
+    { icon: Mail, href: `mailto:${siteConfig.email}`, label: 'Email' },
   ] as const;
 </script>
 
 <template>
-  <footer class="border-t border-white/10 bg-navy-800 py-8">
+  <footer
+    class="border-t py-8"
+    style="border-color: var(--line-soft); background: var(--bg-2)"
+  >
     <div class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6">
       <div class="flex gap-6">
         <a
@@ -19,7 +23,10 @@
           :aria-label="link.label"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-gray-500 transition-colors hover:text-cyan"
+          class="transition-colors duration-200"
+          style="color: var(--text-4)"
+          @mouseenter="($event.currentTarget as HTMLElement).style.color = 'var(--burnt)'"
+          @mouseleave="($event.currentTarget as HTMLElement).style.color = 'var(--text-4)'"
         >
           <component
             :is="link.icon"
@@ -27,7 +34,14 @@
           />
         </a>
       </div>
-      <p class="text-sm text-gray-600">&copy; {{ new Date().getFullYear() }} Patrick Rizzardi</p>
+      <p
+        class="text-sm"
+        style="color: var(--text-4)"
+      >
+        &copy; {{ new Date().getFullYear() }} {{ siteConfig.name }}
+        &nbsp;&middot;&nbsp;
+        <span style="color: var(--text-3)">shipped with intent · not by accident</span>
+      </p>
     </div>
   </footer>
 </template>

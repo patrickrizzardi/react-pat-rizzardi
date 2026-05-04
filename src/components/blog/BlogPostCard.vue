@@ -27,7 +27,7 @@
   >
     <article
       ref="cardRef"
-      class="spotlight-card relative overflow-hidden rounded-2xl border border-white/10 bg-navy-800 p-6 transition-all duration-300 hover:border-cyan/30"
+      class="spotlight-card bg-navy-800 hover:border-cyan/30 relative overflow-hidden rounded-2xl border border-white/10 p-6 transition-all duration-300"
     >
       <div class="mb-3 flex items-center gap-4 text-xs text-gray-500">
         <span class="inline-flex items-center gap-1">
@@ -40,7 +40,7 @@
         </span>
       </div>
 
-      <h3 class="text-xl font-bold text-white transition-colors group-hover:text-cyan">
+      <h3 class="group-hover:text-cyan text-xl font-bold text-white transition-colors">
         {{ post.frontmatter.title }}
       </h3>
 

@@ -13,15 +13,15 @@
     <RouterLink
       v-if="prev"
       :to="`/blog/${prev.frontmatter.slug}`"
-      class="group flex items-center gap-3 rounded-xl border border-white/10 p-4 transition-colors hover:border-cyan/30"
+      class="group hover:border-cyan/30 flex items-center gap-3 rounded-xl border border-white/10 p-4 transition-colors"
     >
       <ArrowLeft
         :size="16"
-        class="shrink-0 text-gray-500 transition-colors group-hover:text-cyan"
+        class="group-hover:text-cyan shrink-0 text-gray-500 transition-colors"
       />
       <div class="min-w-0">
         <div class="text-xs text-gray-500">Previous</div>
-        <div class="truncate text-sm font-medium text-white transition-colors group-hover:text-cyan">
+        <div class="group-hover:text-cyan truncate text-sm font-medium text-white transition-colors">
           {{ prev.frontmatter.title }}
         </div>
       </div>
@@ -31,17 +31,17 @@
     <RouterLink
       v-if="next"
       :to="`/blog/${next.frontmatter.slug}`"
-      class="group flex items-center justify-end gap-3 rounded-xl border border-white/10 p-4 text-right transition-colors hover:border-cyan/30"
+      class="group hover:border-cyan/30 flex items-center justify-end gap-3 rounded-xl border border-white/10 p-4 text-right transition-colors"
     >
       <div class="min-w-0">
         <div class="text-xs text-gray-500">Next</div>
-        <div class="truncate text-sm font-medium text-white transition-colors group-hover:text-cyan">
+        <div class="group-hover:text-cyan truncate text-sm font-medium text-white transition-colors">
           {{ next.frontmatter.title }}
         </div>
       </div>
       <ArrowRight
         :size="16"
-        class="shrink-0 text-gray-500 transition-colors group-hover:text-cyan"
+        class="group-hover:text-cyan shrink-0 text-gray-500 transition-colors"
       />
     </RouterLink>
   </nav>

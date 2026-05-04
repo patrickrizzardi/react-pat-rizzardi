@@ -53,7 +53,7 @@
           :class="
             activeTag === tag ?
               'border-cyan bg-cyan/20 text-cyan'
-            : 'border-white/10 text-gray-400 hover:border-cyan/30 hover:text-cyan'
+            : 'hover:border-cyan/30 hover:text-cyan border-white/10 text-gray-400'
           "
           @click="toggleTag(tag)"
         >
@@ -79,7 +79,7 @@
         <p class="text-gray-500">No posts found for this tag.</p>
         <button
           type="button"
-          class="mt-4 text-sm text-cyan transition-colors hover:text-cyan-300"
+          class="text-cyan mt-4 text-sm transition-colors hover:text-cyan-300"
           @click="activeTag = null"
         >
           Clear filter

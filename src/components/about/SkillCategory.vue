@@ -7,7 +7,7 @@
 
 <template>
   <div>
-    <h4 class="mb-3 text-sm font-semibold tracking-wider text-cyan uppercase">{{ category }}</h4>
+    <h4 class="text-cyan mb-3 text-sm font-semibold tracking-wider uppercase">{{ category }}</h4>
     <div class="flex flex-wrap gap-2">
       <span
         v-for="skill in skills"
