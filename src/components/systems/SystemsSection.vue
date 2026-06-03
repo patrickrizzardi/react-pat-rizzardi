@@ -12,14 +12,14 @@
 
   const secondaryTag = (p: Project): string => {
     if (p.tier === 'experience') return 'live';
-    if (p.id === 'error-decoder') return 'shipped';
-    return 'oss';
+    if (p.id === 'error-decoder') return 'archived';
+    return 'open source';
   };
 
   const secondaryRole = (p: Project): string => {
     if (p.tier === 'experience') return `${p.role} · ${p.period}`;
-    if (p.id === 'error-decoder') return 'Solo · Browser extension + web · 2023 — Present';
-    if (p.id === 'yinzerflow') return 'OSS · Node framework · 2024';
+    if (p.id === 'error-decoder') return 'Solo · Browser extension + web · 2023 (archived)';
+    if (p.id === 'yinzerflow') return 'Open source · Node framework · 2024';
     return 'Solo · Lua addon · 2022';
   };
 
@@ -36,7 +36,7 @@
         ...p,
         rank: String(i + 1).padStart(2, '0'),
         tagline: taglineMap[p.id] ?? '',
-        status: statusMap[p.id] ?? 'oss',
+        status: statusMap[p.id] ?? 'open source',
       })),
   );
 
@@ -49,8 +49,8 @@
   const expandedCard = ref<string | null>(null);
   const tagColors: Record<string, string> = {
     live: 'oklch(0.74 0.21 145)',
-    shipped: 'var(--burnt)',
-    oss: 'var(--text-3)',
+    'open source': 'var(--text-3)',
+    archived: 'var(--text-4)',
     active: 'var(--burnt-hi)',
     training: 'oklch(0.74 0.21 145)',
     'in dev': 'var(--text-3)',

@@ -106,21 +106,42 @@ pub fn rope_forward_reshape(
     tier: 'featured',
     title: 'Yinz Language',
     description:
-      'A compiled systems language that targets LLVM native code. Full compiler pipeline written in Rust: lexer, parser, type-checker, and LLVM codegen via inkwell. Incremental recompilation powered by salsa — unchanged stages return cached results, so rebuilds skip recompiling unchanged stages. Ships with an LSP server, formatter, watch daemon, and VSCode extension.',
+      "A compiled systems language — LLVM-native, compiler written in Rust — built on one rule: the compiler should teach, not scold. Every diagnostic, error or warning, is required to explain what broke, what to do instead, and why — enforced at construction, so a message missing its 'why' never reaches a user. Ships with a salsa-incremental compiler, LSP, formatter, watch daemon, and VSCode extension.",
     tech: ['Rust', 'LLVM', 'inkwell', 'salsa', 'LSP'],
     archNotes:
-      'Every compiler stage is a memoized salsa query — re-running on unchanged source returns cached results without recompilation. The LSP server, formatter, and watch daemon share the same query registry, so diagnostics and formatting are always consistent with the compiler.',
+      'Two more design bets beyond the teaching standard. A no-function-coloring concurrency model where suspension is inferred — no async/await split between sync and async code: the core (transitive may-block analysis, stackless state-machine codegen, and a work-stealing scheduler) runs today, with whole-program propagation and auto-parallelization in active development. And compiler-enforced sensitive types that auto-redact secrets across every output path. Numbers default to exact decimal, so money math never silently rounds.',
     snippets: [
       {
-        label: 'salsa Incremental Query',
+        label: 'Teaching diagnostics, type-enforced',
         language: 'rust',
-        code: `#[salsa::tracked]
-fn type_check_fn(db: &dyn Db, func: Function) -> TypeCheckResult {
-    // salsa re-runs this only when func's parse tree changes;
-    // callers that depend on unchanged functions get the cached result
-    let body = parse_body(db, func);
-    let env = build_type_env(db, func);
-    infer_types(db, body, env)
+        code: `// Golden Rule 11, encoded in the type system: every diagnostic must answer
+// WHAT broke, WHAT to do instead, and WHY. A missing part panics at
+// construction — it can never reach a user.
+pub struct Diagnostic {
+    pub severity: Severity,
+    pub span: SourceSpan,
+    pub what: String,
+    pub what_instead: String,
+    pub why: String,
+    // related spans, optional kind...
+}
+
+impl Diagnostic {
+    pub fn new(
+        severity: Severity,
+        span: SourceSpan,
+        what: impl Into<String>,
+        what_instead: impl Into<String>,
+        why: impl Into<String>,
+    ) -> Self {
+        let what = what.into();
+        let what_instead = what_instead.into();
+        let why = why.into();
+        assert!(!what.is_empty(), "Golden Rule 11 requires all three message parts");
+        assert!(!what_instead.is_empty(), "Golden Rule 11 requires all three message parts");
+        assert!(!why.is_empty(), "Golden Rule 11 requires all three message parts");
+        Self { severity, span, what, what_instead, why, related: vec![], kind: None }
+    }
 }`,
       },
     ],
@@ -153,10 +174,8 @@ fn type_check_fn(db: &dyn Db, func: Function) -> TypeCheckResult {
     tier: 'standard',
     title: 'Error Decoder',
     description:
-      'Got tired of Googling cryptic minified error codes. Built a browser extension and web app that decodes production errors from React, Vue, Angular, and Node.js into human-readable explanations. Monetized and actively maintained.',
+      'An early solo project — tired of Googling cryptic minified error codes, I built a browser extension and web app that decoded production errors from React, Vue, Angular, and Node.js into human-readable explanations. Now archived: the hosted service was retired after launch.',
     tech: ['TypeScript', 'Chrome Extension API', 'Vue 3', 'Vite'],
-    liveUrl: 'https://errordecoder.dev',
-    extensionUrl: 'https://chromewebstore.google.com/detail/error-decoder',
   },
   {
     id: 'yinzerflow',
