@@ -6,6 +6,7 @@
   import { useSeo } from '@/composables/useSeo';
   import { siteConfig } from '@/data/siteConfig';
   import BlogPostCard from '@/components/blog/BlogPostCard.vue';
+  import AppButton from '@/components/ui/AppButton.vue';
 
   useSeo({
     title: 'Blog — Patrick Rizzardi',
@@ -83,23 +84,16 @@
       v-if="allTags.length > 0"
       class="mb-10 flex flex-wrap gap-2"
     >
-      <button
+      <AppButton
         v-for="tag in allTags"
         :key="tag"
-        type="button"
-        class="rounded-full px-3 py-1 transition-colors duration-150"
-        :style="{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '11px',
-          color: activeTag === tag ? 'var(--bg)' : 'var(--text-3)',
-          background: activeTag === tag ? 'var(--burnt)' : 'transparent',
-          border: `1px solid ${activeTag === tag ? 'var(--burnt)' : 'var(--line)'}`,
-          cursor: 'pointer',
-        }"
+        variant="chip"
+        size="sm"
+        :active="activeTag === tag"
         @click="toggleTag(tag)"
       >
         {{ tag }}
-      </button>
+      </AppButton>
     </div>
 
     <div
@@ -118,21 +112,13 @@
       class="py-16 text-center"
     >
       <p style="color: var(--text-4); font-family: var(--font-mono); font-size: 13px">No posts found for this tag.</p>
-      <button
-        type="button"
-        class="mt-4 transition-colors duration-150"
-        style="
-          font-family: var(--font-mono);
-          font-size: 12px;
-          color: var(--burnt);
-          cursor: pointer;
-          background: none;
-          border: none;
-        "
+      <AppButton
+        variant="text"
+        class="mt-4"
         @click="setTag(null)"
       >
         clear filter
-      </button>
+      </AppButton>
     </div>
   </div>
 </template>

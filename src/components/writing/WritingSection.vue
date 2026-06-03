@@ -2,6 +2,7 @@
   import { computed } from 'vue';
   import { RouterLink } from 'vue-router';
   import { useBlogPosts } from '@/composables/useBlogPosts';
+  import AppButton from '@/components/ui/AppButton.vue';
 
   const { posts } = useBlogPosts();
   const recent = computed(() => posts.slice(0, 4));
@@ -30,17 +31,11 @@
             engineering log
           </h2>
         </div>
-        <RouterLink
+        <AppButton
+          variant="chip"
+          as="RouterLink"
           to="/blog"
-          class="rounded-full px-4 py-2 transition-colors duration-200"
-          style="
-            font-family: var(--font-mono);
-            font-size: 12px;
-            color: var(--text-2);
-            border: 1px solid var(--line);
-            text-decoration: none;
-          "
-          >all posts ↗</RouterLink
+          >all posts ↗</AppButton
         >
       </div>
 

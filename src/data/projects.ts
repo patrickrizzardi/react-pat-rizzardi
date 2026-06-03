@@ -176,6 +176,10 @@ impl Diagnostic {
     description:
       'An early solo project — tired of Googling cryptic minified error codes, I built a browser extension and web app that decoded production errors from React, Vue, Angular, and Node.js into human-readable explanations. Now archived: the hosted service was retired after launch.',
     tech: ['TypeScript', 'Chrome Extension API', 'Vue 3', 'Vite'],
+    repoUrl: null,
+    liveUrl: null,
+    npmUrl: null,
+    extensionUrl: null,
   },
   {
     id: 'yinzerflow',
@@ -185,7 +189,9 @@ impl Diagnostic {
       'Most Node.js frameworks bolt on security as middleware. I wanted it built into the foundation — CSRF protection, rate limiting, and input sanitization out of the box. Published on npm with 66+ tests.',
     tech: ['TypeScript', 'Node.js', 'Security', 'npm'],
     repoUrl: 'https://github.com/yinzers/YinzerFlow',
+    liveUrl: null,
     npmUrl: 'https://www.npmjs.com/package/yinzerflow',
+    extensionUrl: null,
   },
   {
     id: 'wow-inventory',
@@ -195,5 +201,8 @@ impl Diagnostic {
       'An addon for tracking inventory across characters and guilds in World of Warcraft. Event-driven architecture on the WoW API — built it because the existing solutions were slow and I wanted real-time sync.',
     tech: ['Lua', 'WoW API', 'Event-Driven', 'XML'],
     repoUrl: 'https://github.com/patrickrizzardi/wow-inventory-management',
+    liveUrl: null,
+    npmUrl: null,
+    extensionUrl: null,
   },
 ] as const;

@@ -2,6 +2,7 @@
   import { computed } from 'vue';
   import { ArrowLeft } from 'lucide-vue-next';
   import type { BlogPost } from '@/types/blog';
+  import AppButton from '@/components/ui/AppButton.vue';
 
   const props = defineProps<{ post: BlogPost }>();
 
@@ -56,19 +57,14 @@
     </div>
 
     <div class="flex flex-wrap gap-2">
-      <RouterLink
+      <AppButton
         v-for="tag in post.frontmatter.tags"
         :key="tag"
+        variant="chip"
+        as="RouterLink"
         :to="`/blog?tag=${tag}`"
-        class="rounded-full px-2.5 py-1 no-underline transition-colors duration-150"
-        style="
-          font-family: var(--font-mono);
-          font-size: 11px;
-          color: var(--text-3);
-          background: var(--bg-3);
-          border: 1px solid var(--line-soft);
-        "
-        >{{ tag }}</RouterLink
+        size="sm"
+        >{{ tag }}</AppButton
       >
     </div>
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { ref, watch, onUnmounted, nextTick } from 'vue';
   import { X } from 'lucide-vue-next';
+  import AppButton from '@/components/ui/AppButton.vue';
 
   const props = defineProps<{
     open: boolean;
@@ -73,37 +74,28 @@
           <X :size="16" />
         </button>
 
-        <button
+        <AppButton
           v-for="link in links"
           :key="link.id"
-          type="button"
-          class="cursor-pointer rounded-lg px-3 py-2.5 text-left transition-colors duration-150 select-none"
-          style="font-family: var(--font-mono); font-size: 13px; color: var(--text-2); background: none; border: none"
+          variant="nav"
+          block
           @click="emit('navigate', link.id)"
         >
           {{ link.label }}
-        </button>
+        </AppButton>
 
         <div
           class="my-3 h-px"
           style="background: var(--line-soft)"
         />
 
-        <button
-          type="button"
-          class="cursor-pointer rounded-lg border px-3 py-2.5 text-center transition-colors duration-150 select-none"
-          style="
-            font-family: var(--font-mono);
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            border-color: var(--burnt);
-            background: none;
-          "
+        <AppButton
+          variant="ghost"
+          block
           @click="emit('navigate', 'contact')"
         >
           hire ↗
-        </button>
+        </AppButton>
       </div>
     </div>
   </Transition>

@@ -29,10 +29,10 @@ export interface ExperienceProject extends ProjectBase {
 
 export interface StandardProject extends ProjectBase {
   tier: 'standard';
-  repoUrl?: string;
-  liveUrl?: string;
-  npmUrl?: string;
-  extensionUrl?: string;
+  repoUrl: string | null;
+  liveUrl: string | null;
+  npmUrl: string | null;
+  extensionUrl: string | null;
 }
 
 export type Project = FeaturedProject | ExperienceProject | StandardProject;

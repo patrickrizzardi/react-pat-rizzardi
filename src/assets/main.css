@@ -26,6 +26,9 @@
   --font-body: 'Geist', -apple-system, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+
+  --btn-radius: 6px;
+  --card-radius: 14px;
 }
 
 :root {
@@ -63,6 +66,8 @@
 
   --radius: 14px;
   --radius-sm: 8px;
+  --btn-radius: 6px;
+  --card-radius: 14px;
 
   --font-display: 'Geist', -apple-system, system-ui, sans-serif;
   --font-accent: 'Newsreader', Georgia, serif;

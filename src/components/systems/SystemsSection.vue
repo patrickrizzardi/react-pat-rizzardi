@@ -2,6 +2,7 @@
   import { ref, computed } from 'vue';
   import type { Project } from '@/types/project';
   import CodeSnippet from '@/components/projects/CodeSnippet.vue';
+  import AppButton from '@/components/ui/AppButton.vue';
   import { projects } from '@/data/projects';
 
   const taglineMap: Record<string, string> = {
@@ -174,6 +175,22 @@
                 </div>
                 <p style="font-size: 13px; line-height: 1.6; color: var(--text-3); margin: 0">{{ p.archNotes }}</p>
               </div>
+
+              <!-- Featured repo link (only when a public repo exists) -->
+              <div
+                v-if="p.tier === 'featured' && p.repoUrl"
+                class="mt-4"
+              >
+                <AppButton
+                  variant="chip"
+                  as="a"
+                  :href="p.repoUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="sm"
+                  >↗ repo</AppButton
+                >
+              </div>
             </div>
 
             <!-- Right: code peek -->
@@ -236,52 +253,38 @@
 
           <p style="font-size: 13px; line-height: 1.6; color: var(--text-3); margin: 0; flex: 1">{{ p.description }}</p>
 
-          <!-- Links -->
+          <!-- Links — ExperienceProject has liveUrl as required string; StandardProject has string | null -->
           <div class="mt-auto flex flex-wrap gap-2">
-            <a
-              v-if="'liveUrl' in p && p.liveUrl"
+            <AppButton
+              v-if="p.liveUrl"
+              variant="chip"
+              as="a"
               :href="p.liveUrl"
               target="_blank"
               rel="noopener noreferrer"
-              class="rounded-full px-2.5 py-1 transition-colors duration-150"
-              style="
-                font-family: var(--font-mono);
-                font-size: 11px;
-                color: var(--burnt);
-                border: 1px solid var(--burnt);
-                text-decoration: none;
-              "
-              >↗ live</a
+              size="sm"
+              accent
+              >↗ live</AppButton
             >
-            <a
+            <AppButton
               v-if="'repoUrl' in p && p.repoUrl"
+              variant="chip"
+              as="a"
               :href="p.repoUrl"
               target="_blank"
               rel="noopener noreferrer"
-              class="rounded-full px-2.5 py-1 transition-colors duration-150"
-              style="
-                font-family: var(--font-mono);
-                font-size: 11px;
-                color: var(--text-3);
-                border: 1px solid var(--line);
-                text-decoration: none;
-              "
-              >↗ repo</a
+              size="sm"
+              >↗ repo</AppButton
             >
-            <a
+            <AppButton
               v-if="'npmUrl' in p && p.npmUrl"
+              variant="chip"
+              as="a"
               :href="p.npmUrl"
               target="_blank"
               rel="noopener noreferrer"
-              class="rounded-full px-2.5 py-1 transition-colors duration-150"
-              style="
-                font-family: var(--font-mono);
-                font-size: 11px;
-                color: var(--text-3);
-                border: 1px solid var(--line);
-                text-decoration: none;
-              "
-              >↗ npm</a
+              size="sm"
+              >↗ npm</AppButton
             >
           </div>
         </div>

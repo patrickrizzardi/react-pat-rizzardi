@@ -1,18 +1,15 @@
 <script setup lang="ts">
   import { ref, onMounted, onUnmounted } from 'vue';
   import NeuronCanvas from './NeuronCanvas.vue';
+  import AppButton from '@/components/ui/AppButton.vue';
   import { useDecoder } from '@/composables/useDecoder';
-  import { useMagneticButton } from '@/composables/useMagneticButton';
   import { siteConfig } from '@/data/siteConfig';
   import { metrics } from '@/data/metrics';
 
   const callsign = useDecoder('patrick.rizzardi', 200);
-  const { buttonRef, onMouseMove, onMouseLeave } = useMagneticButton();
 
   const clock = ref('');
   const metricVisible = ref([false, false, false, false]);
-  const ctaHover = ref(false);
-  const githubHover = ref(false);
 
   let clockInterval = 0;
   const timeouts: Array<ReturnType<typeof setTimeout>> = [];
@@ -143,26 +140,14 @@
           <span>{{ clock }}</span>
         </div>
 
-        <a
+        <AppButton
+          variant="chip"
+          as="a"
           :href="siteConfig.github"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center"
-          :style="{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
-            color: githubHover ? 'var(--text)' : 'var(--text-3)',
-            padding: '5px 10px',
-            border: `1px solid ${githubHover ? 'var(--burnt-hi)' : 'var(--line)'}`,
-            borderRadius: '999px',
-            background: 'var(--card)',
-            backdropFilter: 'blur(8px)',
-            textDecoration: 'none',
-            transition: 'color 0.2s, border-color 0.2s',
-          }"
-          @mouseenter="githubHover = true"
-          @mouseleave="githubHover = false"
-          >↗ github</a
+          size="sm"
+          >↗ github</AppButton
         >
       </div>
 
@@ -212,27 +197,9 @@
         class="flex flex-wrap items-center gap-3.5"
         style="margin-top: 40px"
       >
-        <button
-          ref="buttonRef"
-          type="button"
-          class="relative inline-flex cursor-pointer items-center gap-2.5"
-          style="
-            font-family: var(--font-mono);
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--bg);
-            background: linear-gradient(180deg, var(--burnt-hi) 0%, var(--burnt) 55%, var(--ember) 100%);
-            padding: 14px 24px;
-            border-radius: 999px;
-            border: none;
-            box-shadow:
-              0 10px 30px -14px oklch(0.66 0.17 48 / 0.5),
-              inset 0 1px 0 oklch(1 0 0 / 0.2);
-            transition: transform 0.2s ease;
-          "
+        <AppButton
+          variant="primary"
           @click="scrollTo('systems')"
-          @mousemove="onMouseMove"
-          @mouseleave="onMouseLeave"
         >
           <span>view systems</span>
           <svg
@@ -242,30 +209,18 @@
             fill="none"
             stroke="currentColor"
             stroke-width="2.5"
+            style="margin-left: 10px"
           >
             <path d="M5 12h14M13 5l7 7-7 7" />
           </svg>
-        </button>
+        </AppButton>
 
-        <button
-          type="button"
-          class="inline-flex cursor-pointer items-center"
-          :style="{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '13px',
-            color: ctaHover ? 'var(--burnt-hi)' : 'var(--text)',
-            background: 'transparent',
-            padding: '14px 22px',
-            borderRadius: '999px',
-            border: `1px solid ${ctaHover ? 'var(--burnt)' : 'oklch(0.66 0.17 48 / 0.5)'}`,
-            transition: 'border-color 0.2s, color 0.2s',
-          }"
+        <AppButton
+          variant="ghost"
           @click="scrollTo('contact')"
-          @mouseenter="ctaHover = true"
-          @mouseleave="ctaHover = false"
         >
           open a thread
-        </button>
+        </AppButton>
 
         <span
           class="ml-2"

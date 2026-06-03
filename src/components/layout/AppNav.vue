@@ -4,13 +4,12 @@
   import { Menu } from 'lucide-vue-next';
   import CheddarWordmark from './CheddarWordmark.vue';
   import MobileMenu from './MobileMenu.vue';
+  import AppButton from '@/components/ui/AppButton.vue';
 
   const route = useRoute();
   const router = useRouter();
 
   const mobileOpen = ref(false);
-  const linkHover = ref<string | null>(null);
-  const ctaHover = ref(false);
 
   const navLinks = [
     { id: 'principles', label: 'principles' },
@@ -75,42 +74,23 @@
         style="background: var(--line)"
       />
 
-      <button
+      <AppButton
         v-for="link in navLinks"
         :key="link.id"
-        type="button"
-        class="cursor-pointer rounded-full px-3 py-1.5 transition-colors duration-200 select-none"
-        :style="{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '12px',
-          color: linkHover === link.id ? 'var(--text)' : 'var(--text-2)',
-          background: linkHover === link.id ? 'oklch(1 0 0 / 0.04)' : 'transparent',
-          border: 'none',
-        }"
+        variant="nav"
         @click="goTo(link.id)"
-        @mouseenter="linkHover = link.id"
-        @mouseleave="linkHover = null"
       >
         {{ link.label }}
-      </button>
+      </AppButton>
 
-      <button
-        type="button"
-        class="ml-1 cursor-pointer rounded-full border px-[14px] py-2 transition-colors duration-200 select-none"
-        :style="{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '12px',
-          fontWeight: '600',
-          color: ctaHover ? 'var(--burnt-hi)' : 'var(--text)',
-          background: ctaHover ? 'oklch(0.66 0.17 48 / 0.12)' : 'transparent',
-          borderColor: 'var(--burnt)',
-        }"
+      <AppButton
+        variant="ghost"
+        size="sm"
+        class="ml-1"
         @click="goTo('contact')"
-        @mouseenter="ctaHover = true"
-        @mouseleave="ctaHover = false"
       >
         hire ↗
-      </button>
+      </AppButton>
     </div>
 
     <!-- Mobile hamburger -->
