@@ -9,7 +9,7 @@ export const projects: ReadonlyArray<Project> = [
       'I wanted to understand transformers at the kernel level, not just call an API. So I built an LLM from scratch in Rust — custom CUDA attention kernels, a BPE tokenizer trained on 34GB of text across a 3.85B-token corpus, and three architectures under active exploration: a LLaMA-style transformer, RWKV-7, and a hybrid. Base training is in progress; inference service is planned.',
     tech: ['Rust', 'CUDA', 'cudarc', 'Transformer', 'RWKV', 'BPE', 'Linux'],
     archNotes:
-      'Hand-written CUDA attention kernels (via cudarc) replaced the burn framework after they measurably outperformed its built-in ops — the tradeoff was months of low-level debugging for full control over memory layout and kernel fusion. Running three architecture experiments in parallel to understand where transformers end and recurrent models begin.',
+      'Hand-written CUDA attention kernels (via cudarc) replaced the burn framework for full control over memory layout and kernel fusion, and to drop the framework abstraction overhead — the tradeoff was months of low-level debugging. Running three architecture experiments in parallel to understand where transformers end and recurrent models begin.',
     snippets: [
       {
         label: 'cudarc Kernel Dispatch — Fused RoPE + Head Reshape',

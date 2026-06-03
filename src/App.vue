@@ -6,8 +6,8 @@
 <template>
   <div class="min-h-screen">
     <AppNav />
-    <!-- pt clears the fixed full-width nav bar (~61px desktop / ~54px mobile); 64px clears both with a hairline gap. Anchored scroll uses the live measured nav height (src/utils/scroll.ts). -->
-    <main class="pt-[64px]">
+    <!-- pt clears the fixed full-width nav bar via the --nav-h token (src/assets/main.css), which tracks the bar height per breakpoint. Anchored scroll uses the live measured nav height (src/utils/scroll.ts). -->
+    <main class="pt-[var(--nav-h)]">
       <RouterView />
     </main>
     <AppFooter />

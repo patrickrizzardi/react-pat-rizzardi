@@ -22,7 +22,7 @@ export const principles = [
   {
     n: '05',
     title: 'Read the kernel.',
-    body: 'I built an LLM from bare metal — custom CUDA attention kernels, BPE tokenizer, the whole pipeline. APIs are fine. Understanding what they wrap is better.',
+    body: "I'm building an LLM from scratch — custom CUDA attention kernels, a BPE tokenizer, the full training pipeline. APIs are fine. Understanding what they wrap is better.",
   },
   {
     n: '06',

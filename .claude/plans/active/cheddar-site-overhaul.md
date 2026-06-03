@@ -2,7 +2,7 @@
 slug: cheddar-site-overhaul
 type: execution
 owner: Patrick
-status: active
+status: done
 files:
   - src/data/projects.ts
   - src/components/**
@@ -327,7 +327,7 @@ Each phase ends with an **Exit Sequence** (persist plan state → fan out review
 - [x] design-compliance-reviewer: PASS (registry absent; 1 non-blocking aspirational note re: `<style scoped>` for reka `[data-state]` anim) — 2026-06-03
 - [x] deviation-judge #1 (reka dialog close): PASS (round 2) — 2026-06-03
 - [x] deviation-judge #2 (index.html/OG honesty): PASS (round 2) — 2026-06-03
-- [ ] Committed: <commit SHA>
+- [x] Committed: c1e5b6c
 
 **Findings Log**:
 - 2026-06-03 Patrick decisions: ADD reka-ui for the real dialog (Qd); coordinator renders the OG image.
@@ -351,16 +351,43 @@ Each phase ends with an **Exit Sequence** (persist plan state → fan out review
 - **Flag graveyards**: no feature flags introduced (static site, single deploy) — nothing to leave behind.
 
 ## Quality Checklist (verify at completion)
-- [ ] Inputs validated — **N/A** (static site, no user input)
-- [ ] Auth/authz — **N/A** (no server/endpoints)
-- [ ] Error handling — **N/A** (no runtime error surfaces beyond build)
-- [ ] No SQL injection / XSS / path traversal / secret exposure — XSS: no `v-html` on untrusted content (confirm none added); rest N/A
-- [ ] Performance: bundle stays lean (one optional dep, tree-shaken); OG image optimized
-- [ ] Tests — site has no unit tests; verification is browser + axe + type-check + lint (stated per phase)
-- [ ] Existing build still passes (`vite-ssg build`)
-- [ ] Types complete (no `any`, no non-null assertions, union+as const not enum, `T | null` not `?:`)
-- [ ] Follows existing conventions (`vue-standards.md`, projects.ts shape, `@theme` token pattern)
-- [ ] Every phase received all-reviewer + all-judge PASS before committing
-- [ ] Final cumulative reviewer sweep passed
-- [ ] Plan-file acceptance-criteria checkboxes accurate across all phases
-- [ ] **Honesty**: final grep clean of all banned claim strings; Patrick signed off on Phase 1 copy
+- [x] Inputs validated — **N/A** (static site, no user input)
+- [x] Auth/authz — **N/A** (no server/endpoints)
+- [x] Error handling — **N/A** (no runtime error surfaces beyond build)
+- [x] No SQL injection / XSS / path traversal / secret exposure — no `v-html` added (confirmed); rest N/A
+- [x] Performance: bundle stays lean (reka-ui only added dep, tree-shaken); OG image optimized (195KB)
+- [x] Tests — site has no unit tests; verification is browser + axe + type-check + lint (per phase)
+- [x] Existing build still passes (`vite-ssg build` → 4 pages rendered, built in 5.03s, 2026-06-03)
+- [x] Types complete (no `any`, no non-null assertions, union+as const not enum, `T | null` not `?:`) — rules-compliance PASS
+- [x] Follows existing conventions (`vue-standards.md`, projects.ts shape, `@theme` token pattern)
+- [x] Every phase received all-reviewer + all-judge PASS before committing
+- [x] Final cumulative reviewer sweep passed (5 reviewers + 9 judges; see Final Review Findings Log)
+- [x] Plan-file acceptance-criteria checkboxes accurate across all phases (16/16 MET — acceptance-verifier PASS)
+- [x] **Honesty**: final grep clean of all banned claim strings; Patrick signed off on Phase 1 copy
+
+---
+
+## Final Review Findings Log (end-of-plan cumulative review — 2026-06-03)
+
+Cumulative sweep: 5 reviewers + 9 deviation-judges, all `model: opus`, BASE `96e37aec` (plan_base), diff `git diff 96e37aec`.
+
+**PASS (10):** rules-compliance, acceptance-verifier (16/16 ACs MET), plan-adherence, design-compliance; judges P1#1 (repoUrl), P1#4 (SystemsSection statusMap), P2#1 (AppButton API merge order), P2#2 (ContactSection skip), P3#1 (nav offset survives the Phase-4 portal).
+
+**BLOCK → fixed in Step 4.c fix loop (all re-gated PASS):**
+1. **code-reviewer #1** — `principles.ts:25` LLM "built … the whole pipeline" = completion overstatement (Phase 4 reconciled `index.html` but this third surface slipped between Phase 1 and Phase 4). FIX → "I'm building an LLM from scratch … the full training pipeline" (gerund/in-progress, matches `projects.ts:9`).
+2. **code-reviewer #2** — nav-height carried as three disagreeing literals (`NAV_FALLBACK 56` / `App.vue pt-64` / `MobileMenu top-56`) bypassing the live-measurement source (no-duct-tape #4+#7). FIX → single `--nav-h` CSS token (`:root` 54px / `@media ≥768px` 61px, provenance comment) consumed by `App.vue pt-[var(--nav-h)]` + `MobileMenu top-[var(--nav-h)]`; `scroll.ts NAV_FALLBACK_HEIGHT=54` cites it (live `navBarHeight()` remains runtime source). Coordinator browser-verified (Playwright): desktop `--nav-h`=61 clears 60.5px bar; mobile `--nav-h`=54 = bar, dropdown flush at top 54.
+3. **judge P1#3 (Tessa)** — archNotes "measurably outperformed [burn's] built-in ops" = unbenchmarked A/B claim (tessa-ai removal commits `eb51065`/`80eca7c` cite control/transparency/binary-size; `07fe218` ships kernel fusion; no burn-vs-cudarc benchmark exists). FIX → "replaced the burn framework for full control over memory layout and kernel fusion, and to drop the framework abstraction overhead — the tradeoff was months of low-level debugging." Re-gate confirmed: replacement traces to the commits, no smuggled magnitude.
+4. **judge P4#2 (index.html/OG)** — (a) "from-scratch LLVM compiler" overstates Yinz (LLVM-native via inkwell); (b) "Distributed systems at $2M/mo scale" welds VPM revenue to Trading architecture. FIX → `index.html` meta aligned with `HomeView.vue` copy ("…distributed systems, TypeScript/Node, and MySQL at $2M/mo scale. Building a Rust LLVM compiler, training LLMs with CUDA kernels…"). Re-gate note: the re-judge found HomeView's copy at `plan_base` was itself the OLD "stay profitable" string — the `$2M/mo` copy was authored fresh during this plan in BOTH files, not copied from a pre-vetted source; judge re-traced every claim (incl. the 4 new ones: fault-tolerant microservices, 11 integrations, OpenAI-in-prod, CUDA kernels) → all trace to projects.ts/metrics.ts. PASS.
+
+**Coordinator-extended honesty fixes (same defect class as P4#2, caught via browser verification of the live hero + OG card — surfaces no judge's text diff covered):**
+- `HeroSection.vue` subhead: "building compilers and LLMs from bare metal solo" → "building a Rust LLVM compiler and an LLM from bare metal, solo" — "bare metal" now attaches only to the Tessa LLM (Yinz is LLVM).
+- **OG card** (`public/assets/og-default.png`): the binary was NOT in any judge's readable diff; coordinator browser-read it and found it carried the SAME "from-scratch LLVM compiler" + "$2M/mo distributed" claims as index.html. Re-rendered (1200×630, serves 200) with honest copy matching the corrected hero: "Leading a team of 4 at a $2M/mo platform, while building a Rust LLVM compiler and an LLM from bare metal, solo…"
+
+**judge P1#2 (metrics) — BLOCK NOT confirmed (Rule-11 verification):** judge computed `$65.8M / 54mo = $1.22M/mo ≠ $2M/mo` → "site contradicts itself." That assumes constant revenue across 2021–present (flat-rate fallacy). `$2M/mo` is the current run-rate; `$65.8M` is cumulative-since-2021 — different quantities, both true (state.md source-of-truth), and `projects.ts:155` frames them correctly together ("$2M+ in monthly cashflow ($65.8M+ gross since 2021)"). **No code change.** Doc-gap closed: the `metrics.ts:2` `$2M→$65.8M` swap was Patrick-directed (his "swap one out for the 65m" decision); only the `500M→11` swap had been recorded in the Phase 1 scratch — recording the second swap here.
+
+**Flagged for Patrick (understating/framing — NOT false claims; his call, not auto-changed):**
+- `src/data/leadership.ts` 2026 timeline: "Engineering Lead" / "Independent CTO-track engagements" — contradicts the resolved Principal-Engineer (non-CTO) positioning. Career-framing, his decision.
+- Tessa corpus "3.85B-token corpus" (`projects.ts:9`) vs tessa-ai's current "12.4B tokens (was 3.85B)". 3.85B is the English-Base figure (still live across tessa-ai planning docs) — *understated*, not overstated, so honest-safe. Patrick may want to bump to 12.4B.
+- Metrics framing: `$65.8M+ gross since 2021` now occupies a hero metric slot (Patrick-directed). Not a defect; flagged for visibility.
+
+**Build verification (final):** `bun run type-check` GREEN, `bun run lint` GREEN (5 pre-existing oxlint warnings, 0 errors), `bun run build` (vite-ssg) → 4 pages rendered, built in 5.03s.

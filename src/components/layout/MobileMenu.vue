@@ -36,7 +36,7 @@
         style="background: oklch(0 0 0 / 0.6)"
       />
       <DialogContent
-        class="fixed top-[56px] left-1/2 z-50 flex min-w-[220px] -translate-x-1/2 flex-col rounded-2xl border px-4 py-5 md:hidden"
+        class="fixed top-[var(--nav-h)] left-1/2 z-50 flex min-w-[220px] -translate-x-1/2 flex-col rounded-2xl border px-4 py-5 md:hidden"
         style="
           background: var(--card);
           backdrop-filter: blur(14px) saturate(140%);

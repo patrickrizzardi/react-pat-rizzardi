@@ -183,8 +183,9 @@
 
       <!-- Subhead -->
       <p style="margin-top: 28px; max-width: 680px; font-size: 19px; line-height: 1.55; color: var(--text-2)">
-        Principal Engineer &amp; Architect. Leading a team of 4 at a $2M/mo platform, while building compilers and LLMs
-        from bare metal solo. Leadership creates alignment&thinsp;—&thinsp;engineering creates leverage.
+        Principal Engineer &amp; Architect. Leading a team of 4 at a $2M/mo platform, while building a Rust LLVM
+        compiler and an LLM from bare metal, solo. Leadership creates alignment&thinsp;—&thinsp;engineering creates
+        leverage.
       </p>
 
       <!-- CTA row -->

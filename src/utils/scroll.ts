@@ -1,8 +1,9 @@
 // Smooth-scroll helpers for in-page section navigation beneath the fixed site nav bar.
 
 // Fallback nav-bar height (px), used only when the bar element can't be measured
-// (e.g. not yet mounted). Matches the mobile bar (~54px); desktop measures larger live.
-const NAV_FALLBACK_HEIGHT = 56;
+// (e.g. not yet mounted). Mirrors the mobile --nav-h token in src/assets/main.css;
+// navBarHeight() below is the real source — it measures the live bar, desktop included.
+const NAV_FALLBACK_HEIGHT = 54;
 // Breathing gap (px) left between a scrolled-to heading and the bottom of the fixed bar.
 const NAV_SCROLL_GAP = 12;
 

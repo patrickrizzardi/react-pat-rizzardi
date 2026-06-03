@@ -69,10 +69,23 @@
   --btn-radius: 6px;
   --card-radius: 14px;
 
+  /* Height of the fixed site nav bar. Single source for the static layout clearances
+     (App.vue main padding, MobileMenu dropdown top); the live scroll offset in
+     src/utils/scroll.ts measures the bar element directly. Bar = inner py-3 (24px) +
+     tallest content row + 1px border ≈ 54px mobile, 61px desktop (taller nav-button row). */
+  --nav-h: 54px;
+
   --font-display: 'Geist', -apple-system, system-ui, sans-serif;
   --font-accent: 'Newsreader', Georgia, serif;
   --font-body: 'Geist', -apple-system, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Desktop nav bar is taller (larger nav-button row) — keep --nav-h synced with the live bar. */
+@media (min-width: 768px) {
+  :root {
+    --nav-h: 61px;
+  }
 }
 
 * {
