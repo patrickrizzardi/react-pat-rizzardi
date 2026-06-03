@@ -1,6 +1,6 @@
 # Session State: redact-digital
 
-**Last Updated**: 2026-05-04
+**Last Updated**: 2026-06-03
 
 ---
 
@@ -18,23 +18,18 @@
 
 ## Current Context (REPLACE each update)
 
-**Goal**: Site overhaul (design system + content/SEO/honesty) — plan APPROVED on `cheddar-v1`.
-**Active Plan**: `.claude/plans/active/cheddar-site-overhaul.md` (plan-reviewer: PASS, approved). Cheddar rebrand is DONE (`.claude/plans/done/cheddar-rebrand.md`).
+**Goal**: Site overhaul (design system + content/SEO/honesty) on `cheddar-v1` — **COMPLETE**.
+**Active Plan**: `.claude/plans/active/cheddar-site-overhaul.md` (status: done — radar relocates to `plans/done/` next session). Cheddar rebrand also DONE (`.claude/plans/done/cheddar-rebrand.md`).
 **Git**: `patrickrizzardi/react-pat-rizzardi`, branch `cheddar-v1`. **Do NOT push/merge — Patrick handles.** Dev server: **localhost:8082**.
 
-**WHERE WE LEFT OFF (resume here):** EXECUTING via /execute-plan (in-place on cheddar-v1). plan_base `96e37ae`. **Phase 2 (AppButton + radius tokens) DONE + COMMITTED `db39055`** — AppButton (primary/ghost/chip/text/nav variants + size/as/block/active/accent props); ~19 button sites refactored, zero inline button-style overrides; radius 6px + solid-burnt primary (Patrick mockup pick); magnetic hero animation removed; featured repoUrl + StandardProject url-type deferrals cleared. 4 fix rounds, 5 reviewers + 2 judges all PASS. **Phase 3 (nav full-width bar) DONE + COMMITTED `117fe42`** — shared scrollToSection util ([data-app-nav] + named consts), /blog nav verified, bugs.md restored. **Phase 4 (a11y/OG/logo-favicon) IN PROGRESS (last phase).** Patrick: ADD reka-ui (real dialog); coordinator renders OG. DONE: **OG image** rendered via Playwright (1200x630, 178KB) → public/assets/og-default.png, serves 200, useSeo.ts path correct. Executor (background) doing: shiki comment contrast ≥4.5:1, reka-ui add + MobileMenu→DialogRoot/Portal/Overlay/Content refactor (wire AppNav hamburger v-model:open), favicon swap (index.html → /cheddar-logo.svg). AFTER executor: coordinator runs axe via Playwright on / + a blog post (AC#1 = 0 contrast violations), then gate Phase 4 (5 reviewers + judges), commit, then END-OF-PLAN cumulative review + flip status→done + move scratch to done/.** ORIGINAL Phase 3 in-gate note below: --- Built: AppNav full-width bar (logo left, links right, border-b, blur); NO blog nav link (Patrick's call — keep 'writing', /blog via "all posts"); menu order already matched page order. Coordinator caught + fixed the executor's wrong 46px offset (real bar 61px desktop/54px mobile) → scrollToId now measures LIVE nav height + 12px gap (robust); App.vue pt-[64px] + MobileMenu top-[56px] (commented). Browser-verified (Playwright): /blog→"systems" routes home+scrolls (lands 11px below bar); bar renders 1280 + 375 (hamburger→dropdown). Executor had silently DELETED Patrick's bugs.md (unauthorized) → coordinator RESTORED it. type-check+lint GREEN. Gate: 5 reviewers + 1 judge running. **NEXT after Phase 3 commits: Phase 4 (a11y: shiki contrast; OG image 1200x630 fixing the 404; reka-ui mobile dialog [Q d — needs Patrick approve] OR document deferral; logo+favicon swap — logo asset DONE at public/cheddar-logo.svg, needs favicon wiring).** Then end-of-plan cumulative review + flip status→done. --- **Phase 1 DONE — commits `e961c19` (honesty+Yinz+SEO) + `bbd4166` (refinements: Yinz refocus on teaching-diagnostics+no-coloring-concurrency+sensitive, verified vs real yinz-lang repo; Error Decoder→archived/offline; $65.8M gross metric; OSS→Open source).** **Phase 2 (AppButton + radius tokens) IN GATE — round 1.** Built AppButton (primary/ghost/chip/text variants), --btn-radius/--card-radius tokens; refactored ~19 button sites; rendered featured repoUrl as AppButton chip; normalized StandardProject url fields →string|null; Patrick picks applied: **radius 6px + solid-burnt primary CTA** (via mockup); **magnetic hero animation REMOVED** (Patrick: too performative) + useMagneticButton.ts deleted + consistent hover added to all variants. Verified 375/768/1280 via Playwright (clean). Phase 2 gate r1: rules/design/acceptance/plan-adherence + judge#2(ContactSection-skip) PASS; **judge#1 BLOCK — 'text' variant: AppNav+MobileMenu nav links override color/padding/font inline on top of variant="text" (escape hatch the quality gate forbids); fix = add a 'nav' variant.** Awaiting code-reviewer, then fix round. Phase 2 NOT yet committed (working tree staged via git add -N AppButton.vue). **NEXT: fix 'text'→'nav' variant, re-gate, commit Phase 2 → Phase 3 (nav full-width bar) → Phase 4 (a11y/OG/favicon).**
+**WHERE WE LEFT OFF (resume here):** cheddar-site-overhaul plan **COMPLETE** — all 4 phases committed on `cheddar-v1`, plus the end-of-plan cumulative-review fix loop. Commits: P1 `e961c19`+`bbd4166` (honesty/Yinz/SEO), P2 `db39055` (AppButton + radius tokens), P3 `117fe42` (nav full-width bar), P4 `c1e5b6c` (a11y/OG/reka dialog/favicon), final fix-loop `3c04011` (honesty + nav-height token + plan done). End-of-plan cumulative review = 5 reviewers + 9 deviation-judges (all Opus) → all PASS after a Step-4.c fix loop that resolved 4 confirmed defects (LLM completion overstatement in principles.ts; nav-height 3-literals→`--nav-h` token; Tessa "measurably outperformed"→architectural truth; index.html/hero/OG "from-scratch LLVM compiler" + "$2M/mo distributed" weld→honest copy). The metrics BLOCK (judge P1#2) was NOT confirmed (flat-rate fallacy — cumulative-gross vs current-monthly-rate are different quantities, both true). Build GREEN: type-check + lint + `vite-ssg build` (4 pages). **NEXT: Patrick reviews → merges `cheddar-v1` → `main` (DO App Platform auto-deploys).**
 
-**Already done this session (uncommitted on `cheddar-v1` working tree — NOT yet committed):**
-- a11y: contrast tokens `--text-3` 0.58→0.70 / `--text-4` 0.42→0.65 (axe-verified AA), global `:focus-visible` ring
-- nav: route-aware `goTo` (works from /blog) + link reorder (principles→systems…) + `<a>`→`<button>` semantics + hamburger aria-expanded; MobileMenu semantic dialog + Esc + focus-on-open
-- blog: `?tag=` query read+sync + unknown-tag→show-all
-- resume: `public/resume.pdf` + contact link wired (download attr)
-- content: `$68M`→`$65.8M` number fix
-- hero: 3 button contrast/feel fixes (github chip, open-a-thread border, view-systems gradient tone-down)
-- logo: DONE (final = **vtracer polygon trace**). Hand-drawn rebuilds (v1–v4) and a hand-rolled de-round+RDP both failed (jaggies). Correct tool = **vtracer** (installed via `cargo install vtracer`, now at `~/.cargo/bin/vtracer` 0.6.5). **Re-derivation recipe:** `convert public/cheddar-logo.png -fuzz 10% -transparent black t.png; convert t.png -trim +repage trim.png; vtracer --input trim.png --output out.svg --colormode color --mode polygon --filter_speckle 10 --color_precision 6 --gradient_step 24 --corner_threshold 60` then add `viewBox="0 0 902 605"`. Output → `public/cheddar-logo.svg` (2.5 KB, 8 paths, sharp, transparent, faithful). Wired into nav via `<img>` in `CheddarWordmark.vue` (height=size, width=size*1.49). Source PNG: `public/cheddar-logo.png` (also `/mnt/c/Users/patri/Downloads/`). Colors NOW remapped to exact theme tokens (resolved oklch→sRGB via canvas): burnt-hi #f88a3d / burnt #e26b1b / ember #c33c00 / cheddar #feb51f — solid fills, 3-tier orange shading + gold preserved for depth. Perfect theme match, DONE. Favicon swap = Phase 4. **Don't hand-draw or hand-de-round — use vtracer polygon mode.**
-- todos.md deduped; `bugs.md` is Patrick's scratch (fails cspell — suggest gitignore)
+**Flagged for Patrick (his call — full detail in the plan's Final Review Findings Log):**
+- `src/data/leadership.ts` 2026 timeline "Engineering Lead / Independent CTO-track engagements" contradicts the resolved Principal-Engineer/non-CTO positioning. Career framing — left untouched for his decision.
+- Tessa corpus "3.85B-token" (`projects.ts:9`) — that's the English-Base figure; tessa-ai is now at 12.4B (was 3.85B). Understated, not overstated (honest-safe); he may want to bump it.
+- `$65.8M+ gross since 2021` now occupies a hero metric slot (his "swap one out for the 65m" call). Not a defect; flagged for visibility.
 
-**Plan phases**: 1 Content/honesty+Yinz+SEO → 2 AppButton component+radius tokens → 3 nav full-width top bar → 4 a11y/OG+logo.
+**Plan phases (all done)**: 1 Content/honesty+Yinz+SEO → 2 AppButton+radius tokens → 3 nav full-width bar → 4 a11y/OG+logo/favicon.
 
 ---
 
@@ -60,6 +55,7 @@ docker compose run --rm bun add <pkg>          # Add dependency
 - vite-ssg 28.3.0, unplugin-vue-markdown 30.0.0, vite-ssg-sitemap 0.10.0
 - @unhead/vue v2 (bundled with vite-ssg)
 - Prettier 3.8.3, oxlint 1.61.0
+- reka-ui ^2.9.9 (headless dialog primitives — added in Phase 4)
 
 ---
 
@@ -76,9 +72,9 @@ docker compose run --rm bun add <pkg>          # Add dependency
 - [2026-04-30] **No backdating blog posts** — launch fresh with consistent cadence
 - [2026-06-02] **Site positioning = "Principal Engineer & Architect" umbrella** — serves BOTH full-time leadership AND contract audiences (senior IC who leads; not "manager", not junior). Gun.io profile stays "Backend Engineer" (separate funnel). Contact heading → "Looking for a Principal Engineer?"
 - [2026-06-02] **Aesthetic = personality-forward, NOT sterile-executive** — Patrick: hiring a "stick in the mud" is dumb for startups. Keep NeuronCanvas + `cheddar://` signature + scan-grid (ambient atmosphere). Trim only "look-at-my-trick" elements (decoder scramble, maybe live clock) — pending Patrick confirm. Principle: earned-confidence atmosphere YES, performative animation NO.
-- [2026-06-02] **Logo = geometric convergence/wedge-to-point** (GPT brief) — NO literal cheese, subtle wedge easter egg, monochrome-safe. Name stays "Cheddar" (Cheddar=Value). Patrick generating via external AI; wire in + favicon swap at Phase 4.
+- [2026-06-02] **Logo = geometric convergence/wedge-to-point** — NO literal cheese, subtle wedge easter egg, monochrome-safe. Name stays "Cheddar" (Cheddar=Value). Wired into nav + SVG favicon (Phase 4 done).
 - [2026-06-02] **Brand narrative**: Cheddar=Value · Redaction=Removing Noise · Leadership=Creating Alignment · Engineering=Creating Leverage. Tagline candidate (Patrick undecided).
-- [2026-06-02] **Honesty corrections (job-hunt.md is source of truth)** — site had a LIVE false claim ("trading platform profitable for over a year" — it's NOT). Plan Phase 1 fixes: drop profit claim, 88/282→100+/190+, 300-500M→~100M+, exactly-once→effectively-once, AWS cost-reduction→re-architected, Tessa→in-progress, DROP unverified latency numbers, ADD Yinz (LLVM compiler) + OpenAI-in-prod.
+- [2026-06-02] **Honesty corrections (job-hunt.md is source of truth)** — DONE in Phase 1 + end-of-plan fix loop. Single source for claims: `src/data/projects.ts` + `HomeView.vue` useSeo. "from scratch / bare metal" is accurate ONLY for the Tessa LLM (hand-written CUDA, no framework); Yinz is "Rust LLVM compiler" (LLVM-native via inkwell), NOT from-scratch. `$2M/mo` = VPM current run-rate (MySQL); `$65.8M+` = cumulative gross since 2021 — distinct quantities. index.html meta + OG card mirror the vetted HomeView copy.
 
 ---
 
@@ -93,5 +89,9 @@ docker compose run --rm bun add <pkg>          # Add dependency
 - Patrick manages 4 junior devs at VPM
 - Patrick shares CTO-level responsibilities but does NOT hold the title
 - VPM: 100K users, $2M/mo cashflow ($65.8M+ gross via Stripe since 2021), Patrick is co-lead
-- Tessa AI: custom LLM in Rust, CUDA kernels, burn framework, 34GB corpus
-- error-decoder: monetized, now private repo
+- Tessa AI: custom LLM in Rust, hand-written CUDA kernels via **cudarc** (burn framework was REMOVED — do NOT reintroduce "burn" in copy), 34GB / 3.85B-token English-Base corpus (tessa-ai now at 12.4B total), three architectures (LLaMA-style / RWKV-7 / hybrid), base training in progress
+- Yinz: Rust LLVM compiler (LLVM-native via **inkwell**; salsa, LSP) — repo `github.com/yinzers/yinz-lang` (under the yinzers org). NOT "from scratch" — it builds on LLVM.
+- error-decoder: monetized, server taken down (offline); VS Code extension still published but non-functional (no AI API server)
+- **Nav-bar height**: single source = `--nav-h` CSS token in `main.css` (54px mobile / 61px desktop). Consumed by `App.vue` padding + `MobileMenu` dropdown top; `scroll.ts` measures the live bar via `[data-app-nav]` for anchored scroll.
+- **Logo re-derivation recipe** (if regenerating from PNG): use **vtracer** (`~/.cargo/bin/vtracer` 0.6.5, `cargo install vtracer`). `convert public/cheddar-logo.png -fuzz 10% -transparent black t.png; convert t.png -trim +repage trim.png; vtracer --input trim.png --output out.svg --colormode color --mode polygon --filter_speckle 10 --color_precision 6 --gradient_step 24 --corner_threshold 60` then add `viewBox="0 0 902 605"`. Colors remapped to theme tokens (burnt-hi #f88a3d / burnt #e26b1b / ember #c33c00 / cheddar #feb51f). **Don't hand-draw or hand-de-round — vtracer polygon mode only.** Source PNG: `public/cheddar-logo.png`.
+- **OG card re-render recipe**: create a 1200×630 HTML template in `public/` (dark bg, oklch palette, Geist + JBMono fonts, `/cheddar-logo.svg` mark), Playwright `navigate` → `resize 1200×630` → await `document.fonts.ready` → screenshot to `public/assets/og-default.png`, then delete the temp template. Copy must match the hero subhead / HomeView SEO.

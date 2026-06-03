@@ -1,7 +1,7 @@
 # Todos: redact-digital
 
 ## Current Goal
-Cheddar rebrand — `.claude/plans/active/cheddar-rebrand.md`
+Site overhaul (design system + content/SEO/honesty) — **COMPLETE** (`.claude/plans/active/cheddar-site-overhaul.md`, status: done). Patrick merges `cheddar-v1` → `main` when ready.
 
 ## Cheddar Rebrand: M1 — COMPLETE (commit 1da501d)
 - [x] Theme tokens, fonts, body grain/glows, scan-grid
@@ -47,11 +47,14 @@ Done this session (post-rebrand, cheddar-v1):
 - [x] Mobile menu: role=dialog + aria-modal + Esc-to-close + focus-on-open + <button> conversion
 - [x] Blog tag filter reads ?tag= from URL + syncs to URL (BlogView); unknown tag → show all (verified)
 
-Remaining:
-- [ ] OG image (1200×630) — ALSO fixes broken /assets/og-default.png ref in useSeo.ts (link shares currently 404 the preview image)
-- [ ] Code-block comment contrast — Shiki theme #6A737D on #24292E = 3.04:1, fails AA; needs theme swap or CSS override
-- [ ] Mobile menu full focus-trap — proper fix is Reka UI Dialog (needs reka-ui dep per vue-standards.md); current fix is semantic + Esc + focus-on-open
-- [ ] Resume content polish (Patrick edits the PDF source): headline → "Engineering Lead & Architect"; fold one infra bullet from devops cut; reframe "don't need managing"; drop weak "66+ tests" — see .analysis/resume-review.md
+Done in cheddar-site-overhaul Phase 4:
+- [x] OG image (1200×630) → public/assets/og-default.png (serves 200; re-rendered with honest copy in the end-of-plan fix loop)
+- [x] Code-block comment contrast — Shiki #6A737D → #9da5b4 (5.92:1, axe 0 violations)
+- [x] Mobile menu full focus-trap — Reka UI Dialog (reka-ui ^2.9.9)
+- [x] Contact/CTA heading → "Looking for a Principal Engineer?" (was "Hiring a founding CTO?")
+
+Remaining (cross-workstream):
+- [ ] Resume content polish (Patrick edits the PDF source): headline → "Principal Engineer & Architect"; fold one infra bullet from devops cut; reframe "don't need managing"; drop weak "66+ tests" — see .analysis/resume-review.md
 - [ ] bugs.md: .gitignore it (personal scratch; currently fails cspell) or fix typos
-- [ ] Iterate "Hiring a founding CTO?" heading after a week
 - [ ] Rename GitHub repo from react-pat-rizzardi
+- [ ] (Patrick's call — see plan Final Review Findings Log) leadership.ts "Engineering Lead / CTO-track" vs Principal-Engineer positioning; Tessa corpus 3.85B→12.4B; $65.8M hero metric slot
