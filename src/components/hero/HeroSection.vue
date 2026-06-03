@@ -2,6 +2,7 @@
   import { ref, onMounted, onUnmounted } from 'vue';
   import NeuronCanvas from './NeuronCanvas.vue';
   import AppButton from '@/components/ui/AppButton.vue';
+  import { scrollToSection } from '@/utils/scroll';
   import { useDecoder } from '@/composables/useDecoder';
   import { siteConfig } from '@/data/siteConfig';
   import { metrics } from '@/data/metrics';
@@ -20,12 +21,6 @@
       timeZone: 'America/New_York',
     });
     clock.value = `${t} ET`;
-  };
-
-  const scrollTo = (id: string): void => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    window.scrollTo({ top: el.offsetTop - 60, behavior: 'smooth' });
   };
 
   onMounted(() => {
@@ -199,7 +194,7 @@
       >
         <AppButton
           variant="primary"
-          @click="scrollTo('systems')"
+          @click="scrollToSection('systems')"
         >
           <span>view systems</span>
           <svg
@@ -217,7 +212,7 @@
 
         <AppButton
           variant="ghost"
-          @click="scrollTo('contact')"
+          @click="scrollToSection('contact')"
         >
           open a thread
         </AppButton>

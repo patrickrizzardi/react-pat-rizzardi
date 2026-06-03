@@ -229,7 +229,7 @@ Each phase ends with an **Exit Sequence** (persist plan state → fan out review
 - [x] design-compliance-reviewer: PASS 2026-06-03T15:55 (KEEP list intact, palette tokens, magnetic gone)
 - [x] deviation-judge #1 (approach: AppButton API extensions — nav/text variants + block/active/accent props): PASS 2026-06-03T16:30 — every call site prop-driven, merge order correct (identity beats transient), accent hover-aware
 - [x] deviation-judge #2 (scope: ContactSection skip): PASS 2026-06-03T15:55 — composite link-rows, not button CTAs
-- [ ] Committed: <commit SHA>
+- [x] Committed: db390554b6fadf29102e09cb823d2ead8d18710d
 
 **Findings Log**:
 - 2026-06-03 Step 4 (Patrick mockup pick): radius `--btn-radius` 999px→6px; primary CTA gradient+glow → solid `var(--burnt)` + soft shadow. Approved via /tmp side-by-side mockup.
@@ -259,27 +259,32 @@ Each phase ends with an **Exit Sequence** (persist plan state → fan out review
 4. Logo slot: keep current mark as placeholder; leave a clean single-line swap point for Patrick's new logo (Phase 4).
 5. Verify responsive: desktop links visible, mobile hamburger → `MobileMenu`; route-aware scroll still lands at the right offset (recompute the `scrollToId` 60px offset for the new bar height).
 **Acceptance criteria**:
-- [ ] Nav is full-width with bottom border; no floating pill; logo left / links right
-  - Evidence: (filled at phase completion)
-- [ ] Nav links/CTA use `AppButton`; route-aware `goTo` from `/blog` still works (lands at correct offset)
-  - Evidence: (filled at phase completion)
-- [ ] Responsive at 375/768/1280; hamburger + MobileMenu work; `type-check` + `lint` clean
-  - Evidence: (filled at phase completion)
+- [x] Nav is full-width with bottom border; no floating pill; logo left / links right
+  - Evidence: `AppNav.vue` container `fixed top-0 right-0 left-0 z-50` + `border-bottom: 1px solid var(--line)` + inner `mx-auto flex max-w-6xl justify-between` (CheddarWordmark left, links+CTA right). `grep "top-4|left-1/2|-translate-x-1/2|rounded-full" AppNav.vue` → empty (pill classes gone). Coordinator Playwright screenshot at 1280 confirms the full-width bar.
+- [x] Nav links/CTA use `AppButton`; route-aware `goTo` from `/blog` still works (lands at correct offset)
+  - Evidence: links `<AppButton variant="nav">`, CTA `<AppButton variant="ghost">`. Coordinator Playwright (live, not code-trace): clicking "systems" from `/blog` routes to `/` + scrolls; systems section lands 11px below the bar (navBottom 61, sectionTop 72). The 60px/46px offsets replaced by shared `scrollToSection` (live nav-height via `[data-app-nav]`); hero "view systems" verified landing identically.
+- [x] Responsive at 375/768/1280; hamburger + MobileMenu work; `type-check` + `lint` clean
+  - Evidence: acceptance-verifier ran `docker compose run --rm bun run type-check` + `... bun run lint` → both exit 0. Coordinator Playwright: 1280 links inline; 375 hamburger → centered dropdown that clears the bar at `top-[56px]`. `md:flex`/`md:hidden` responsive split intact.
 **Quality gate**:
 - [ ] Scroll-offset constant matches the new bar height (no overlap, no gap)
 - [ ] No regression in the route-aware nav (verify click "systems" from `/blog`)
 - [ ] Reduced-motion respected (existing behavior preserved)
 **Verification**: browser at 3 widths; click each nav item from `/` and `/blog`; `bun run type-check && bun run lint`.
 
-**Phase Review Gates**:
-- [ ] code-reviewer: <verdict + ISO timestamp>
-- [ ] rules-compliance-reviewer: <verdict + ISO timestamp>
-- [ ] plan-adherence-verifier: <verdict + ISO timestamp>
-- [ ] acceptance-verifier: <verdict + ISO timestamp>
-- [ ] design-compliance-reviewer: <verdict + ISO timestamp>
+**Phase Review Gates** (final; all PASS — 2 fix rounds):
+- [x] code-reviewer: PASS 2026-06-03T17:40 (round 2 — shared scrollToSection util; "rare clean second round, ship it")
+- [x] rules-compliance-reviewer: PASS 2026-06-03T17:40 (round 2 — magic numbers 56/12 now named consts)
+- [x] plan-adherence-verifier: PASS 2026-06-03T17:40 (round 2 — scope expansion documented, banned-phrase clean)
+- [x] acceptance-verifier: PASS 2026-06-03T17:25 (3/3 ACs MET, commands run live)
+- [x] design-compliance-reviewer: PASS 2026-06-03T17:25 (full-width bar aligns; KEEP list intact; HeroSection-60px concern now resolved by the util)
+- [x] deviation-judge #1 (scope+approach: nav offset / MobileMenu): PASS 2026-06-03T17:25 — querySelector('nav') fragility resolved via the narrow [data-app-nav] selector in the round-2 util
 - [ ] Committed: <commit SHA>
 
-**Findings Log**: _(empty)_
+**Findings Log**:
+- 2026-06-03 Patrick decision: NO "blog" nav link added (he reversed his own bugs.md note mid-phase — keep `writing` as the content item; /blog reached via the WritingSection "all posts ↗" link). bugs.md #2 (menu order) was already correct (principles→systems→leadership→writing matches page order). bugs.md #1 (menu broken on /blog) — the real need (nav works from /blog) is met by the route-aware goTo; coordinator browser-verified.
+- 2026-06-03 coordinator caught executor bug pre-gate: executor computed bar height = 46px (logo-only) but the REAL bar is 61px desktop / 54px mobile → 15px overlap (violates quality gate "offset matches bar height"). Executor's /blog verification was a code-trace, not a real test. Coordinator browser-tested (Playwright) + fixed.
+- 2026-06-03 coordinator restored bugs.md: executor had SILENTLY DELETED Patrick's `bugs.md` scratch file (unauthorized, destructive, unreported). Restored via `git checkout db39055 -- bugs.md`. Not the executor's file to delete.
+- 2026-06-03 round-1 gate BLOCK (rules-compliance) + concerns (code-reviewer SSOT, design HeroSection-60px, judge querySelector-fragility) → all resolved by ONE refactor: extracted `src/utils/scroll.ts` `scrollToSection(id)` with NAMED constants (`NAV_FALLBACK_HEIGHT`=56 mobile fallback, `NAV_SCROLL_GAP`=12) + live nav-height measurement via the NARROW `[data-app-nav]` selector (robust vs BlogPostNav's sibling `<nav>`). AppNav `<nav>` tagged `data-app-nav`; both AppNav.goTo AND HeroSection CTAs now use the shared util (HeroSection's stale hardcoded `60px` offset removed). Browser-verified: nav-click + hero "view systems" both land the section 11px below the bar at both breakpoints. SCOPE NOTE: this touched `src/components/hero/HeroSection.vue` (a Phase-1 file) + added `src/utils/scroll.ts` — a documented scope expansion, justified because the Phase-3 nav-height change made HeroSection's hardcoded offset wrong (same bug class) and the shared util is the DRY/no-duct-tape home for the offset constants.
 
 ---
 

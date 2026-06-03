@@ -45,14 +45,14 @@
         @click="emit('close')"
       />
 
-      <!-- Menu pill — centered below the nav pill -->
+      <!-- Menu dropdown — centered below the nav bar (top ≈ mobile bar height ~54px + hairline gap) -->
       <div
         ref="dialogEl"
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"
         tabindex="-1"
-        class="absolute top-20 left-1/2 flex min-w-[220px] -translate-x-1/2 flex-col rounded-2xl border px-4 py-5"
+        class="absolute top-[56px] left-1/2 flex min-w-[220px] -translate-x-1/2 flex-col rounded-2xl border px-4 py-5"
         style="
           background: var(--card);
           backdrop-filter: blur(14px) saturate(140%);
