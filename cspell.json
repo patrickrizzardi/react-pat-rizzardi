@@ -87,7 +87,14 @@
     "transformer",
     "backtest",
     "backtester",
-    "cudarc"
+    "cudarc",
+    "reka",
+    "dialogcontent",
+    "dialogoverlay",
+    "dialogportal",
+    "dialogroot",
+    "dialogtitle",
+    "visually"
   ],
   "flagWords": [""],
   "ignorePaths": ["cspell.json", "*.svg", "bugs.md"],

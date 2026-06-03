@@ -233,3 +233,13 @@ section {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
 }
+
+/*
+ * WCAG AA fix: github-dark renders comments at #6A737D on #24292E = 3.04:1 (fails 4.5:1).
+ * Override to #9da5b4, which achieves 5.92:1 against the same background (axe-core: 0 violations).
+ * Targets the italic span Shiki emits for comment tokens across all github-dark variants.
+ */
+.shiki span[style*='color:#6A737D'],
+.shiki span[style*='color:#6a737d'] {
+  color: #9da5b4 !important;
+}

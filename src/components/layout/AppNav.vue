@@ -80,11 +80,11 @@
       <!-- Mobile hamburger -->
       <button
         type="button"
-        aria-label="Open menu"
+        :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
         class="cursor-pointer p-1 md:hidden"
         style="color: var(--text-3)"
         :aria-expanded="mobileOpen"
-        @click="mobileOpen = true"
+        @click="mobileOpen = !mobileOpen"
       >
         <Menu :size="18" />
       </button>
@@ -92,9 +92,8 @@
   </nav>
 
   <MobileMenu
-    :open="mobileOpen"
+    v-model:open="mobileOpen"
     :links="navLinks"
-    @close="mobileOpen = false"
     @navigate="goTo"
   />
 </template>

@@ -17,6 +17,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "lucide-vue-next": "^1.0.0",
     "pinia": "^2.3.0",
+    "reka-ui": "^2.9.9",
     "shiki": "^4.0.2",
     "unplugin-vue-markdown": "^30.0.0",
     "vite-ssg": "^28.3.0",

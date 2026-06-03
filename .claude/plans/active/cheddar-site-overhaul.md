@@ -278,7 +278,7 @@ Each phase ends with an **Exit Sequence** (persist plan state → fan out review
 - [x] acceptance-verifier: PASS 2026-06-03T17:25 (3/3 ACs MET, commands run live)
 - [x] design-compliance-reviewer: PASS 2026-06-03T17:25 (full-width bar aligns; KEEP list intact; HeroSection-60px concern now resolved by the util)
 - [x] deviation-judge #1 (scope+approach: nav offset / MobileMenu): PASS 2026-06-03T17:25 — querySelector('nav') fragility resolved via the narrow [data-app-nav] selector in the round-2 util
-- [ ] Committed: <commit SHA>
+- [x] Committed: 117fe42940a6dcc081cf7be6381be55d546f1528
 
 **Findings Log**:
 - 2026-06-03 Patrick decision: NO "blog" nav link added (he reversed his own bugs.md note mid-phase — keep `writing` as the content item; /blog reached via the WritingSection "all posts ↗" link). bugs.md #2 (menu order) was already correct (principles→systems→leadership→writing matches page order). bugs.md #1 (menu broken on /blog) — the real need (nav works from /blog) is met by the route-aware goTo; coordinator browser-verified.
@@ -305,29 +305,40 @@ Each phase ends with an **Exit Sequence** (persist plan state → fan out review
 3. **Mobile dialog (Q d)**: if reka-ui approved → refactor `MobileMenu.vue` to `DialogRoot/DialogPortal/DialogOverlay/DialogContent` (focus-trap + Esc + aria-modal free); else leave current + document "good enough" deferral with trigger.
 4. **Logo + favicon (when Patrick delivers asset)**: drop into `public/`, wire into the new nav logo slot, switch `index.html` favicon to the new mark (SVG favicon + ico fallback). If the asset hasn't arrived, ship the rest and leave this sub-step open.
 **Acceptance criteria**:
-- [ ] axe color-contrast run on `/` and a blog post = 0 violations (including code blocks)
-  - Evidence: (filled at phase completion)
-- [ ] `/assets/og-default.png` exists, serves 200, renders as a real share preview
-  - Evidence: (filled at phase completion)
-- [ ] Mobile menu: Reka dialog (if approved) with focus-trap, OR documented deferral; `type-check` + `lint` clean
-  - Evidence: (filled at phase completion)
-- [ ] Favicon + nav logo show the new mark (or explicitly deferred if asset not yet delivered)
-  - Evidence: (filled at phase completion)
+- [x] axe color-contrast run on `/` and a blog post = 0 violations (including code blocks)
+  - Evidence: `src/assets/main.css` Shiki override `.shiki span[style*='color:#6A737D'] { color: #9da5b4 !important; }` (5.92:1, ≥4.5:1 AA; comment carries the math). Coordinator axe-core (Playwright) → 0 color-contrast violations on `/` AND `/blog/hello-world` (code blocks included); re-verified 0 with dialog open post round-2.
+- [x] `/assets/og-default.png` exists, serves 200, renders as a real share preview
+  - Evidence: `public/assets/og-default.png` new binary (Bin 0 → 181383 bytes in diff); `src/composables/useSeo.ts:6` `DEFAULT_IMAGE = ${siteConfig.siteUrl}/assets/og-default.png` (path matches). Coordinator Playwright render 1200×630 (cheddar palette + logo + Principal-Engineer copy), serves 200; re-rendered + re-verified 200 after judge#2 honesty fix.
+- [x] Mobile menu: Reka dialog (if approved) with focus-trap, OR documented deferral; `type-check` + `lint` clean
+  - Evidence: `MobileMenu.vue` full `DialogRoot/Portal/Overlay/Content` + VisuallyHidden `DialogTitle`/`DialogDescription` + `DialogClose` X; `package.json` `"reka-ui": "^2.9.9"` (pinned); `AppNav.vue` hamburger `@click="mobileOpen = !mobileOpen"` + `<MobileMenu v-model:open="mobileOpen">`. type-check GREEN, lint 5 warnings/0 errors, prettier+cspell clean; focus-trap coordinator browser-verified.
+- [x] Favicon + nav logo show the new mark (or explicitly deferred if asset not yet delivered)
+  - Evidence: `index.html` `<link rel="icon" type="image/svg+xml" href="/cheddar-logo.svg" />` (was `/favicon.ico`); `public/favicon.ico` deleted (Bin 9309 → 0); `CheddarWordmark.vue:11` `src="/cheddar-logo.svg"` (nav logo).
 **Quality gate**:
-- [ ] axe: 0 contrast violations site-wide
-- [ ] If reka-ui added: it's the only new dep, tree-shaken, version pinned
-- [ ] OG image is optimized (not multi-MB)
+- [x] axe: 0 contrast violations site-wide (Playwright axe-core, `/` + `/blog/hello-world`)
+- [x] If reka-ui added: it's the only new dep, tree-shaken (ESM, per-component import), version pinned `^2.9.9`
+- [x] OG image is optimized (181KB, not multi-MB)
 **Verification**: axe via Playwright on `/` + post; `fetch('/assets/og-default.png')` → 200; keyboard-tab the mobile menu (focus stays trapped if Reka); `bun run type-check && bun run lint`.
 
 **Phase Review Gates**:
-- [ ] code-reviewer: <verdict + ISO timestamp>
-- [ ] rules-compliance-reviewer: <verdict + ISO timestamp>
-- [ ] plan-adherence-verifier: <verdict + ISO timestamp>
-- [ ] acceptance-verifier: <verdict + ISO timestamp>
-- [ ] design-compliance-reviewer: <verdict + ISO timestamp>
+- [x] code-reviewer: PASS (round 3) — 2026-06-03
+- [x] rules-compliance-reviewer: PASS (round 3) — 2026-06-03
+- [x] plan-adherence-verifier: PASS — 2026-06-03
+- [x] acceptance-verifier: PASS — 2026-06-03
+- [x] design-compliance-reviewer: PASS (registry absent; 1 non-blocking aspirational note re: `<style scoped>` for reka `[data-state]` anim) — 2026-06-03
+- [x] deviation-judge #1 (reka dialog close): PASS (round 2) — 2026-06-03
+- [x] deviation-judge #2 (index.html/OG honesty): PASS (round 2) — 2026-06-03
 - [ ] Committed: <commit SHA>
 
-**Findings Log**: _(empty)_
+**Findings Log**:
+- 2026-06-03 Patrick decisions: ADD reka-ui for the real dialog (Qd); coordinator renders the OG image.
+- 2026-06-03 Shiki contrast (a11y): comment token `#6A737D` on `#24292E` (3.04:1, fail) → CSS override to `#9da5b4` (6.14:1) in main.css. Coordinator axe-verified (Playwright + axe-core color-contrast) → **0 violations on `/` AND on `/blog/hello-world` (code blocks included)**. Executor deviated from "prefer theme swap" to a CSS override (justified: a theme swap changes the code-block bg, breaking visual consistency; the override is surgical).
+- 2026-06-03 OG image (fix 404): coordinator rendered a 1200x630 card (cheddar palette + logo + Principal-Engineer copy) via Playwright → `public/assets/og-default.png` (178KB, serves 200). useSeo.ts og:image path already correct.
+- 2026-06-03 reka-ui mobile dialog: MobileMenu → DialogRoot/Portal/Overlay/Content (reka-ui@2.9.9, pinned); AppNav hamburger wired via `v-model:open`. Coordinator browser-verified: focus-TRAP works, aria-labelledby ("Site menu") + aria-describedby resolve. Coordinator FIXED a dangling `aria-describedby` (executor added DialogTitle but no DialogDescription → broken ARIA ref + console warning) by adding a VisuallyHidden DialogDescription. Executor removed the explicit X close button (reka Escape + overlay-tap close) — judged for mobile UX (no Esc key on mobile → close = backdrop-tap + nav-link).
+- 2026-06-03 favicon: index.html → SVG favicon (`/cheddar-logo.svg`); old-brand `public/favicon.ico` DELETED (was unlinked but would auto-serve stale branding on `/favicon.ico` fetches).
+- 2026-06-03 **CRITICAL honesty leftover (Phase-1 grep-scope gap)**: `index.html` static `<title>` + meta `description` STILL carried banned claims ("Backend systems that **stay profitable at scale, from a trading platform that pays its own bills**") + old "Engineering Lead & Architect" positioning — served to every crawler/social-preview. **Phase 1's banned-claim grep was `src/`-only and missed repo-root `index.html`.** Also `src/data/siteConfig.ts:4 title` was stale ("Engineering Lead & Architect", unused but a landmine). Coordinator fixed both → "Principal Engineer & Architect" + accurate description (mirrors HomeView SEO). REPO-WIDE grep now clean (not just src/). LEARN: honesty/banned-claim grep must be repo-wide (index.html, public/, config), not src/-scoped — candidate for a graveyard check.
+- 2026-06-03 FLAGGED for Patrick (not auto-fixed): `src/data/leadership.ts` timeline 2026 entry = `label: 'Engineering Lead'` / `detail: 'Independent CTO-track engagements.'` — "CTO-track" contradicts the resolved Principal-Engineer/non-CTO positioning (Question a). It's his career-timeline framing (not a false claim), so left for Patrick to decide whether to align.
+- 2026-06-03 round-2 gate → round-3 fix: code-reviewer round-2 BLOCKed on a dead `const props = defineProps<...>()` capture in `MobileMenu.vue:15` — the reka migration deleted the `watch(() => props.open)` that was its only script reader (`links` is consumed only in the template via auto-unwrap). oxlint's known blind spot for `defineProps` macro captures meant lint stayed GREEN over it. FIX: dropped the capture, kept the type-only macro. ALSO corrected the `main.css` Shiki-contrast comment `6.14:1 → 5.92:1` — acceptance-verifier independently recomputed the WCAG ratio; my earlier hand-calc used wrong gamma rounding. Both figures clear AA (≥4.5:1) and axe-core (authoritative) returns 0 violations, but a documented number must be the real number. Round-3 re-gate on `git diff 117fe42`: code-reviewer PASS, rules-compliance PASS, plan-adherence PASS, acceptance-verifier PASS (verbatim AC evidence), design-compliance PASS. ALL 5 reviewers + both judges PASS → Phase 4 cleared to commit.
+- 2026-06-03 round-1 gate → round-2 fixes: 2 judge BLOCKs (5 reviewers PASS). **judge#1 (reka close trap)**: the executor removed the X close button; coordinator-verified the reka `DialogOverlay` `@pointerdown.prevent` SWALLOWS the synthetic click on TOUCH → backdrop-tap doesn't close on mobile, and the hamburger was `=true` (not toggle) → a mobile user had NO non-navigating close. (code-reviewer PASSed the removal from reka *docs*; judge#1 traced the *source* — judge BLOCK decisive per "PASS doesn't override a BLOCK with a concrete trap".) FIX: restored reka `DialogClose` X button (works on every input) + hamburger now toggles (`!mobileOpen`) with state-aware aria-label. Browser-verified: X click → dialog removed from DOM; aria-label flips to "Close menu". **judge#2 (honesty)**: index.html + OG said "LLMs trained from bare metal" (past tense → implies a finished model; Tessa base-training is in-progress). FIX: → "a from-scratch LLM with custom CUDA kernels" (describes the real work, no completion claim) in index.html + re-rendered the OG card to match. Also reworded a changelog comment in MobileMenu (code-reviewer concern). axe re-verified 0 contrast violations (incl. dialog open); type-check + lint GREEN; new OG serves 200.
 
 ---
 
