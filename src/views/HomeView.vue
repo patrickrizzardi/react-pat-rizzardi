@@ -9,9 +9,9 @@
   import { siteConfig } from '@/data/siteConfig';
 
   useSeo({
-    title: 'Cheddar — Patrick Rizzardi · Engineering Lead & Architect',
+    title: 'Patrick Rizzardi — Principal Engineer & Architect',
     description:
-      'Engineering Lead & Architect. Backend systems that stay profitable at scale — from a trading platform that pays its own bills to an LLM trained from bare metal.',
+      'Principal Engineer & Architect specializing in distributed systems, TypeScript/Node, and MySQL at $2M/mo scale. Building a Rust LLVM compiler, training LLMs with CUDA kernels, and leading a team of 4. Fault-tolerant microservices, 11 production integrations, OpenAI in production.',
     url: siteConfig.siteUrl,
   });
 </script>

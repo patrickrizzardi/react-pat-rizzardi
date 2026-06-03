@@ -189,22 +189,22 @@
           "
           >backend</span
         ><br />
-        systems that
+        systems built
         <span
           style="
             background-image: linear-gradient(transparent 70%, oklch(0.66 0.17 48 / 0.45) 70%);
             background-size: 100% 100%;
             background-repeat: no-repeat;
           "
-          >stay profitable</span
+          >to last</span
         ><br />
         at scale.
       </h1>
 
       <!-- Subhead -->
       <p style="margin-top: 28px; max-width: 680px; font-size: 19px; line-height: 1.55; color: var(--text-2)">
-        Engineering Lead &amp; Architect. From a trading platform that pays its own bills, to an LLM trained from bare
-        metal. I care about the systems nobody sees until they break&thinsp;—&thinsp;and the ones that don&rsquo;t.
+        Principal Engineer &amp; Architect. Leading a team of 4 at a $2M/mo platform, while building compilers and LLMs
+        from bare metal solo. Leadership creates alignment&thinsp;—&thinsp;engineering creates leverage.
       </p>
 
       <!-- CTA row -->
@@ -271,7 +271,7 @@
           class="ml-2"
           style="font-family: var(--font-mono); font-size: 12px; color: var(--text-3)"
         >
-          ↳ available · CTO + Eng Lead
+          ↳ open to · principal/staff · founding eng · contract
         </span>
       </div>
 

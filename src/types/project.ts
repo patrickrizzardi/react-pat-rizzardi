@@ -15,6 +15,7 @@ export interface FeaturedProject extends ProjectBase {
   tier: 'featured';
   snippets: ReadonlyArray<CodeSnippet>;
   archNotes: string;
+  repoUrl: string | null;
 }
 
 export interface ExperienceProject extends ProjectBase {

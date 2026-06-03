@@ -37,5 +37,5 @@ export const stack = [
   { cat: 'Data', items: ['PostgreSQL', 'Redis', 'DragonflyDB', 'Sequelize'] },
   { cat: 'Infra', items: ['Docker', 'GitHub Actions', 'DigitalOcean', 'Linux'] },
   { cat: 'Frontend', items: ['Vue 3', 'Tailwind', 'Vite', 'Pinia'] },
-  { cat: 'ML / AI', items: ['CUDA', 'burn', 'Transformers', 'BPE'] },
+  { cat: 'ML / AI', items: ['CUDA', 'cudarc', 'Transformers', 'BPE'] },
 ] as const satisfies ReadonlyArray<{ cat: string; items: ReadonlyArray<string> }>;

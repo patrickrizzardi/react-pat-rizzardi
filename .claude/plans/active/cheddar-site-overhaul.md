@@ -12,6 +12,7 @@ files:
   - public/**
 created: 2026-06-02
 last_updated: 2026-06-03
+plan_base: 96e37aec7b97cf3288e321f8adbe80bb0fec9b6d
 ---
 
 # Plan: Cheddar Site Overhaul (design system + content/SEO/honesty)
@@ -110,7 +111,7 @@ Positioning + tagline fuel. Crucially it encodes BOTH sides — *leadership (ali
 
 | Doc | What it says | What we do instead | Approved rationale (named cost + reversal path) |
 |-----|-------------|-------------------|------------------------------------------------|
-| — | — | — | _(empty — no divergences)_ |
+| This plan, Phase 1 Step 2 | "keep CUDA kernels + corpus; **`burn` stays**" | Replaced all `burn` refs → `cudarc`; archNotes keeps burn only as *history* (custom CUDA replaced it after outperforming) | Step 2 was written on stale info. Research-agent swept `tessa-ai`: burn is NOT a dependency (real stack = `cudarc 0.19` + 9 hand-written `.cu` kernels); Patrick confirmed burn was benchmarked and removed. Cost: none — the corrected framing is MORE accurate and a stronger eng signal. Reversal: re-add `burn` only if the code re-adopts it. Approved by Patrick 2026-06-03. |
 
 ## Phase Execution Protocol
 
@@ -145,31 +146,45 @@ Each phase ends with an **Exit Sequence** (persist plan state → fan out review
 7. **SEO** (`useSeo.ts` + visible copy): weave keywords — LLVM, compiler, Rust, distributed systems, transformers, CUDA, microservices, fault-tolerant, MySQL, TypeScript/Node, Redis Streams — into per-page descriptions + project prose. Keep human, not stuffed.
 8. (Optional) Evaluate featuring `~/resume/diagrams/*.png` in SystemsSection; copy into `public/` if used. Drop if it doesn't elevate.
 **Acceptance criteria**:
-- [ ] Banned-claim grep clean in `src/` — covers description, `archNotes`, AND snippet labels (reviewer Concern 3): `profitable`, `pays its own bills`, `exactly-once`, `300-500M`, `500M`, `88 models`, `282 controllers`, `cost reduction`, plus (if Q(e)=DROP) `40ms`, `12-second`, `12s`, `under 50ms`
-  - Evidence: (filled at phase completion)
-- [ ] Yinz exists as a `featured` project with LLVM/Rust/inkwell/salsa/LSP details
-  - Evidence: (filled at phase completion)
-- [ ] Tessa copy reads as in-progress + three architectures; VPM reads 100+/190+ + re-architected + OpenAI-in-prod
-  - Evidence: (filled at phase completion)
-- [ ] Hero + contact heading reflect the approved positioning (Question a); no trading-profit implication anywhere
-  - Evidence: (filled at phase completion)
-- [ ] `type-check` + `lint` clean (project's `bun run` scripts)
-  - Evidence: (filled at phase completion)
+- [x] Banned-claim grep clean in `src/` — covers description, `archNotes`, AND snippet labels (reviewer Concern 3): `profitable`, `pays its own bills`, `exactly-once`, `300-500M`, `500M`, `88 models`, `282 controllers`, `cost reduction`, plus (if Q(e)=DROP) `40ms`, `12-second`, `12s`, `under 50ms`
+  - Evidence: acceptance-verifier ran `grep -rEi "profitable|pays its own bills|exactly-once|300-500M|500M|88 models|282 controllers|cost reduction|40ms|12-second|12s|under 50ms" src/` live at HEAD → zero output (exit 1). DragonflyDB swap end-to-end (tech tag + snippet label + archNotes all consistent, no half-swap). Also swept the new perf-claim class (`reads fast`/`2-3x`/`sub-100ms`/`p99`) → clean.
+- [x] Yinz exists as a `featured` project with LLVM/Rust/inkwell/salsa/LSP details
+  - Evidence: `src/data/projects.ts` — `id:'yinz'`, `tier:'featured'`, `tech:['Rust','LLVM','inkwell','salsa','LSP']`, description names LLVM/Rust/inkwell/salsa/LSP, `repoUrl:'https://github.com/yinzers/yinz-lang'` (verified 200, yinzers org). Snippet = real `#[salsa::tracked]` query (non-fabricated).
+- [x] Tessa copy reads as in-progress + three architectures; VPM reads 100+/190+ + re-architected + OpenAI-in-prod
+  - Evidence: Tessa `projects.ts:9` "three architectures under active exploration: a LLaMA-style transformer, RWKV-7, and a hybrid. Base training is in progress; inference service is planned." VPM responsibilities: "100+ models and 190+ controllers", "OpenAI in production: video-interview analysis pipeline", "Re-architected AWS infrastructure for redundancy and fault-tolerance; cost-controlled". (Tessa burn→cudarc corrected — verified-false claim, see Design Divergences.)
+- [x] Hero + contact heading reflect the approved positioning (Question a); no trading-profit implication anywhere
+  - Evidence: Hero headline "systems built to last", subhead "Principal Engineer & Architect…", label "↳ open to · principal/staff · founding eng · contract"; contact "Looking for a Principal Engineer?". Live grep of hero+contact for `profitable|pays its own bills|trading.*profit` → zero (exit 1).
+- [x] `type-check` + `lint` clean (project's `bun run` scripts)
+  - Evidence: acceptance-verifier ran `docker compose run --rm bun run type-check` → `vue-tsc --noEmit -p tsconfig.app.json` exit 0; `docker compose run --rm bun run lint` → prettier clean, oxlint 5 warnings/0 errors (pre-existing), cspell 0 issues, exit 0. (Round-2 apostrophe build-breaker fixed round 3.)
 **Quality gate**:
 - [ ] Every changed claim is traceable to a line in `job-hunt.md`
 - [ ] No keyword stuffing — copy still reads like a human wrote it
 - [ ] Follows existing `projects.ts` shape (no type changes unless `src/types/project.ts` genuinely needs a field)
 **Verification**: `grep -rEi "profitable|pays its own bills|exactly-once|300-500M|500M|88 models|282 controllers|cost reduction|40ms|12-second|12s|under 50ms" src/` returns nothing (the `*ms`/`12s` terms only if Q(e)=DROP); load `/` and `/blog`, read every project card; `bun run type-check && bun run lint`.
 
-**Phase Review Gates**:
-- [ ] code-reviewer: <verdict + ISO timestamp>
-- [ ] rules-compliance-reviewer: <verdict + ISO timestamp>
-- [ ] plan-adherence-verifier: <verdict + ISO timestamp>
-- [ ] acceptance-verifier: <verdict + ISO timestamp>
-- [ ] design-compliance-reviewer: <verdict + ISO timestamp>
+**Phase Review Gates** (round 3 = final; all PASS):
+- [x] code-reviewer: PASS 2026-06-03T13:13 (snippet authenticity cross-checked vs tessa-ai ops.rs; build GREEN)
+- [x] rules-compliance-reviewer: PASS 2026-06-03T13:13
+- [x] plan-adherence-verifier: PASS 2026-06-03T13:13 (8/8 steps MET; burn→cudarc documented divergence)
+- [x] acceptance-verifier: PASS 2026-06-03T13:13 (5/5 ACs MET, commands run live)
+- [x] design-compliance-reviewer: PASS 2026-06-03T13:13 (no registry; divergence rationale real)
+- [x] deviation-judge #1 (scope+approach: repoUrl string|null on FeaturedProject): PASS 2026-06-03T13:13 — render deferred to Phase 2, documented; r2 "renders live" claim retracted (featured cards have no link)
+- [x] deviation-judge #2 (scope: metrics → 11 production integrations): PASS 2026-06-03T13:13 — count verified 11; FYI: "production" label vs Wingspan-in-progress flagged for Patrick (non-blocking)
+- [x] deviation-judge #3 (scope+approach: Tessa burn→cudarc, claims accuracy): PASS 2026-06-03T13:13 — "2-3x" dropped, cudarc snippet authentic vs ops.rs, no surviving perf-outcome claim
+- [x] deviation-judge #4 (scope: SystemsSection statusMap/badge): PASS 2026-06-03T13:13 — inline featured link stays removed, only banned-claim badge fixes
 - [ ] Committed: <commit SHA>
 
-**Findings Log**: _(empty)_
+**Findings Log**:
+- 2026-06-03T12:02 — deviation-judge #2 (metrics) round 1: BLOCK. `metrics.ts:3` swapped banned `500M+` → `~100M+ rows managed`, but the hero strip's other 3 stats are VPM, so it reads as a VPM row-count claim that doesn't exist in job-hunt.md. Fix: Patrick chose to replace slot 2 with `11 / production integrations` (verified, job-hunt.md:64).
+- 2026-06-03T12:02 — deviation-judge #3 (principles) round 1: BLOCK. `principles.ts:5` ("the index that kept reads fast") + `projects.ts:69` ("keep reads fast as the dataset grows") are performance-OUTCOME claims for the trading system, where job-hunt.md:65 says DROP all latency/perf claims. Fix: reframe to structural facts (partition pruning), not speed assertions.
+- 2026-06-03T12:02 — code-reviewer round 1: BLOCK. (1) `projects.ts:140` Yinz `repoUrl` → `github.com/patrickrizzardi/yinz` returns HTTP 404 (fabricated). Correct URL is `https://github.com/yinzers/yinz-lang` (200, Patrick-confirmed — yinzers org). (2) `public/yinz-compiler.png` orphan (153KB, referenced nowhere) — delete (optional Step 8, not wired). Type-check conflict resolved: project script `vue-tsc -p tsconfig.app.json` exits 0 (AC#5 MET); code-reviewer's 8 errors were from bare vue-tsc on app-tsconfig-excluded files (pre-existing, out of contract).
+- 2026-06-03T12:02 — deviation-judge #4 (SystemsSection) round 1: BLOCK. Inline `<a>...↗ repo</a>` block (`SystemsSection.vue:178-195`) with hardcoded `border-radius: 999px` + inline styles is premature Phase-2 button work shipped in Phase 1 (becomes a 20th untracked inline-button site Phase 2's AC can't pass cleanly). Fix: remove the inline block; keep `repoUrl` data; Phase 2 renders it as `<AppButton variant="chip">`. statusMap/tagColors/badge changes stay (legit banned-claim fixes).
+- Verified NOT a defect: VPM `PostgreSQL`→`MySQL` tech swap is correct per job-hunt.md:59,64 ("MySQL definitive"). code-reviewer cross-flagged it (no job-hunt.md access); confirmed legitimate.
+- 2026-06-03 round 1→2 RESOLUTIONS: metrics → `11 / production integrations` (judge#2 PASS r2); `reads fast` reframed to structural facts (judge#3 r1 item fixed); SystemsSection inline featured repo-link removed (judge#4 PASS r2); Yinz `repoUrl` → `github.com/yinzers/yinz-lang` + orphan png deleted (code-reviewer r1 items fixed).
+- 2026-06-03T12:28 — coordinator self-inflicted BLOCK round 2: my direct `sub-100ms` removal edit put `didn't` in a single-quoted string at `projects.ts:122` → unterminated literal → type-check + lint RED (code-reviewer + acceptance-verifier r2 BLOCK). LESSON: coordinator must not hand-edit code without running the build. Fixed round 3 (reworded to "skip recompiling unchanged stages"), build verified GREEN.
+- 2026-06-03T12:28 — deviation-judge #3 (principles) round 2: BLOCK. A *different* surviving unverified perf claim — Tessa archNotes "2-3x throughput on consumer GPUs" (pre-existing, no benchmark, not in job-hunt.md). Research-agent swept `/home/patrick/development/tessa-ai`: NO saved benchmark for any multiplier, AND burn is not even a dependency (real stack = cudarc 0.19 + hand-written CUDA). Patrick confirmed: burn was used, benchmarked, REMOVED after custom CUDA won. Round 3 fix: dropped "2-3x"; reframed archNotes to true history (custom CUDA replaced burn after measurably outperforming it); tech tag `burn`→`cudarc`; replaced the burn-API snippet with a real cudarc kernel-dispatch excerpt from `tessa-ai/train/model/src/ops.rs`; `leadership.ts` skill `burn`→`cudarc`. Patrick then had the redundant 2nd Tessa RoPE snippet removed.
+- 2026-06-03T13:11 — DESIGN DIVERGENCE (plan Step 2 override): plan said "burn stays"; verified-false (burn removed from tessa-ai). Corrected all burn refs → cudarc per Patrick confirmation. Recorded in `## Design Divergences`.
+- 2026-06-03T13:11 — DEFERRED TO PHASE 2 (documents code-reviewer r2 + judge#1 r2): (a) Yinz `repoUrl` is correct data that the *featured* cards do not render in Phase 1 (rendering a repo link is Phase-2 `<AppButton>` work — judge#4 r1 explicitly ruled inline featured links premature). Phase 2 wires featured `repoUrl`. (b) Type asymmetry: `FeaturedProject.repoUrl: string | null` (new, correct per coding-style) vs pre-existing `StandardProject.repoUrl?: string` (+ npm/live/extension `?:`). Normalizing StandardProject url fields to `string | null` touches data construction sites + the secondary template — Phase 2 owns exactly that code (SystemsSection project links), so deferred there with a named trigger. Both added to Phase 2 Steps below.
 
 ---
 
@@ -181,13 +196,15 @@ Each phase ends with an **Exit Sequence** (persist plan state → fan out review
 **Current-state anchors**:
 - 19 button sites enumerated in `.analysis/` audit + this session's notes: `AppNav.vue` (logo/links/CTA/hamburger), `HeroSection.vue:146-166,215-268` (github chip / view-systems / open-a-thread), `ContactSection.vue:65-131`, `BlogView.vue` (tag filters / clear), `MobileMenu.vue`, `WritingSection.vue`, `SystemsSection.vue:231-274` (project links), `BlogPostNav.vue`, `BlogPostHeader.vue` (tag chips)
 - `src/assets/main.css:64-65` — `--radius: 14px; --radius-sm: 8px` (used in only 2 places); pill radius is `999px`/`rounded-full` hardcoded ~23×
-**Files (expected scope)**: NEW `src/components/ui/AppButton.vue`; `src/assets/main.css` (add `--btn-radius`, `--card-radius` tokens + matching `@theme`); the ~10 component files above.
+**Files (expected scope)**: NEW `src/components/ui/AppButton.vue`; `src/assets/main.css` (add `--btn-radius`, `--card-radius` tokens + matching `@theme`); the ~10 component files above; `src/types/project.ts` + `src/data/projects.ts` (Step 7 url-field type normalization, carried from Phase 1).
 **Steps**:
 1. Define `AppButton.vue` (`<script setup lang="ts">`, arrow-fn idiom): props `variant: 'primary'|'ghost'|'chip'` (union+as const, NO enum), `size?: 'sm'|'md'`, optional `as` ('button'|'a'|'RouterLink') so CTAs that navigate stay semantic. Type-based `defineProps`/`defineEmits` per `vue-standards.md`. Radius from `var(--btn-radius)`.
 2. Add tokens to `main.css` (both `@theme --color-…` style and `:root`): `--btn-radius`, `--card-radius`. Start at current values to keep render identical.
 3. **Render-preserving refactor**: replace each inline button with `<AppButton variant=…>` mapping current colors to variants. Verify each touch-point screenshots identical BEFORE any restyle.
 4. **Mockup decision (Q b + c)**: render side-by-side (a) radius square `0` vs soft `6px`; (b) primary CTA: solid burnt / flat fill no-glow / outline. Screenshot, present, Patrick picks. Apply chosen values to the tokens + primary variant — one edit propagates everywhere.
 5. Confirm `:focus-visible` ring (added this session) still applies to `AppButton`.
+6. **[Carried from Phase 1 — repo-link render deferral]** Wire the **featured-project** `repoUrl` as `<AppButton variant="chip" as="a">↗ repo</AppButton>` in the SystemsSection featured card (Yinz currently has a valid `repoUrl` rendered nowhere; tessa-ai/trading-v3 are `null` → no link). This is the natural home — judge#4 (Phase 1) ruled an inline featured repo-link premature; here the button system exists. Trigger satisfied.
+7. **[Carried from Phase 1 — type normalization]** Normalize `StandardProject` url fields (`repoUrl`/`npmUrl`/`liveUrl`/`extensionUrl`) from `?: string` to `string | null` in `src/types/project.ts`, declaring `null` at every standard-project construction site in `projects.ts`, to match `FeaturedProject.repoUrl: string | null` (coding-style `T | null` rule — eliminates the two-null-convention asymmetry flagged by judge#1 in Phase 1). Update the secondary-card `'url' in p && p.url` guards accordingly (with required fields, the `in` check is redundant → simplify to `p.url`).
 **Acceptance criteria**:
 - [ ] `AppButton.vue` exists with primary/ghost/chip variants + size; no inline button styles remain in the refactored files
   - Evidence: (filled at phase completion)

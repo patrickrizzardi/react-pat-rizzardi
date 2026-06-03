@@ -6,69 +6,57 @@ export const projects: ReadonlyArray<Project> = [
     tier: 'featured',
     title: 'Tessa AI',
     description:
-      'I wanted to understand transformers at the kernel level, not just call an API. So I built an LLM from scratch in Rust — custom CUDA attention kernels, a BPE tokenizer trained on 34GB of text, and a LLaMA-style architecture. Everything from the data pipeline to inference, built from the ground up.',
-    tech: ['Rust', 'CUDA', 'burn', 'Transformer', 'BPE', 'Linux'],
+      'I wanted to understand transformers at the kernel level, not just call an API. So I built an LLM from scratch in Rust — custom CUDA attention kernels, a BPE tokenizer trained on 34GB of text across a 3.85B-token corpus, and three architectures under active exploration: a LLaMA-style transformer, RWKV-7, and a hybrid. Base training is in progress; inference service is planned.',
+    tech: ['Rust', 'CUDA', 'cudarc', 'Transformer', 'RWKV', 'BPE', 'Linux'],
     archNotes:
-      "Custom attention kernels bypass burn's built-in ops for 2-3x throughput on consumer GPUs. The tradeoff was months of low-level debugging for full control over memory layout and kernel fusion.",
+      'Hand-written CUDA attention kernels (via cudarc) replaced the burn framework after they measurably outperformed its built-in ops — the tradeoff was months of low-level debugging for full control over memory layout and kernel fusion. Running three architecture experiments in parallel to understand where transformers end and recurrent models begin.',
     snippets: [
       {
-        label: 'Grouped Query Attention',
+        label: 'cudarc Kernel Dispatch — Fused RoPE + Head Reshape',
         language: 'rust',
-        code: `// GQA: expand KV heads to match Q heads
-let repeat_factor = self.num_heads / self.num_kv_heads;
-let k = Self::expand_kv_heads(k, repeat_factor);
-let v = Self::expand_kv_heads(v, repeat_factor);
-
-// Scaled dot-product attention
-let scale = (self.head_dim as f64).sqrt();
-let scores = q.matmul(k.swap_dims(2, 3)) / scale;
-
-let scores = self.apply_causal_mask(scores, seq_len, device);
-let attn_weights = burn::tensor::activation::softmax(scores, 3);
-let out = attn_weights.matmul(v);
-
-// [batch, num_heads, seq_len, head_dim] → [batch, seq_len, hidden_dim]
-let out = out.swap_dims(1, 2)
-    .reshape([batch, seq_len, self.num_heads * self.head_dim]);`,
-      },
-      {
-        label: 'Rotary Position Embeddings',
-        language: 'rust',
-        code: `pub fn new(head_dim: usize, max_seq_len: usize, theta: f64) -> Self {
+        code: `// Fused RoPE + BSH→BHS reshape: one kernel launch instead of two passes.
+// cudarc launches the .cu kernel directly; no framework in the middle.
+pub fn rope_forward_reshape(
+    &self,
+    x: &Tensor,
+    cos_table: &Tensor,
+    sin_table: &Tensor,
+    batch: usize,
+    seq_len: usize,
+    num_heads: usize,
+    head_dim: usize,
+) -> Result<Tensor> {
     let half_dim = head_dim / 2;
-    let mut cos_cached = vec![0.0f32; max_seq_len * half_dim];
-    let mut sin_cached = vec![0.0f32; max_seq_len * half_dim];
-
-    // freq_i = 1.0 / (theta ^ (2i / head_dim))
-    let freqs: Vec<f64> = (0..half_dim)
-        .map(|i| 1.0 / theta.powf(2.0 * i as f64 / head_dim as f64))
-        .collect();
-
-    for pos in 0..max_seq_len {
-        for (i, &freq) in freqs.iter().enumerate() {
-            let angle = pos as f64 * freq;
-            cos_cached[pos * half_dim + i] = angle.cos() as f32;
-            sin_cached[pos * half_dim + i] = angle.sin() as f32;
-        }
-    }
-
-    Self { cos_cached, sin_cached, head_dim, max_seq_len }
+    let total = (batch * seq_len * num_heads * half_dim) as u32;
+    let mut out = Tensor::alloc(&[batch * num_heads, seq_len, head_dim], &self.stream)?;
+    let mut builder = self.stream.launch_builder(&self.k_rope_forward_reshape);
+    builder.arg(&x.data);
+    builder.arg(&cos_table.data);
+    builder.arg(&sin_table.data);
+    builder.arg(&mut out.data);
+    builder.arg(&(batch as i32));
+    builder.arg(&(seq_len as i32));
+    builder.arg(&(num_heads as i32));
+    builder.arg(&(head_dim as i32));
+    unsafe { builder.launch(launch_cfg(total)) }?;
+    Ok(out)
 }`,
       },
     ],
+    repoUrl: null,
   },
   {
     id: 'trading-v3',
     tier: 'featured',
     title: 'Trading Platform v3',
     description:
-      'Third iteration of an automated trading system — the first two taught me what not to do. This version has been profitable for over a year. 6 microservices, each owning a single domain, connected via Redis Streams with exactly-once delivery. The database holds 300-500M carefully partitioned rows and every query stays under 50ms.',
-    tech: ['TypeScript', 'PostgreSQL', 'Redis Streams', 'Docker', 'Sequelize', 'Bun'],
+      'Third iteration of a fault-tolerant automated trading system — the first two taught me what not to do. 6 microservices, each owning a single domain, connected via DragonflyDB (Redis Streams + Pub/Sub) with effectively-once delivery (at-least-once + idempotent upserts). The database holds ~100M+ carefully partitioned rows with monthly range-partitioning that scopes each time-range query to a single partition.',
+    tech: ['TypeScript', 'PostgreSQL', 'DragonflyDB', 'Docker', 'Bun'],
     archNotes:
-      'The hardest problem was partitioning: time-range queries across 500M rows need the right partition strategy or you wait seconds, not milliseconds. Window functions with ROW_NUMBER() OVER (PARTITION BY ...) turned a 12-second query into a 40ms one.',
+      "The hardest architectural problem was time-range query performance across a growing partitioned table. Monthly range-partitioned tables with window functions — ROW_NUMBER() OVER (PARTITION BY symbol ORDER BY timestamp DESC) — so each read scopes to a single month's partition instead of scanning the full table. Kelly criterion sizing + backtest/live fidelity parity are the other two load-bearing concerns.",
     snippets: [
       {
-        label: 'Redis Streams Consumer',
+        label: 'DragonflyDB Consumer Group',
         language: 'typescript',
         code: `const consumeLoop = async (): Promise<void> => {
   await dragonfly.createConsumerGroup(config.streamKey, consumerGroup);
@@ -111,21 +99,48 @@ let out = out.swap_dims(1, 2)
  ORDER BY symbol ASC, "timestamp" ASC`,
       },
     ],
+    repoUrl: null,
+  },
+  {
+    id: 'yinz',
+    tier: 'featured',
+    title: 'Yinz Language',
+    description:
+      'A compiled systems language that targets LLVM native code. Full compiler pipeline written in Rust: lexer, parser, type-checker, and LLVM codegen via inkwell. Incremental recompilation powered by salsa — unchanged stages return cached results, so rebuilds skip recompiling unchanged stages. Ships with an LSP server, formatter, watch daemon, and VSCode extension.',
+    tech: ['Rust', 'LLVM', 'inkwell', 'salsa', 'LSP'],
+    archNotes:
+      'Every compiler stage is a memoized salsa query — re-running on unchanged source returns cached results without recompilation. The LSP server, formatter, and watch daemon share the same query registry, so diagnostics and formatting are always consistent with the compiler.',
+    snippets: [
+      {
+        label: 'salsa Incremental Query',
+        language: 'rust',
+        code: `#[salsa::tracked]
+fn type_check_fn(db: &dyn Db, func: Function) -> TypeCheckResult {
+    // salsa re-runs this only when func's parse tree changes;
+    // callers that depend on unchanged functions get the cached result
+    let body = parse_body(db, func);
+    let env = build_type_env(db, func);
+    infer_types(db, body, env)
+}`,
+      },
+    ],
+    repoUrl: 'https://github.com/yinzers/yinz-lang',
   },
   {
     id: 'vpm-solutions',
     tier: 'experience',
     title: 'VPM Solutions',
     description:
-      'Enterprise workforce management platform processing $2M+ in monthly cashflow ($65.8M+ gross since 2021) for 100K+ users. I joined early and grew into co-lead — owning the API architecture, infrastructure, and most of the complex integrations.',
-    tech: ['TypeScript', 'Vue 3', 'Node.js', 'PostgreSQL', 'Sequelize', 'Redis', 'Docker'],
+      'Enterprise workforce management platform processing $2M+ in monthly cashflow ($65.8M+ gross since 2021) for 100K+ users. Sole backend/DB/infra engineer from the start; now co-lead of a team of 4 — driving architecture, mentorship, and technical direction.',
+    tech: ['TypeScript', 'Vue 3', 'Node.js', 'MySQL', 'Sequelize', 'Redis', 'Docker', 'AWS'],
     role: 'Co-Lead Developer & Infrastructure Lead',
     period: '2021 — Present',
     responsibilities: [
-      "Grew the API from early-stage to 88 models and 282 controllers — made the scaling decisions as the system 10x'd",
-      'Scoped, built, and shipped 10+ third-party integrations end-to-end, several solo across both Vue frontend and API',
-      'Manage 4 junior developers — code review, mentorship, architecture guidance',
-      'Own infrastructure decisions: Docker orchestration, CI/CD, database optimization, AWS cost reduction',
+      "Grew the API from early-stage to 100+ models and 190+ controllers — made the scaling decisions as the system 10x'd",
+      'Scoped, built, and shipped 11 third-party integrations end-to-end: Stripe, Wingspan, Hubstaff, Google Calendar, AWS S3, AWS Transcribe, SendGrid, Mixpanel, OpenAI, HubSpot, Paycor',
+      'OpenAI in production: video-interview analysis pipeline that processes and scores candidate submissions',
+      'Manage and mentor 4 developers — code review, architecture guidance, technical direction',
+      'Re-architected AWS infrastructure for redundancy and fault-tolerance; cost-controlled via savings plans and right-sizing',
     ],
     highlights: [
       'Delivered HubStaff and Wingspan integrations solo full-stack — from scoping with stakeholders to production deploy',

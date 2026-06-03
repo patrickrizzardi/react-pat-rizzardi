@@ -2,7 +2,7 @@ export const principles = [
   {
     n: '01',
     title: 'Systems, not features.',
-    body: 'The migration nobody noticed. The index that kept p99 under 50ms. The cost cut nobody asked for. Quiet wins compound.',
+    body: 'The migration nobody noticed. The index that keeps 100M+ partitioned rows queryable. The redundancy addition nobody asked for. Quiet wins compound.',
   },
   {
     n: '02',
@@ -12,7 +12,7 @@ export const principles = [
   {
     n: '03',
     title: 'Build the version that survives.',
-    body: 'Trading platform v3 is profitable for a reason. v1 and v2 taught me what to throw away. Iteration > invention.',
+    body: 'Trading platform v3 is fault-tolerant for a reason. v1 and v2 taught me what to throw away. Iteration > invention.',
   },
   {
     n: '04',
@@ -27,6 +27,6 @@ export const principles = [
   {
     n: '06',
     title: 'Write less. Delete more.',
-    body: '88 models, 282 controllers, and the courage to kill three of them this quarter. Code you removed never breaks at 3am.',
+    body: '100+ models, 190+ controllers, and the courage to kill three of them this quarter. Code you removed never breaks at 3am.',
   },
 ] as const satisfies ReadonlyArray<{ n: string; title: string; body: string }>;

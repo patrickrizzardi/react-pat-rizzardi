@@ -9,7 +9,8 @@
 
   useSeo({
     title: 'Blog — Patrick Rizzardi',
-    description: 'Engineering leadership, AI/ML architecture, and lessons from building systems at scale.',
+    description:
+      'Engineering leadership, distributed systems, and lessons from building fault-tolerant microservices, LLVM compilers in Rust, and transformer models with CUDA kernels.',
     url: `${siteConfig.siteUrl}/blog`,
   });
 

@@ -51,10 +51,11 @@
           margin: 0 0 16px;
         "
       >
-        Hiring a founding CTO?
+        Looking for a Principal Engineer?
       </h2>
       <p style="font-size: 17px; color: var(--text-2); margin: 0 0 56px; max-width: 480px; line-height: 1.6">
-        Open to CTO and Engineering Lead engagements — early-stage, Series A, or infrastructure turnarounds.
+        Open to principal/staff roles, founding-engineer engagements, and high-leverage contracts. Distributed systems,
+        TypeScript/Node, compilers, and everything in between.
       </p>
 
       <!-- Glow card -->

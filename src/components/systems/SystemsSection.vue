@@ -5,8 +5,9 @@
   import { projects } from '@/data/projects';
 
   const taglineMap: Record<string, string> = {
-    'tessa-ai': 'LLM from bare metal — custom CUDA, no API wrappers.',
-    'trading-v3': 'Pays its own bills. v1 and v2 taught me what not to do.',
+    'tessa-ai': 'LLM from bare metal — custom CUDA, three architectures, no shortcuts.',
+    'trading-v3': 'Fault-tolerant by design. v1 and v2 taught me what not to do.',
+    yinz: 'LLVM native code from Rust — compiler, LSP, formatter, all incremental.',
   };
 
   const secondaryTag = (p: Project): string => {
@@ -22,6 +23,12 @@
     return 'Solo · Lua addon · 2022';
   };
 
+  const statusMap: Record<string, string> = {
+    'tessa-ai': 'training',
+    'trading-v3': 'active',
+    yinz: 'in dev',
+  };
+
   const featured = computed(() =>
     projects
       .filter((p) => p.tier === 'featured')
@@ -29,7 +36,7 @@
         ...p,
         rank: String(i + 1).padStart(2, '0'),
         tagline: taglineMap[p.id] ?? '',
-        status: p.id === 'tessa-ai' ? 'training' : 'profitable',
+        status: statusMap[p.id] ?? 'oss',
       })),
   );
 
@@ -44,6 +51,9 @@
     live: 'oklch(0.74 0.21 145)',
     shipped: 'var(--burnt)',
     oss: 'var(--text-3)',
+    active: 'var(--burnt-hi)',
+    training: 'oklch(0.74 0.21 145)',
+    'in dev': 'var(--text-3)',
   };
 </script>
 
@@ -106,7 +116,7 @@
                     color: tagColors[p.status] ?? 'var(--text-3)',
                     borderColor: tagColors[p.status] ?? 'var(--line)',
                     background:
-                      p.status === 'profitable' ? 'oklch(0.66 0.17 48 / 0.1)'
+                      p.status === 'active' ? 'oklch(0.66 0.17 48 / 0.1)'
                       : p.status === 'training' ? 'oklch(0.74 0.21 145 / 0.08)'
                       : 'transparent',
                   }"
