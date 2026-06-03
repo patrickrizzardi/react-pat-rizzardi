@@ -151,9 +151,9 @@
           :style="{
             fontFamily: 'var(--font-mono)',
             fontSize: '11px',
-            color: githubHover ? 'var(--text-2)' : 'var(--text-4)',
+            color: githubHover ? 'var(--text)' : 'var(--text-3)',
             padding: '5px 10px',
-            border: `1px solid ${githubHover ? 'var(--line)' : 'var(--line-soft)'}`,
+            border: `1px solid ${githubHover ? 'var(--burnt-hi)' : 'var(--line)'}`,
             borderRadius: '999px',
             background: 'var(--card)',
             backdropFilter: 'blur(8px)',
@@ -221,13 +221,13 @@
             font-size: 13px;
             font-weight: 600;
             color: var(--bg);
-            background: linear-gradient(180deg, var(--cheddar-hi) 0%, var(--burnt) 60%, var(--ember) 100%);
+            background: linear-gradient(180deg, var(--burnt-hi) 0%, var(--burnt) 55%, var(--ember) 100%);
             padding: 14px 24px;
             border-radius: 999px;
             border: none;
             box-shadow:
-              0 12px 40px -12px oklch(0.66 0.17 48 / 0.7),
-              inset 0 1px 0 oklch(1 0 0 / 0.35);
+              0 10px 30px -14px oklch(0.66 0.17 48 / 0.5),
+              inset 0 1px 0 oklch(1 0 0 / 0.2);
             transition: transform 0.2s ease;
           "
           @click="scrollTo('systems')"
@@ -257,7 +257,7 @@
             background: 'transparent',
             padding: '14px 22px',
             borderRadius: '999px',
-            border: `1px solid ${ctaHover ? 'var(--burnt)' : 'var(--line)'}`,
+            border: `1px solid ${ctaHover ? 'var(--burnt)' : 'oklch(0.66 0.17 48 / 0.5)'}`,
             transition: 'border-color 0.2s, color 0.2s',
           }"
           @click="scrollTo('contact')"

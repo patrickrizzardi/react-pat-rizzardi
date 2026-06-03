@@ -25,7 +25,7 @@
     {
       icon: FileText,
       label: 'Resume',
-      href: '#',
+      href: '/resume.pdf',
       text: 'Download PDF',
     },
   ] as const;
@@ -68,6 +68,7 @@
           :href="link.href"
           :target="link.href.startsWith('http') ? '_blank' : undefined"
           :rel="link.href.startsWith('http') ? 'noopener noreferrer' : undefined"
+          :download="link.href.endsWith('.pdf') ? 'patrick-rizzardi-resume.pdf' : null"
           class="flex items-center gap-4 border-b px-6 py-5 transition-colors duration-150 last:border-b-0"
           :style="{
             borderColor: 'var(--line-soft)',

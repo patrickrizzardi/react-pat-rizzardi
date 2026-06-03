@@ -18,24 +18,23 @@
 
 ## Current Context (REPLACE each update)
 
-**Goal**: Cheddar rebrand — COMPLETE. All 4 milestones shipped on `cheddar-v1`.
-**Status**: Branch ready for Patrick to merge to main.
-**Active Plan**: `.claude/plans/active/cheddar-rebrand.md`
+**Goal**: Site overhaul (design system + content/SEO/honesty) — plan APPROVED on `cheddar-v1`.
+**Active Plan**: `.claude/plans/active/cheddar-site-overhaul.md` (plan-reviewer: PASS, approved). Cheddar rebrand is DONE (`.claude/plans/done/cheddar-rebrand.md`).
+**Git**: `patrickrizzardi/react-pat-rizzardi`, branch `cheddar-v1`. **Do NOT push/merge — Patrick handles.** Dev server: **localhost:8082**.
 
-**Git**: `patrickrizzardi/react-pat-rizzardi` on GitHub (SSH). Branch `cheddar-v1`, ahead of origin.
-**User boundary**: Do NOT push or merge to main — Patrick handles that.
+**WHERE WE LEFT OFF (resume here):** Plan APPROVED, all brand decisions resolved (no aesthetic trims — keep ALL personality incl decoder+clock; positioning = Principal Engineer & Architect umbrella; logo = new geometric Y-chevron, DONE). New logo wired into nav. **NEXT: execute Phase 1 (content/honesty fixes + Yinz + SEO)** — awaiting Patrick's "go" (he may still be running the logo brief through GPT). Run phase-by-phase per plan.
 
-**What's been built (cheddar-v1 — merge-ready):**
-- `1da501d` M1: cheddar palette, Geist/JBMono/Newsreader fonts, NeuronCanvas, HeroSection, pill nav, siteConfig. 733KB → 38KB.
-- `8ab2b9c` M2: all 6 home sections (Principles, Systems, Leadership, Writing, Contact). Old components deleted.
-- `3596c69` M3: blog restyle (BlogView, BlogPostCard, BlogPostHeader, BlogPostView, BlogPostNav). .shiki CSS normalizer.
-- `9c551e9` M4: SEO cleanup — siteConfig in useSeo/BlogJsonLd/all views, useSpotlight deleted, article.tags added to SeoOptions.
+**Already done this session (uncommitted on `cheddar-v1` working tree — NOT yet committed):**
+- a11y: contrast tokens `--text-3` 0.58→0.70 / `--text-4` 0.42→0.65 (axe-verified AA), global `:focus-visible` ring
+- nav: route-aware `goTo` (works from /blog) + link reorder (principles→systems…) + `<a>`→`<button>` semantics + hamburger aria-expanded; MobileMenu semantic dialog + Esc + focus-on-open
+- blog: `?tag=` query read+sync + unknown-tag→show-all
+- resume: `public/resume.pdf` + contact link wired (download attr)
+- content: `$68M`→`$65.8M` number fix
+- hero: 3 button contrast/feel fixes (github chip, open-a-thread border, view-systems gradient tone-down)
+- logo: DONE (final = **vtracer polygon trace**). Hand-drawn rebuilds (v1–v4) and a hand-rolled de-round+RDP both failed (jaggies). Correct tool = **vtracer** (installed via `cargo install vtracer`, now at `~/.cargo/bin/vtracer` 0.6.5). **Re-derivation recipe:** `convert public/cheddar-logo.png -fuzz 10% -transparent black t.png; convert t.png -trim +repage trim.png; vtracer --input trim.png --output out.svg --colormode color --mode polygon --filter_speckle 10 --color_precision 6 --gradient_step 24 --corner_threshold 60` then add `viewBox="0 0 902 605"`. Output → `public/cheddar-logo.svg` (2.5 KB, 8 paths, sharp, transparent, faithful). Wired into nav via `<img>` in `CheddarWordmark.vue` (height=size, width=size*1.49). Source PNG: `public/cheddar-logo.png` (also `/mnt/c/Users/patri/Downloads/`). Colors NOW remapped to exact theme tokens (resolved oklch→sRGB via canvas): burnt-hi #f88a3d / burnt #e26b1b / ember #c33c00 / cheddar #feb51f — solid fills, 3-tier orange shading + gold preserved for depth. Perfect theme match, DONE. Favicon swap = Phase 4. **Don't hand-draw or hand-de-round — use vtracer polygon mode.**
+- todos.md deduped; `bugs.md` is Patrick's scratch (fails cspell — suggest gitignore)
 
-**Next (if any): post-launch polish**
-- Iterate "Hiring a founding CTO?" contact heading after a week
-- Create branded OG image (1200×630)
-- Lighthouse a11y on production
-- Rename GitHub repo from react-pat-rizzardi
+**Plan phases**: 1 Content/honesty+Yinz+SEO → 2 AppButton component+radius tokens → 3 nav full-width top bar → 4 a11y/OG+logo.
 
 ---
 
@@ -43,7 +42,7 @@
 
 **Container**: Devcontainer (Ubuntu) w/ Docker socket mounted | **DB**: None | **PM**: Bun (via compose)
 ```bash
-docker compose up                              # Vite dev server at localhost:8080
+docker compose up                              # Vite dev server at localhost:8082 (compose port remapped 8080→8082)
 docker compose run --rm bun install            # Install deps
 docker compose run --rm bun run build          # Production build (vite-ssg build)
 docker compose run --rm bun run type-check     # TypeScript check
@@ -75,6 +74,11 @@ docker compose run --rm bun add <pkg>          # Add dependency
 - [2026-04-30] **NeuronCanvas replaces NeuralGrid** — canvas-based saltatory firing vs SVG
 - [2026-04-30] **Blog URLs: slug-only** — /blog/{slug}, no date prefix
 - [2026-04-30] **No backdating blog posts** — launch fresh with consistent cadence
+- [2026-06-02] **Site positioning = "Principal Engineer & Architect" umbrella** — serves BOTH full-time leadership AND contract audiences (senior IC who leads; not "manager", not junior). Gun.io profile stays "Backend Engineer" (separate funnel). Contact heading → "Looking for a Principal Engineer?"
+- [2026-06-02] **Aesthetic = personality-forward, NOT sterile-executive** — Patrick: hiring a "stick in the mud" is dumb for startups. Keep NeuronCanvas + `cheddar://` signature + scan-grid (ambient atmosphere). Trim only "look-at-my-trick" elements (decoder scramble, maybe live clock) — pending Patrick confirm. Principle: earned-confidence atmosphere YES, performative animation NO.
+- [2026-06-02] **Logo = geometric convergence/wedge-to-point** (GPT brief) — NO literal cheese, subtle wedge easter egg, monochrome-safe. Name stays "Cheddar" (Cheddar=Value). Patrick generating via external AI; wire in + favicon swap at Phase 4.
+- [2026-06-02] **Brand narrative**: Cheddar=Value · Redaction=Removing Noise · Leadership=Creating Alignment · Engineering=Creating Leverage. Tagline candidate (Patrick undecided).
+- [2026-06-02] **Honesty corrections (job-hunt.md is source of truth)** — site had a LIVE false claim ("trading platform profitable for over a year" — it's NOT). Plan Phase 1 fixes: drop profit claim, 88/282→100+/190+, 300-500M→~100M+, exactly-once→effectively-once, AWS cost-reduction→re-architected, Tessa→in-progress, DROP unverified latency numbers, ADD Yinz (LLVM compiler) + OpenAI-in-prod.
 
 ---
 
@@ -88,6 +92,6 @@ docker compose run --rm bun add <pkg>          # Add dependency
 - Patrick is self-taught, no CS degree, no bootcamp
 - Patrick manages 4 junior devs at VPM
 - Patrick shares CTO-level responsibilities but does NOT hold the title
-- VPM: 100K users, $2M/mo cashflow, Patrick is co-lead
+- VPM: 100K users, $2M/mo cashflow ($65.8M+ gross via Stripe since 2021), Patrick is co-lead
 - Tessa AI: custom LLM in Rust, CUDA kernels, burn framework, 34GB corpus
 - error-decoder: monetized, now private repo

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { watch, onUnmounted } from 'vue';
+  import { ref, watch, onUnmounted, nextTick } from 'vue';
   import { X } from 'lucide-vue-next';
 
   const props = defineProps<{
@@ -12,11 +12,16 @@
     navigate: [id: string];
   }>();
 
+  const dialogEl = ref<HTMLDivElement | null>(null);
+
   watch(
     () => props.open,
     (isOpen) => {
       if (typeof document === 'undefined') return;
       document.body.style.overflow = isOpen ? 'hidden' : '';
+      // Move focus into the dialog on open so keyboard users land inside it and
+      // Esc (handled on the container) works without a prior tab.
+      if (isOpen) nextTick(() => dialogEl.value?.focus());
     },
   );
 
@@ -32,15 +37,20 @@
     <div
       v-if="open"
       class="fixed inset-0 z-40 md:hidden"
-      @click.self="emit('close')"
     >
       <div
         class="absolute inset-0"
         style="background: oklch(0 0 0 / 0.6)"
+        @click="emit('close')"
       />
 
       <!-- Menu pill — centered below the nav pill -->
       <div
+        ref="dialogEl"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
+        tabindex="-1"
         class="absolute top-20 left-1/2 flex min-w-[220px] -translate-x-1/2 flex-col rounded-2xl border px-4 py-5"
         style="
           background: var(--card);
@@ -51,6 +61,7 @@
             0 20px 60px -20px oklch(0 0 0 / 0.7),
             inset 0 1px 0 oklch(1 0 0 / 0.04);
         "
+        @keydown.esc="emit('close')"
       >
         <button
           type="button"
@@ -62,26 +73,24 @@
           <X :size="16" />
         </button>
 
-        <a
+        <button
           v-for="link in links"
           :key="link.id"
-          role="button"
-          tabindex="0"
-          class="cursor-pointer rounded-lg px-3 py-2.5 transition-colors duration-150 select-none"
-          style="font-family: var(--font-mono); font-size: 13px; color: var(--text-2)"
+          type="button"
+          class="cursor-pointer rounded-lg px-3 py-2.5 text-left transition-colors duration-150 select-none"
+          style="font-family: var(--font-mono); font-size: 13px; color: var(--text-2); background: none; border: none"
           @click="emit('navigate', link.id)"
-          @keydown.enter="emit('navigate', link.id)"
-          >{{ link.label }}</a
         >
+          {{ link.label }}
+        </button>
 
         <div
           class="my-3 h-px"
           style="background: var(--line-soft)"
         />
 
-        <a
-          role="button"
-          tabindex="0"
+        <button
+          type="button"
           class="cursor-pointer rounded-lg border px-3 py-2.5 text-center transition-colors duration-150 select-none"
           style="
             font-family: var(--font-mono);
@@ -89,11 +98,12 @@
             font-weight: 600;
             color: var(--text);
             border-color: var(--burnt);
+            background: none;
           "
           @click="emit('navigate', 'contact')"
-          @keydown.enter="emit('navigate', 'contact')"
-          >hire ↗</a
         >
+          hire ↗
+        </button>
       </div>
     </div>
   </Transition>

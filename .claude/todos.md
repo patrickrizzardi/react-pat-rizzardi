@@ -37,13 +37,21 @@ Cheddar rebrand — `.claude/plans/active/cheddar-rebrand.md`
 Patrick merges cheddar-v1 → main when ready.
 
 ## Post-Launch Polish
-- [ ] Iterate "Hiring a founding CTO?" heading after a week
-- [ ] Create branded OG image (1200×630)
-- [ ] Lighthouse a11y on production deploy
-- [ ] Rename GitHub repo from react-pat-rizzardi
 
-## Post-Launch Polish
+Done this session (post-rebrand, cheddar-v1):
+- [x] Logo: black-box PNG in nav → clean SVG wedge-shield (CheddarWordmark + public/cheddar-mark.svg); old cheddar-emblem.png retained for OG card
+- [x] VPM number corrected $68M → "$65.8M+ gross since 2021" (projects.ts) to match resume; $68M was a mixup
+- [x] Resume wired: main resume → public/resume.pdf + contact link (was href="#"), download attr set
+- [x] Nav route-aware — works from /blog (routes home + scrolls), links reordered to match page flow, <a role=button> → real <button>, hamburger aria-expanded — axe-verified
+- [x] a11y contrast: --text-3 0.58→0.70, --text-4 0.42→0.65 (axe confirms AA pass on all chrome text); global :focus-visible ring added
+- [x] Mobile menu: role=dialog + aria-modal + Esc-to-close + focus-on-open + <button> conversion
+- [x] Blog tag filter reads ?tag= from URL + syncs to URL (BlogView); unknown tag → show all (verified)
+
+Remaining:
+- [ ] OG image (1200×630) — ALSO fixes broken /assets/og-default.png ref in useSeo.ts (link shares currently 404 the preview image)
+- [ ] Code-block comment contrast — Shiki theme #6A737D on #24292E = 3.04:1, fails AA; needs theme swap or CSS override
+- [ ] Mobile menu full focus-trap — proper fix is Reka UI Dialog (needs reka-ui dep per vue-standards.md); current fix is semantic + Esc + focus-on-open
+- [ ] Resume content polish (Patrick edits the PDF source): headline → "Engineering Lead & Architect"; fold one infra bullet from devops cut; reframe "don't need managing"; drop weak "66+ tests" — see .analysis/resume-review.md
+- [ ] bugs.md: .gitignore it (personal scratch; currently fails cspell) or fix typos
 - [ ] Iterate "Hiring a founding CTO?" heading after a week
-- [ ] Create branded OG image (1200×630)
-- [ ] Lighthouse a11y on production (color contrast text-3 over bg)
 - [ ] Rename GitHub repo from react-pat-rizzardi

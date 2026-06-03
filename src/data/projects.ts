@@ -117,7 +117,7 @@ let out = out.swap_dims(1, 2)
     tier: 'experience',
     title: 'VPM Solutions',
     description:
-      'Enterprise workforce management platform processing $2M+ in monthly cashflow for 100K+ users. I joined early and grew into co-lead — owning the API architecture, infrastructure, and most of the complex integrations.',
+      'Enterprise workforce management platform processing $2M+ in monthly cashflow ($65.8M+ gross since 2021) for 100K+ users. I joined early and grew into co-lead — owning the API architecture, infrastructure, and most of the complex integrations.',
     tech: ['TypeScript', 'Vue 3', 'Node.js', 'PostgreSQL', 'Sequelize', 'Redis', 'Docker'],
     role: 'Co-Lead Developer & Infrastructure Lead',
     period: '2021 — Present',

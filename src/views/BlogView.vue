@@ -1,5 +1,7 @@
 <script setup lang="ts">
-  import { ref, computed } from 'vue';
+  import { ref, computed, watch } from 'vue';
+  import { useRoute, useRouter } from 'vue-router';
+  import type { LocationQueryValue } from 'vue-router';
   import { useBlogPosts } from '@/composables/useBlogPosts';
   import { useSeo } from '@/composables/useSeo';
   import { siteConfig } from '@/data/siteConfig';
@@ -11,9 +13,20 @@
     url: `${siteConfig.siteUrl}/blog`,
   });
 
+  const route = useRoute();
+  const router = useRouter();
   const { posts, getAllTags } = useBlogPosts();
   const allTags = getAllTags();
-  const activeTag = ref<string | null>(null);
+
+  // Accept ?tag= from post-header links, but only honor a value that's an actual tag —
+  // an unknown/garbage tag falls back to null (show all) instead of an empty list.
+  const normalizeTag = (value: LocationQueryValue | Array<LocationQueryValue>): string | null => {
+    const raw = Array.isArray(value) ? value[0] : value;
+    if (typeof raw !== 'string' || raw.length === 0) return null;
+    return allTags.includes(raw) ? raw : null;
+  };
+
+  const activeTag = ref<string | null>(normalizeTag(route.query.tag));
 
   const filteredPosts = computed(() => {
     const tag = activeTag.value;
@@ -21,9 +34,23 @@
     return posts.filter((post) => post.frontmatter.tags.includes(tag));
   });
 
-  const toggleTag = (tag: string): void => {
-    activeTag.value = activeTag.value === tag ? null : tag;
+  const setTag = (tag: string | null): void => {
+    activeTag.value = tag;
+    router.replace({ query: tag ? { tag } : {} });
   };
+
+  const toggleTag = (tag: string): void => {
+    setTag(activeTag.value === tag ? null : tag);
+  };
+
+  // Keep the filter in sync when the query changes from outside the buttons
+  // (a tag link clicked from a post header, browser back/forward).
+  watch(
+    () => route.query.tag,
+    (value) => {
+      activeTag.value = normalizeTag(value);
+    },
+  );
 </script>
 
 <template>
@@ -101,7 +128,7 @@
           background: none;
           border: none;
         "
-        @click="activeTag = null"
+        @click="setTag(null)"
       >
         clear filter
       </button>

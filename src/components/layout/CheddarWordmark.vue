@@ -8,9 +8,9 @@
     style="font-family: var(--font-mono); font-weight: 700; font-size: 13px; letter-spacing: 0.02em; color: var(--text)"
   >
     <img
-      src="/cheddar-emblem.png"
+      src="/cheddar-logo.svg"
       alt="Cheddar"
-      :style="{ width: `${size}px`, height: `${size}px`, objectFit: 'contain' }"
+      :style="{ height: `${size}px`, width: `${Math.round(size * 1.49)}px`, flexShrink: 0 }"
     />
     <span>cheddar<span style="color: var(--burnt-hi)">.</span></span>
   </span>
