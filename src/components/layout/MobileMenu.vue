@@ -38,10 +38,10 @@
       <DialogContent
         class="fixed top-[var(--nav-h)] left-1/2 z-50 flex min-w-[220px] -translate-x-1/2 flex-col rounded-2xl border px-4 py-5 md:hidden"
         style="
-          background: var(--card);
+          background: var(--color-card);
           backdrop-filter: blur(14px) saturate(140%);
           -webkit-backdrop-filter: blur(14px) saturate(140%);
-          border-color: var(--line);
+          border-color: var(--color-line);
           box-shadow:
             0 20px 60px -20px oklch(0 0 0 / 0.7),
             inset 0 1px 0 oklch(1 0 0 / 0.04);
@@ -56,7 +56,7 @@
         <DialogClose
           aria-label="Close menu"
           class="mb-1 cursor-pointer self-end p-1"
-          style="color: var(--text-3)"
+          style="color: var(--color-fg-3)"
         >
           <X :size="16" />
         </DialogClose>
@@ -73,7 +73,7 @@
 
         <div
           class="my-3 h-px"
-          style="background: var(--line-soft)"
+          style="background: var(--color-line-soft)"
         />
 
         <AppButton

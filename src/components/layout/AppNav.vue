@@ -41,10 +41,10 @@
     data-app-nav
     class="fixed top-0 right-0 left-0 z-50"
     style="
-      background: var(--card);
+      background: var(--color-card);
       backdrop-filter: blur(14px) saturate(140%);
       -webkit-backdrop-filter: blur(14px) saturate(140%);
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid var(--color-line);
     "
   >
     <!-- Inner content row: logo left, links + CTA right, constrained to site max-width -->
@@ -85,7 +85,7 @@
         type="button"
         :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
         class="cursor-pointer p-1 md:hidden"
-        style="color: var(--text-3)"
+        style="color: var(--color-fg-3)"
         :aria-expanded="mobileOpen"
         @click="mobileOpen = !mobileOpen"
       >

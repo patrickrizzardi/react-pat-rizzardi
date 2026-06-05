@@ -13,7 +13,7 @@
     ref="sectionRef"
     class="reveal relative"
     :class="{ 'is-revealed': revealed }"
-    style="padding: 120px 0; background: var(--bg-2)"
+    style="padding: 120px 0; background: var(--color-surface-2)"
   >
     <div class="mx-auto max-w-6xl px-6">
       <div class="eyebrow mb-5">leadership</div>
@@ -24,13 +24,13 @@
           font-size: clamp(32px, 4vw, 56px);
           letter-spacing: -0.03em;
           line-height: 1.05;
-          color: var(--text);
+          color: var(--color-fg);
           margin: 0 0 16px;
         "
       >
         how I operate
       </h2>
-      <p style="font-size: 17px; line-height: 1.6; color: var(--text-2); max-width: 560px; margin: 0 0 72px">
+      <p style="font-size: 17px; line-height: 1.6; color: var(--color-fg-2); max-width: 560px; margin: 0 0 72px">
         Self-taught. National Guard NCO. A decade of progressively harder problems — and I still prefer the hard ones.
       </p>
 
@@ -40,7 +40,7 @@
         <div>
           <div
             class="relative"
-            style="padding-left: 28px; border-left: 1px solid var(--line)"
+            style="padding-left: 28px; border-left: 1px solid var(--color-line)"
           >
             <div
               v-for="entry in timeline"
@@ -56,8 +56,8 @@
                   width: 12px;
                   height: 12px;
                   border-radius: 50%;
-                  background: var(--bg-2);
-                  border: 1px solid var(--burnt);
+                  background: var(--color-surface-2);
+                  border: 1px solid var(--color-burnt);
                 "
               />
 
@@ -65,7 +65,7 @@
                 style="
                   font-family: var(--font-mono);
                   font-size: 11px;
-                  color: var(--burnt);
+                  color: var(--color-burnt);
                   letter-spacing: 0.1em;
                   margin-bottom: 4px;
                   text-transform: uppercase;
@@ -78,16 +78,16 @@
                   font-family: var(--font-display);
                   font-weight: 700;
                   font-size: 16px;
-                  color: var(--text);
+                  color: var(--color-fg);
                   margin-bottom: 2px;
                 "
               >
                 {{ entry.label }}
               </div>
-              <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-3); margin-bottom: 6px">
+              <div style="font-family: var(--font-mono); font-size: 12px; color: var(--color-fg-3); margin-bottom: 6px">
                 {{ entry.org }}
               </div>
-              <p style="font-size: 13px; line-height: 1.6; color: var(--text-3); margin: 0">{{ entry.detail }}</p>
+              <p style="font-size: 13px; line-height: 1.6; color: var(--color-fg-3); margin: 0">{{ entry.detail }}</p>
             </div>
           </div>
         </div>
@@ -96,7 +96,7 @@
         <div>
           <div
             class="eyebrow mb-6"
-            style="color: var(--text-3)"
+            style="color: var(--color-fg-3)"
           >
             stack
           </div>
@@ -110,7 +110,7 @@
                 style="
                   font-family: var(--font-mono);
                   font-size: 11px;
-                  color: var(--text-4);
+                  color: var(--color-fg-4);
                   min-width: 80px;
                   flex-shrink: 0;
                 "
@@ -125,9 +125,9 @@
                   style="
                     font-family: var(--font-mono);
                     font-size: 11px;
-                    color: var(--text-2);
-                    background: var(--bg-3);
-                    border: 1px solid var(--line-soft);
+                    color: var(--color-fg-2);
+                    background: var(--color-surface-3);
+                    border: 1px solid var(--color-line-soft);
                   "
                   >{{ item }}</span
                 >

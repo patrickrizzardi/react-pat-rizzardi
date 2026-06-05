@@ -28,8 +28,8 @@
       class="relative flex h-full flex-col overflow-hidden rounded-2xl border transition-colors duration-200"
       :style="{
         padding: '24px',
-        background: 'var(--card)',
-        borderColor: hovered ? 'var(--burnt)' : 'var(--line)',
+        background: 'var(--color-card)',
+        borderColor: hovered ? 'var(--color-burnt)' : 'var(--color-line)',
         boxShadow: 'var(--card-shadow)',
       }"
       @mouseenter="hovered = true"
@@ -37,7 +37,7 @@
     >
       <div
         class="mb-3 flex items-center gap-4"
-        style="font-family: var(--font-mono); font-size: 11px; color: var(--text-4)"
+        style="font-family: var(--font-mono); font-size: 11px; color: var(--color-fg-4)"
       >
         <span>{{ formattedDate }}</span>
         <span>{{ post.readingTime }} min</span>
@@ -51,14 +51,14 @@
           font-size: 18px;
           letter-spacing: -0.01em;
           line-height: 1.3;
-          color: var(--text);
+          color: var(--color-fg);
           margin: 0 0 12px;
         "
       >
         {{ post.frontmatter.title }}
       </h3>
 
-      <p style="font-size: 13px; line-height: 1.65; color: var(--text-3); margin: 0 0 16px">
+      <p style="font-size: 13px; line-height: 1.65; color: var(--color-fg-3); margin: 0 0 16px">
         {{ post.frontmatter.description }}
       </p>
 
@@ -73,9 +73,9 @@
           style="
             font-family: var(--font-mono);
             font-size: 11px;
-            color: var(--text-3);
-            background: var(--bg-3);
-            border: 1px solid var(--line-soft);
+            color: var(--color-fg-3);
+            background: var(--color-surface-3);
+            border: 1px solid var(--color-line-soft);
           "
           @click.stop.prevent="router.push(`/blog?tag=${tag}`)"
         >

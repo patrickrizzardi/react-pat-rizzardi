@@ -116,8 +116,8 @@
     switch (props.variant) {
       case 'primary':
         return {
-          color: 'var(--bg)',
-          background: 'var(--burnt)',
+          color: 'var(--color-surface)',
+          background: 'var(--color-burnt)',
           boxShadow: '0 6px 18px -12px oklch(0.66 0.17 48 / 0.45)',
           fontWeight: '600',
           fontSize: props.size === 'sm' ? '11px' : '13px',
@@ -125,30 +125,30 @@
         };
       case 'ghost':
         return {
-          color: 'var(--text)',
-          border: '1px solid var(--burnt)',
+          color: 'var(--color-fg)',
+          border: '1px solid var(--color-burnt)',
           padding: props.size === 'sm' ? '5px 10px' : '14px 22px',
           fontSize: props.size === 'sm' ? '11px' : '13px',
           fontWeight: '600',
         };
       case 'chip':
         return {
-          color: 'var(--text-3)',
-          border: '1px solid var(--line)',
+          color: 'var(--color-fg-3)',
+          border: '1px solid var(--color-line)',
           padding: props.size === 'sm' ? '4px 10px' : '6px 12px',
           fontSize: '11px',
-          background: 'var(--card)',
+          background: 'var(--color-card)',
           backdropFilter: 'blur(8px)',
         };
       case 'text':
         return {
-          color: 'var(--burnt)',
+          color: 'var(--color-burnt)',
           padding: '0',
           fontSize: '12px',
         };
       case 'nav':
         return {
-          color: 'var(--text-2)',
+          color: 'var(--color-fg-2)',
           padding: '8px 12px',
           fontSize: '13px',
           border: 'none',
@@ -164,15 +164,19 @@
     if (!hovered.value) return {};
     switch (props.variant) {
       case 'primary':
-        return { background: 'var(--burnt-hi)' };
+        return { background: 'var(--color-burnt-hi)' };
       case 'ghost':
-        return { borderColor: 'var(--burnt-hi)', color: 'var(--burnt-hi)', background: 'oklch(0.66 0.17 48 / 0.08)' };
+        return {
+          borderColor: 'var(--color-burnt-hi)',
+          color: 'var(--color-burnt-hi)',
+          background: 'oklch(0.66 0.17 48 / 0.08)',
+        };
       case 'chip':
-        return { borderColor: 'var(--burnt)', color: 'var(--text)' };
+        return { borderColor: 'var(--color-burnt)', color: 'var(--color-fg)' };
       case 'text':
-        return { color: 'var(--burnt-hi)' };
+        return { color: 'var(--color-burnt-hi)' };
       case 'nav':
-        return { color: 'var(--text)' };
+        return { color: 'var(--color-fg)' };
       default:
         return {};
     }
@@ -192,10 +196,10 @@
   const activeStyle = computed((): Record<string, string> => {
     if (!props.active) return {};
     if (props.variant === 'chip') {
-      return { color: 'var(--bg)', background: 'var(--burnt)', borderColor: 'var(--burnt)' };
+      return { color: 'var(--color-surface)', background: 'var(--color-burnt)', borderColor: 'var(--color-burnt)' };
     }
     if (props.variant === 'nav') {
-      return { color: 'var(--burnt)' };
+      return { color: 'var(--color-burnt)' };
     }
     return {};
   });
@@ -205,7 +209,7 @@
   // while keeping its burnt-family emphasis (merged after hoverStyle, so it wins the color).
   const accentStyle = computed((): Record<string, string> => {
     if (!props.accent || props.variant !== 'chip') return {};
-    const shade = hovered.value ? 'var(--burnt-hi)' : 'var(--burnt)';
+    const shade = hovered.value ? 'var(--color-burnt-hi)' : 'var(--color-burnt)';
     return { color: shade, borderColor: shade };
   });
 

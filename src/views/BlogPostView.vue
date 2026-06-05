@@ -50,7 +50,7 @@
     <BlogPostHeader :post="post" />
 
     <article
-      class="prose max-w-none prose-invert prose-headings:font-display prose-headings:tracking-tight prose-headings:text-[var(--text)] prose-p:leading-relaxed prose-p:text-[var(--text-2)] prose-a:text-[var(--burnt-hi)] prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-[var(--burnt)] prose-blockquote:text-[var(--text-3)] prose-strong:text-[var(--text)] prose-code:text-[var(--cheddar)] prose-pre:rounded-xl prose-pre:border prose-pre:border-[var(--line)] prose-li:text-[var(--text-2)] prose-hr:border-[var(--line-soft)]"
+      class="prose max-w-none prose-invert prose-headings:font-display prose-headings:tracking-tight prose-headings:text-[var(--color-fg)] prose-p:leading-relaxed prose-p:text-[var(--color-fg-2)] prose-a:text-[var(--color-burnt-hi)] prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-[var(--color-burnt)] prose-blockquote:text-[var(--color-fg-3)] prose-strong:text-[var(--color-fg)] prose-code:text-[var(--color-cheddar)] prose-pre:rounded-xl prose-pre:border prose-pre:border-[var(--color-line)] prose-li:text-[var(--color-fg-2)] prose-hr:border-[var(--color-line-soft)]"
     >
       <component :is="post.component" />
     </article>

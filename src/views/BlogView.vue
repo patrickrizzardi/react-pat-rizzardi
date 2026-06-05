@@ -68,13 +68,13 @@
           font-size: clamp(40px, 5vw, 64px);
           letter-spacing: -0.03em;
           line-height: 1.05;
-          color: var(--text);
+          color: var(--color-fg);
           margin: 0 0 16px;
         "
       >
         blog
       </h1>
-      <p style="font-size: 17px; color: var(--text-2); line-height: 1.6; max-width: 480px">
+      <p style="font-size: 17px; color: var(--color-fg-2); line-height: 1.6; max-width: 480px">
         Engineering leadership, architecture, and lessons from building systems at scale.
       </p>
     </header>
@@ -111,16 +111,22 @@
       class="py-16 text-center"
     >
       <p
-        style="font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--text); margin: 0 0 8px"
+        style="
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-size: 20px;
+          color: var(--color-fg);
+          margin: 0 0 8px;
+        "
       >
         No posts tagged
         <code
           style="
             font-family: var(--font-mono);
             font-size: 17px;
-            color: var(--cheddar);
-            background: var(--bg-3);
-            border: 1px solid var(--line-soft);
+            color: var(--color-cheddar);
+            background: var(--color-surface-3);
+            border: 1px solid var(--color-line-soft);
             border-radius: 6px;
             padding: 2px 8px;
           "
@@ -128,7 +134,7 @@
         >
         yet.
       </p>
-      <p style="color: var(--text-4); font-family: var(--font-mono); font-size: 12px; margin: 0 0 20px">
+      <p style="color: var(--color-fg-4); font-family: var(--font-mono); font-size: 12px; margin: 0 0 20px">
         {{ posts.length }} post{{ posts.length === 1 ? '' : 's' }} published — browse all
       </p>
       <div class="mb-6 flex flex-wrap justify-center gap-2">

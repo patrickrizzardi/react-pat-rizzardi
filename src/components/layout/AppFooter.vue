@@ -12,7 +12,7 @@
 <template>
   <footer
     class="border-t py-8"
-    style="border-color: var(--line-soft); background: var(--bg-2)"
+    style="border-color: var(--color-line-soft); background: var(--color-surface-2)"
   >
     <div class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6">
       <div class="flex gap-6">
@@ -23,7 +23,7 @@
           :aria-label="link.label"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-[var(--text-4)] transition-colors duration-200 hover:text-[var(--burnt)]"
+          class="text-[var(--color-fg-4)] transition-colors duration-200 hover:text-[var(--color-burnt)]"
         >
           <component
             :is="link.icon"
@@ -33,11 +33,11 @@
       </div>
       <p
         class="text-sm"
-        style="color: var(--text-4)"
+        style="color: var(--color-fg-4)"
       >
         &copy; {{ new Date().getFullYear() }} {{ siteConfig.name }}
         &nbsp;&middot;&nbsp;
-        <span style="color: var(--text-3)">shipped with intent · not by accident</span>
+        <span style="color: var(--color-fg-3)">shipped with intent · not by accident</span>
       </p>
     </div>
   </footer>

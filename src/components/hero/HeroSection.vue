@@ -84,7 +84,7 @@
           top: 0;
           font-family: var(--font-mono);
           font-size: 11px;
-          color: var(--text-4);
+          color: var(--color-fg-4);
           text-transform: uppercase;
           letter-spacing: 0.18em;
           writing-mode: vertical-rl;
@@ -100,11 +100,11 @@
           style="
             font-family: var(--font-mono);
             font-size: 12px;
-            color: var(--text-3);
+            color: var(--color-fg-3);
             padding: 6px 12px;
-            border: 1px solid var(--line);
+            border: 1px solid var(--color-line);
             border-radius: 999px;
-            background: var(--card);
+            background: var(--color-card);
             backdrop-filter: blur(8px);
           "
         >
@@ -118,9 +118,9 @@
               flex-shrink: 0;
             "
           />
-          <span style="color: var(--text-2)">cheddar://</span>
-          <span style="color: var(--text)">{{ callsign }}</span>
-          <span style="color: var(--text-4); margin-left: 4px">·</span>
+          <span style="color: var(--color-fg-2)">cheddar://</span>
+          <span style="color: var(--color-fg)">{{ callsign }}</span>
+          <span style="color: var(--color-fg-4); margin-left: 4px">·</span>
           <span style="color: oklch(0.74 0.21 145)">open to work</span>
         </div>
 
@@ -143,7 +143,7 @@
           font-size: clamp(40px, 6vw, 88px);
           line-height: 1;
           letter-spacing: -0.04em;
-          color: var(--text);
+          color: var(--color-fg);
           margin: 24px 0 0;
         "
       >
@@ -153,7 +153,7 @@
             font-family: var(--font-accent);
             font-style: italic;
             font-weight: 400;
-            color: var(--burnt-hi);
+            color: var(--color-burnt-hi);
             letter-spacing: -0.02em;
           "
           >backend</span
@@ -171,7 +171,7 @@
       </h1>
 
       <!-- Subhead -->
-      <p style="margin-top: 28px; max-width: 680px; font-size: 19px; line-height: 1.55; color: var(--text-2)">
+      <p style="margin-top: 28px; max-width: 680px; font-size: 19px; line-height: 1.55; color: var(--color-fg-2)">
         Principal Engineer &amp; Architect. Leading a team of 4 at a $2M/mo platform, while building a Rust LLVM
         compiler and an LLM from bare metal, solo. Leadership creates alignment&thinsp;—&thinsp;engineering creates
         leverage.
@@ -209,7 +209,7 @@
 
         <span
           class="ml-2"
-          style="font-family: var(--font-mono); font-size: 12px; color: var(--text-3)"
+          style="font-family: var(--font-mono); font-size: 12px; color: var(--color-fg-3)"
         >
           ↳ open to · principal/staff · founding eng · contract
         </span>
@@ -218,7 +218,7 @@
       <!-- Metrics row -->
       <div
         class="grid grid-cols-2 gap-7 md:grid-cols-4"
-        style="margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--line-soft)"
+        style="margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--color-line-soft)"
       >
         <div
           v-for="(metric, i) in metrics"
@@ -236,7 +236,7 @@
               font-size: 40px;
               line-height: 1;
               letter-spacing: -0.03em;
-              color: var(--cheddar-hi);
+              color: var(--color-cheddar-hi);
             "
           >
             {{ metric.value }}
@@ -248,7 +248,7 @@
               font-size: 11px;
               text-transform: uppercase;
               letter-spacing: 0.14em;
-              color: var(--text-3);
+              color: var(--color-fg-3);
             "
           >
             {{ metric.label }}

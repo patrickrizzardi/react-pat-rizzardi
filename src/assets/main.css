@@ -3,17 +3,26 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Single source for the design tokens. @theme emits each as a :root CSS var AND mints the
+   matching Tailwind utility (e.g. --color-surface → bg-surface, --color-fg → text-fg,
+   --color-burnt → text-burnt/bg-burnt/border-burnt). Use the utilities in templates; use
+   var(--color-*) only where a value is bound dynamically in :style. */
 @theme {
-  --color-bg: oklch(0.15 0.006 260);
-  --color-bg-2: oklch(0.18 0.008 260);
-  --color-bg-3: oklch(0.22 0.01 260);
+  --color-surface: oklch(0.15 0.006 260);
+  --color-surface-2: oklch(0.18 0.008 260);
+  --color-surface-3: oklch(0.22 0.01 260);
+
+  --color-card: oklch(0.2 0.01 260 / 0.55);
+  --color-card-deep: oklch(0.13 0.008 260);
+  --color-card-chrome: oklch(0.16 0.008 260);
+
   --color-line: oklch(0.32 0.012 260 / 0.5);
   --color-line-soft: oklch(0.32 0.012 260 / 0.25);
 
-  --color-text: oklch(0.96 0.012 80);
-  --color-text-2: oklch(0.78 0.015 70);
-  --color-text-3: oklch(0.7 0.02 60);
-  --color-text-4: oklch(0.65 0.02 55);
+  --color-fg: oklch(0.96 0.012 80);
+  --color-fg-2: oklch(0.78 0.015 70);
+  --color-fg-3: oklch(0.7 0.02 60);
+  --color-fg-4: oklch(0.65 0.02 55);
 
   --color-burnt: oklch(0.66 0.17 48);
   --color-burnt-hi: oklch(0.74 0.16 52);
@@ -26,39 +35,17 @@
   --font-body: 'Geist', -apple-system, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
-
-  --btn-radius: 6px;
-  --card-radius: 14px;
 }
 
+/* Non-color / composite tokens (not Tailwind utility namespaces — consumed via var()). */
 :root {
-  --bg: oklch(0.15 0.006 260);
-  --bg-2: oklch(0.18 0.008 260);
-  --bg-3: oklch(0.22 0.01 260);
-  --line: oklch(0.32 0.012 260 / 0.5);
-  --line-soft: oklch(0.32 0.012 260 / 0.25);
-
-  --card: oklch(0.2 0.01 260 / 0.55);
-  --card-deep: oklch(0.13 0.008 260);
-  --card-chrome: oklch(0.16 0.008 260);
   --card-blur: blur(10px) saturate(120%);
   --card-shadow: 0 1px 0 oklch(1 0 0 / 0.04) inset, 0 18px 40px -20px oklch(0 0 0 / 0.6), 0 2px 6px oklch(0 0 0 / 0.25);
   --card-shadow-hi:
     0 1px 0 oklch(1 0 0 / 0.07) inset, 0 28px 60px -24px oklch(0 0 0 / 0.7), 0 2px 8px oklch(0 0 0 / 0.3),
     0 0 0 1px oklch(0.66 0.17 48 / 0.18);
 
-  --text: oklch(0.96 0.012 80);
-  --text-2: oklch(0.78 0.015 70);
-  --text-3: oklch(0.7 0.02 60);
-  --text-4: oklch(0.65 0.02 55);
-
-  --burnt: oklch(0.66 0.17 48);
-  --burnt-hi: oklch(0.74 0.16 52);
-  --cheddar: oklch(0.82 0.165 78);
-  --cheddar-hi: oklch(0.88 0.16 82);
-  --ember: oklch(0.55 0.18 38);
-
-  --primary: var(--burnt);
+  --primary: var(--color-burnt);
   --primary-glow: oklch(0.66 0.17 48 / 0.25);
 
   --shadow-1: 0 1px 0 oklch(1 0 0 / 0.04) inset, 0 0 0 1px oklch(1 0 0 / 0.03);
@@ -74,11 +61,6 @@
      src/utils/scroll.ts measures the bar element directly. Bar = inner py-3 (24px) +
      tallest content row + 1px border ≈ 54px mobile, 61px desktop (taller nav-button row). */
   --nav-h: 54px;
-
-  --font-display: 'Geist', -apple-system, system-ui, sans-serif;
-  --font-accent: 'Newsreader', Georgia, serif;
-  --font-body: 'Geist', -apple-system, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
 /* Desktop nav bar is taller (larger nav-button row) — keep --nav-h synced with the live bar. */
@@ -99,13 +81,13 @@ body {
 }
 
 html {
-  background: var(--bg);
+  background: var(--color-surface);
 }
 
 body {
   font-family: var(--font-body);
-  color: var(--text);
-  background: var(--bg);
+  color: var(--color-fg);
+  background: var(--color-surface);
   font-feature-settings: 'ss01', 'cv11';
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
@@ -148,7 +130,7 @@ body::after {
 
 ::selection {
   background: oklch(0.66 0.17 48 / 0.4);
-  color: var(--text);
+  color: var(--color-fg);
 }
 
 ::-webkit-scrollbar {
@@ -157,16 +139,16 @@ body::after {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg);
+  background: var(--color-surface);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-3);
+  background: var(--color-surface-3);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--burnt);
+  background: var(--color-burnt);
 }
 
 .eyebrow {
@@ -174,7 +156,7 @@ body::after {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: var(--text-3);
+  color: var(--color-fg-3);
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -184,7 +166,7 @@ body::after {
   content: '';
   width: 18px;
   height: 1px;
-  background: var(--burnt);
+  background: var(--color-burnt);
 }
 
 a {
@@ -195,7 +177,7 @@ a {
 /* Tailwind preflight strips native outlines; restore a visible keyboard-focus ring
    for keyboard users only (pointer clicks don't trigger :focus-visible). */
 :focus-visible {
-  outline: 2px solid var(--burnt-hi);
+  outline: 2px solid var(--color-burnt-hi);
   outline-offset: 2px;
 }
 

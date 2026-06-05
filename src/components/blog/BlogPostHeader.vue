@@ -35,7 +35,7 @@
     <RouterLink
       to="/blog"
       class="mb-8 inline-flex items-center gap-1.5 transition-colors duration-150"
-      style="font-family: var(--font-mono); font-size: 12px; color: var(--text-4); text-decoration: none"
+      style="font-family: var(--font-mono); font-size: 12px; color: var(--color-fg-4); text-decoration: none"
     >
       <ArrowLeft :size="12" />
       back to blog
@@ -48,7 +48,7 @@
         font-size: clamp(28px, 4vw, 48px);
         letter-spacing: -0.03em;
         line-height: 1.1;
-        color: var(--text);
+        color: var(--color-fg);
         margin: 0 0 20px;
       "
     >
@@ -57,14 +57,14 @@
 
     <div
       class="flex flex-wrap items-center gap-4"
-      style="font-family: var(--font-mono); font-size: 12px; color: var(--text-4); margin-bottom: 16px"
+      style="font-family: var(--font-mono); font-size: 12px; color: var(--color-fg-4); margin-bottom: 16px"
     >
       <span>{{ formattedDate }}</span>
-      <span style="color: var(--line)">·</span>
+      <span style="color: var(--color-line)">·</span>
       <span>{{ post.readingTime }} min read</span>
       <span
         v-if="post.frontmatter.author"
-        style="color: var(--line)"
+        style="color: var(--color-line)"
         >·</span
       >
       <span v-if="post.frontmatter.author">{{ post.frontmatter.author }}</span>
@@ -95,14 +95,14 @@
         <component
           :is="copied ? Check : Link"
           :size="13"
-          :style="{ color: copied ? 'oklch(0.74 0.21 145)' : 'var(--text-4)' }"
+          :style="{ color: copied ? 'oklch(0.74 0.21 145)' : 'var(--color-fg-4)' }"
         />
       </button>
     </div>
 
     <hr
       class="mt-10"
-      style="border-color: var(--line-soft)"
+      style="border-color: var(--color-line-soft)"
     />
   </div>
 </template>

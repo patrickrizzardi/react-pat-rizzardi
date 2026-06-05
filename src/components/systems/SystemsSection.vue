@@ -52,11 +52,11 @@
 
   const tagColors: Record<string, string> = {
     live: 'oklch(0.74 0.21 145)',
-    'open source': 'var(--text-3)',
-    archived: 'var(--text-4)',
-    active: 'var(--burnt-hi)',
+    'open source': 'var(--color-fg-3)',
+    archived: 'var(--color-fg-4)',
+    active: 'var(--color-burnt-hi)',
     training: 'oklch(0.74 0.21 145)',
-    'in dev': 'var(--text-3)',
+    'in dev': 'var(--color-fg-3)',
   };
 
   // Per-card active snippet index — keyed by project id so each card is independent.
@@ -84,7 +84,7 @@
           font-size: clamp(32px, 4vw, 56px);
           letter-spacing: -0.03em;
           line-height: 1.05;
-          color: var(--text);
+          color: var(--color-fg);
           margin: 0 0 64px;
         "
       >
@@ -97,11 +97,16 @@
           v-for="p in featured"
           :key="p.id"
           class="rounded-2xl border"
-          style="background: var(--card); border-color: var(--line); box-shadow: var(--card-shadow); overflow: hidden"
+          style="
+            background: var(--color-card);
+            border-color: var(--color-line);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+          "
         >
           <div class="grid grid-cols-1 lg:grid-cols-2">
             <!-- Left: info -->
-            <div style="padding: 40px 40px 40px 40px; border-right: 1px solid var(--line)">
+            <div style="padding: 40px 40px 40px 40px; border-right: 1px solid var(--color-line)">
               <!-- Rank + status -->
               <div class="mb-6 flex items-center justify-between">
                 <span
@@ -109,7 +114,7 @@
                     font-family: var(--font-mono);
                     font-size: 11px;
                     font-weight: 700;
-                    color: var(--text-4);
+                    color: var(--color-fg-4);
                     letter-spacing: 0.1em;
                   "
                   >{{ p.rank }}</span
@@ -126,8 +131,8 @@
                       border: 1px solid;
                     "
                     :style="{
-                      color: tagColors[p.status] ?? 'var(--text-3)',
-                      borderColor: tagColors[p.status] ?? 'var(--line)',
+                      color: tagColors[p.status] ?? 'var(--color-fg-3)',
+                      borderColor: tagColors[p.status] ?? 'var(--color-line)',
                       background:
                         p.status === 'active' ? 'oklch(0.66 0.17 48 / 0.1)'
                         : p.status === 'training' ? 'oklch(0.74 0.21 145 / 0.08)'
@@ -144,16 +149,16 @@
                   font-weight: 800;
                   font-size: 28px;
                   letter-spacing: -0.02em;
-                  color: var(--text);
+                  color: var(--color-fg);
                   margin: 0 0 8px;
                 "
               >
                 {{ p.title }}
               </h3>
-              <p style="font-family: var(--font-mono); font-size: 13px; color: var(--burnt-hi); margin: 0 0 20px">
+              <p style="font-family: var(--font-mono); font-size: 13px; color: var(--color-burnt-hi); margin: 0 0 20px">
                 {{ p.tagline }}
               </p>
-              <p style="font-size: 14px; line-height: 1.7; color: var(--text-2); margin: 0 0 24px">
+              <p style="font-size: 14px; line-height: 1.7; color: var(--color-fg-2); margin: 0 0 24px">
                 {{ p.description }}
               </p>
 
@@ -166,9 +171,9 @@
                   style="
                     font-family: var(--font-mono);
                     font-size: 11px;
-                    color: var(--text-3);
-                    background: var(--bg-3);
-                    border: 1px solid var(--line-soft);
+                    color: var(--color-fg-3);
+                    background: var(--color-surface-3);
+                    border: 1px solid var(--color-line-soft);
                   "
                   >{{ t }}</span
                 >
@@ -178,15 +183,15 @@
               <div
                 v-if="p.tier === 'featured'"
                 class="rounded-lg px-4 py-3"
-                style="background: var(--bg-3); border-left: 2px solid var(--burnt)"
+                style="background: var(--color-surface-3); border-left: 2px solid var(--color-burnt)"
               >
                 <div
                   class="eyebrow mb-2"
-                  style="color: var(--burnt); font-size: 10px"
+                  style="color: var(--color-burnt); font-size: 10px"
                 >
                   architecture note
                 </div>
-                <p style="font-size: 13px; line-height: 1.6; color: var(--text-3); margin: 0">{{ p.archNotes }}</p>
+                <p style="font-size: 13px; line-height: 1.6; color: var(--color-fg-3); margin: 0">{{ p.archNotes }}</p>
               </div>
 
               <!-- Featured repo link (only when a public repo exists) -->
@@ -209,7 +214,7 @@
             <!-- Right: code peek -->
             <div
               v-if="p.tier === 'featured' && p.snippets.length > 0"
-              style="padding: 32px; background: var(--card-deep)"
+              style="padding: 32px; background: var(--color-card-deep)"
             >
               <!-- Snippet tabs — only rendered when there are 2+ snippets -->
               <div
@@ -231,8 +236,8 @@
                     border: 1px solid;
                   "
                   :style="{
-                    color: getActiveSnippetIndex(p.id) === idx ? 'var(--burnt-hi)' : 'var(--text-4)',
-                    borderColor: getActiveSnippetIndex(p.id) === idx ? 'var(--burnt)' : 'var(--line-soft)',
+                    color: getActiveSnippetIndex(p.id) === idx ? 'var(--color-burnt-hi)' : 'var(--color-fg-4)',
+                    borderColor: getActiveSnippetIndex(p.id) === idx ? 'var(--color-burnt)' : 'var(--color-line-soft)',
                     background: getActiveSnippetIndex(p.id) === idx ? 'oklch(0.66 0.17 48 / 0.1)' : 'transparent',
                   }"
                   @click="setActiveSnippetIndex(p.id, idx)"
@@ -258,7 +263,12 @@
           v-for="p in secondary"
           :key="p.id"
           class="flex flex-col gap-4 rounded-xl border"
-          style="padding: 24px; background: var(--card); border-color: var(--line); box-shadow: var(--card-shadow)"
+          style="
+            padding: 24px;
+            background: var(--color-card);
+            border-color: var(--color-line);
+            box-shadow: var(--card-shadow);
+          "
         >
           <div class="flex items-start justify-between gap-2">
             <h3
@@ -267,7 +277,7 @@
                 font-weight: 700;
                 font-size: 16px;
                 letter-spacing: -0.01em;
-                color: var(--text);
+                color: var(--color-fg);
                 margin: 0;
               "
             >
@@ -284,18 +294,20 @@
                 border: 1px solid;
               "
               :style="{
-                color: tagColors[p.tag] ?? 'var(--text-3)',
-                borderColor: tagColors[p.tag] ?? 'var(--line)',
+                color: tagColors[p.tag] ?? 'var(--color-fg-3)',
+                borderColor: tagColors[p.tag] ?? 'var(--color-line)',
               }"
               >{{ p.tag }}</span
             >
           </div>
 
-          <p style="font-family: var(--font-mono); font-size: 11px; color: var(--text-4); margin: 0">
+          <p style="font-family: var(--font-mono); font-size: 11px; color: var(--color-fg-4); margin: 0">
             {{ p.roleLabel }}
           </p>
 
-          <p style="font-size: 13px; line-height: 1.6; color: var(--text-3); margin: 0; flex: 1">{{ p.description }}</p>
+          <p style="font-size: 13px; line-height: 1.6; color: var(--color-fg-3); margin: 0; flex: 1">
+            {{ p.description }}
+          </p>
 
           <!-- Links — ExperienceProject has liveUrl as required string; StandardProject has string | null -->
           <div class="mt-auto flex flex-wrap gap-2">

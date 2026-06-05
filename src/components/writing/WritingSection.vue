@@ -24,7 +24,7 @@
               font-size: clamp(32px, 4vw, 56px);
               letter-spacing: -0.03em;
               line-height: 1.05;
-              color: var(--text);
+              color: var(--color-fg);
               margin: 0;
             "
           >
@@ -41,7 +41,7 @@
 
       <div
         v-if="recent.length === 0"
-        style="font-family: var(--font-mono); font-size: 13px; color: var(--text-4)"
+        style="font-family: var(--font-mono); font-size: 13px; color: var(--color-fg-4)"
       >
         No posts yet. First drop coming soon.
       </div>
@@ -49,20 +49,20 @@
       <div
         v-else
         class="flex flex-col"
-        style="border-top: 1px solid var(--line)"
+        style="border-top: 1px solid var(--color-line)"
       >
         <RouterLink
           v-for="post in recent"
           :key="post.frontmatter.slug"
           :to="`/blog/${post.frontmatter.slug}`"
           class="group flex flex-col gap-2 py-6 sm:flex-row sm:items-baseline sm:gap-8"
-          style="border-bottom: 1px solid var(--line-soft); text-decoration: none; transition: background 0.15s"
+          style="border-bottom: 1px solid var(--color-line-soft); text-decoration: none; transition: background 0.15s"
         >
           <div
             style="
               font-family: var(--font-mono);
               font-size: 11px;
-              color: var(--text-4);
+              color: var(--color-fg-4);
               min-width: 80px;
               flex-shrink: 0;
             "
@@ -75,18 +75,18 @@
                 font-family: var(--font-display);
                 font-weight: 600;
                 font-size: 16px;
-                color: var(--text);
+                color: var(--color-fg);
                 margin-bottom: 4px;
                 transition: color 0.15s;
               "
             >
               {{ post.frontmatter.title }}
             </div>
-            <div style="font-size: 13px; color: var(--text-3); line-height: 1.5">
+            <div style="font-size: 13px; color: var(--color-fg-3); line-height: 1.5">
               {{ post.frontmatter.description }}
             </div>
           </div>
-          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-4); flex-shrink: 0">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--color-fg-4); flex-shrink: 0">
             {{ post.readingTime }} min
           </div>
         </RouterLink>

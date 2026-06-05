@@ -49,7 +49,7 @@
 <template>
   <section
     id="contact"
-    style="padding: 120px 0; background: var(--bg-2)"
+    style="padding: 120px 0; background: var(--color-surface-2)"
   >
     <div class="mx-auto max-w-6xl px-6">
       <div class="eyebrow mb-5">contact</div>
@@ -60,13 +60,13 @@
           font-size: clamp(32px, 4vw, 56px);
           letter-spacing: -0.03em;
           line-height: 1.05;
-          color: var(--text);
+          color: var(--color-fg);
           margin: 0 0 16px;
         "
       >
         Looking for a Principal Engineer?
       </h2>
-      <p style="font-size: 17px; color: var(--text-2); margin: 0 0 56px; max-width: 480px; line-height: 1.6">
+      <p style="font-size: 17px; color: var(--color-fg-2); margin: 0 0 56px; max-width: 480px; line-height: 1.6">
         Open to principal/staff roles, founding-engineer engagements, and high-leverage contracts. Distributed systems,
         TypeScript/Node, compilers, and everything in between.
       </p>
@@ -74,13 +74,18 @@
       <!-- Glow card -->
       <div
         class="max-w-xl rounded-2xl border"
-        style="background: var(--card); border-color: var(--line); box-shadow: var(--card-shadow-hi); overflow: hidden"
+        style="
+          background: var(--color-card);
+          border-color: var(--color-line);
+          box-shadow: var(--card-shadow-hi);
+          overflow: hidden;
+        "
       >
         <div
           v-for="link in links"
           :key="link.label"
           class="relative border-b last:border-b-0"
-          style="border-color: var(--line-soft)"
+          style="border-color: var(--color-line-soft)"
         >
           <a
             :href="link.href"
@@ -99,7 +104,7 @@
               :is="link.icon"
               :size="18"
               :style="{
-                color: hovered === link.label ? 'var(--burnt)' : 'var(--text-3)',
+                color: hovered === link.label ? 'var(--color-burnt)' : 'var(--color-fg-3)',
                 transition: 'color 0.15s',
                 flexShrink: 0,
               }"
@@ -109,7 +114,7 @@
                 style="
                   font-family: var(--font-mono);
                   font-size: 11px;
-                  color: var(--text-4);
+                  color: var(--color-fg-4);
                   margin-bottom: 2px;
                   text-transform: uppercase;
                   letter-spacing: 0.1em;
@@ -126,7 +131,7 @@
                   text-overflow: ellipsis;
                   white-space: nowrap;
                 "
-                :style="{ color: hovered === link.label ? 'var(--text)' : 'var(--text-2)' }"
+                :style="{ color: hovered === link.label ? 'var(--color-fg)' : 'var(--color-fg-2)' }"
               >
                 {{ link.text }}
               </div>
@@ -140,7 +145,7 @@
                   opacity 0.15s;
               "
               :style="{
-                color: 'var(--burnt)',
+                color: 'var(--color-burnt)',
                 opacity: hovered === link.label ? 1 : 0,
                 transform: hovered === link.label ? 'translateX(0)' : 'translateX(-4px)',
               }"
@@ -163,7 +168,7 @@
             <component
               :is="copied ? Check : Copy"
               :size="15"
-              :style="{ color: copied ? 'oklch(0.74 0.21 145)' : 'var(--text-3)' }"
+              :style="{ color: copied ? 'oklch(0.74 0.21 145)' : 'var(--color-fg-3)' }"
             />
           </button>
         </div>
