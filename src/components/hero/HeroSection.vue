@@ -7,6 +7,9 @@
   import { siteConfig } from '@/data/siteConfig';
   import { metrics } from '@/data/metrics';
 
+  const METRIC_STAGGER_INITIAL_MS = 500;
+  const METRIC_STAGGER_INTERVAL_MS = 120;
+
   const callsign = useDecoder('patrick.rizzardi', 200);
 
   const metricVisible = ref(metrics.map(() => false));
@@ -14,8 +17,8 @@
   const timeouts: Array<ReturnType<typeof setTimeout>> = [];
 
   onMounted(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
       metricVisible.value = metrics.map(() => true);
     } else {
       metrics.forEach((_, i) => {
@@ -24,7 +27,7 @@
             () => {
               metricVisible.value[i] = true;
             },
-            500 + i * 120,
+            METRIC_STAGGER_INITIAL_MS + i * METRIC_STAGGER_INTERVAL_MS,
           ),
         );
       });

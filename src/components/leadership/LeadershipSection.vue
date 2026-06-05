@@ -103,7 +103,7 @@
           <div class="flex flex-col gap-4">
             <div
               v-for="row in stack"
-              :key="row.cat"
+              :key="row.category"
               class="flex items-baseline gap-4"
             >
               <div
@@ -115,7 +115,7 @@
                   flex-shrink: 0;
                 "
               >
-                {{ row.cat }}
+                {{ row.category }}
               </div>
               <div class="flex flex-wrap gap-1.5">
                 <span

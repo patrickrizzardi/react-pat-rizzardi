@@ -72,8 +72,8 @@
     return props.as;
   });
 
-  // Forward href/to to the underlying element.
-  const linkProps = computed(() => {
+  // Forward href/to/type to the underlying element.
+  const elementProps = computed(() => {
     if (props.as === 'RouterLink') return { to: props.to ?? '/' };
     if (props.as === 'a') {
       return {
@@ -224,7 +224,7 @@
 <template>
   <component
     :is="tag"
-    v-bind="linkProps"
+    v-bind="elementProps"
     :style="computedStyle"
     :aria-pressed="ariaPressed"
     :aria-current="ariaCurrent"

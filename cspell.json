@@ -94,7 +94,8 @@
     "dialogportal",
     "dialogroot",
     "dialogtitle",
-    "visually"
+    "visually",
+    "WCAG"
   ],
   "flagWords": [""],
   "ignorePaths": ["cspell.json", "*.svg", "bugs.md"],

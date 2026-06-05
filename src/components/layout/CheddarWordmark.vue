@@ -1,4 +1,7 @@
 <script setup lang="ts">
+  // SVG intrinsic dimensions: 902×605px → 902÷605 ≈ 1.49
+  const LOGO_ASPECT_RATIO = 1.49;
+
   withDefaults(defineProps<{ size?: number }>(), { size: 24 });
 </script>
 
@@ -10,7 +13,7 @@
     <img
       src="/cheddar-logo.svg"
       alt="Cheddar"
-      :style="{ height: `${size}px`, width: `${Math.round(size * 1.49)}px`, flexShrink: 0 }"
+      :style="{ height: `${size}px`, width: `${Math.round(size * LOGO_ASPECT_RATIO)}px`, flexShrink: 0 }"
     />
     <span>cheddar<span style="color: var(--burnt-hi)">.</span></span>
   </span>

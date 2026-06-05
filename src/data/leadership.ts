@@ -32,10 +32,10 @@ export const timeline = [
 ] as const satisfies ReadonlyArray<{ year: string; label: string; org: string; detail: string }>;
 
 export const stack = [
-  { cat: 'Languages', items: ['TypeScript', 'Rust', 'Python', 'SQL', 'Lua'] },
-  { cat: 'Backend', items: ['Node.js', 'Bun', 'Fastify', 'Express', 'REST'] },
-  { cat: 'Data', items: ['PostgreSQL', 'Redis', 'DragonflyDB', 'Sequelize'] },
-  { cat: 'Infra', items: ['Docker', 'GitHub Actions', 'DigitalOcean', 'Linux'] },
-  { cat: 'Frontend', items: ['Vue 3', 'Tailwind', 'Vite', 'Pinia'] },
-  { cat: 'ML / AI', items: ['CUDA', 'cudarc', 'Transformers', 'BPE'] },
-] as const satisfies ReadonlyArray<{ cat: string; items: ReadonlyArray<string> }>;
+  { category: 'Languages', items: ['TypeScript', 'Rust', 'Python', 'SQL', 'Lua'] },
+  { category: 'Backend', items: ['Node.js', 'Bun', 'Fastify', 'Express', 'REST'] },
+  { category: 'Data', items: ['PostgreSQL', 'Redis', 'DragonflyDB', 'Sequelize'] },
+  { category: 'Infra', items: ['Docker', 'GitHub Actions', 'DigitalOcean', 'Linux'] },
+  { category: 'Frontend', items: ['Vue 3', 'Tailwind', 'Vite', 'Pinia'] },
+  { category: 'ML / AI', items: ['CUDA', 'cudarc', 'Transformers', 'BPE'] },
+] as const satisfies ReadonlyArray<{ category: string; items: ReadonlyArray<string> }>;

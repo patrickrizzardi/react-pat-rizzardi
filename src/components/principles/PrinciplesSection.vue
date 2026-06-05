@@ -35,23 +35,23 @@
       >
         <div
           v-for="p in principles"
-          :key="p.n"
+          :key="p.ordinal"
           class="relative cursor-default"
           :style="{
             padding: '36px 32px',
             background: 'var(--bg-2)',
             boxShadow:
-              hovered === p.n ? 'inset 0 0 0 999px oklch(0.66 0.17 48 / 0.06)' : 'inset 0 0 0 999px transparent',
+              hovered === p.ordinal ? 'inset 0 0 0 999px oklch(0.66 0.17 48 / 0.06)' : 'inset 0 0 0 999px transparent',
             transition: 'box-shadow 0.2s ease',
           }"
-          @mouseenter="hovered = p.n"
+          @mouseenter="hovered = p.ordinal"
           @mouseleave="hovered = null"
         >
           <div
             class="eyebrow mb-5"
             style="color: var(--burnt)"
           >
-            {{ p.n }}
+            {{ p.ordinal }}
           </div>
           <h3
             style="

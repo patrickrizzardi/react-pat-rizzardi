@@ -1,6 +1,9 @@
 import { ref, readonly, onMounted, onUnmounted } from 'vue';
 import type { Ref } from 'vue';
 
+const DECODE_DURATION_MS = 700;
+const SCRAMBLE_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789_.';
+
 export const useDecoder = (final: string, delay = 400): Readonly<Ref<string>> => {
   const output = ref(final);
   let rafId = 0;
@@ -11,7 +14,6 @@ export const useDecoder = (final: string, delay = 400): Readonly<Ref<string>> =>
       output.value = final;
       return;
     }
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789_.';
     const start = performance.now() + delay;
 
     const tick = (t: number): void => {
@@ -19,7 +21,7 @@ export const useDecoder = (final: string, delay = 400): Readonly<Ref<string>> =>
         rafId = requestAnimationFrame(tick);
         return;
       }
-      const progress = Math.min(1, (t - start) / 700);
+      const progress = Math.min(1, (t - start) / DECODE_DURATION_MS);
       const fixed = Math.floor(progress * final.length);
       let s = final.slice(0, fixed);
       for (let i = fixed; i < final.length; i++) {
@@ -28,7 +30,7 @@ export const useDecoder = (final: string, delay = 400): Readonly<Ref<string>> =>
           s += c;
           continue;
         }
-        s += chars[Math.floor(Math.random() * chars.length)];
+        s += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
       }
       output.value = s;
       if (progress < 1) {
