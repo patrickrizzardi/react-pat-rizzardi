@@ -3,6 +3,7 @@
   import { useHead } from '@unhead/vue';
   import type { BlogPost } from '@/types/blog';
   import { siteConfig } from '@/data/siteConfig';
+  import { WORDS_PER_MINUTE } from '@/composables/useBlogPosts';
 
   const props = defineProps<{ post: BlogPost }>();
 
@@ -26,7 +27,7 @@
       },
       url: `${siteConfig.siteUrl}/blog/${props.post.frontmatter.slug}`,
       keywords: [...props.post.frontmatter.tags].join(', '),
-      wordCount: props.post.readingTime * 200,
+      wordCount: props.post.readingTime * WORDS_PER_MINUTE,
     }),
   );
 

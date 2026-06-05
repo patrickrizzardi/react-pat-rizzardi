@@ -10,14 +10,14 @@
 
   const route = useRoute();
   const router = useRouter();
-  const { posts, getBySlug } = useBlogPosts();
+  const { posts, getBySlug, getIndexBySlug } = useBlogPosts();
 
   const post = computed(() => {
     const slug = route.params['slug'] as string;
     return getBySlug(slug);
   });
 
-  const currentIndex = computed(() => posts.findIndex((p) => p.frontmatter.slug === post.value?.frontmatter.slug));
+  const currentIndex = computed(() => (post.value ? getIndexBySlug(post.value.frontmatter.slug) : -1));
 
   const prevPost = computed(() => (currentIndex.value > 0 ? posts[currentIndex.value - 1] : undefined));
 

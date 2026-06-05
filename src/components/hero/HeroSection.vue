@@ -10,7 +10,7 @@
   const callsign = useDecoder('patrick.rizzardi', 200);
 
   const clock = ref('');
-  const metricVisible = ref([false, false, false, false]);
+  const metricVisible = ref(metrics.map(() => false));
 
   let clockInterval = 0;
   const timeouts: Array<ReturnType<typeof setTimeout>> = [];
@@ -29,7 +29,7 @@
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) {
-      metricVisible.value = [true, true, true, true];
+      metricVisible.value = metrics.map(() => true);
     } else {
       metrics.forEach((_, i) => {
         timeouts.push(

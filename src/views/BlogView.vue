@@ -17,8 +17,7 @@
 
   const route = useRoute();
   const router = useRouter();
-  const { posts, getAllTags } = useBlogPosts();
-  const allTags = getAllTags();
+  const { posts, allTags } = useBlogPosts();
 
   // Accept ?tag= from post-header links, but only honor a value that's an actual tag —
   // an unknown/garbage tag falls back to null (show all) instead of an empty list.

@@ -1,7 +1,7 @@
 import type { DefineComponent } from 'vue';
 import type { BlogFrontmatter, BlogPost } from '@/types/blog';
 
-const WORDS_PER_MINUTE = 200;
+export const WORDS_PER_MINUTE = 200;
 
 interface BlogModule {
   default: DefineComponent;
@@ -17,6 +17,14 @@ interface BlogModule {
 const modules = import.meta.glob<BlogModule>('../content/blog/*.md', {
   eager: true,
 });
+
+// Raw markdown source per post, keyed by the same glob path as `modules`. The compiled
+// markdown module exposes no raw text, so reading time is computed from this instead.
+const rawSources = import.meta.glob('../content/blog/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
 
 const estimateReadingTime = (content: string): number => {
   const words = content.split(/\s+/).filter(Boolean).length;
@@ -36,31 +44,37 @@ const allPosts: ReadonlyArray<BlogPost> = Object.entries(modules)
     };
     return {
       frontmatter,
-      readingTime: estimateReadingTime(path),
+      readingTime: estimateReadingTime(rawSources[path] ?? ''),
       component: mod.default,
     };
   })
   .filter((post) => !post.frontmatter.draft)
   .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
 
+// Computed once at module load — tags and ordering are static on a build-time site.
+const allTags: ReadonlyArray<string> = (() => {
+  const tags = new Set<string>();
+  for (const post of allPosts) {
+    for (const tag of post.frontmatter.tags) tags.add(tag);
+  }
+  return [...tags].sort();
+})();
+
+const postIndexBySlug: ReadonlyMap<string, number> = new Map(
+  allPosts.map((post, index) => [post.frontmatter.slug, index]),
+);
+
 interface UseBlogPostsReturn {
   readonly posts: ReadonlyArray<BlogPost>;
+  readonly allTags: ReadonlyArray<string>;
   readonly getBySlug: (slug: string) => BlogPost | undefined;
-  readonly getAllTags: () => ReadonlyArray<string>;
+  readonly getIndexBySlug: (slug: string) => number;
 }
 
 export const useBlogPosts = (): UseBlogPostsReturn => {
   const getBySlug = (slug: string): BlogPost | undefined => allPosts.find((post) => post.frontmatter.slug === slug);
+  // -1 = slug not found (matches Array.findIndex semantics the callers expect).
+  const getIndexBySlug = (slug: string): number => postIndexBySlug.get(slug) ?? -1;
 
-  const getAllTags = (): ReadonlyArray<string> => {
-    const tags = new Set<string>();
-    for (const post of allPosts) {
-      for (const tag of post.frontmatter.tags) {
-        tags.add(tag);
-      }
-    }
-    return [...tags].sort();
-  };
-
-  return { posts: allPosts, getBySlug, getAllTags } as const;
+  return { posts: allPosts, allTags, getBySlug, getIndexBySlug } as const;
 };

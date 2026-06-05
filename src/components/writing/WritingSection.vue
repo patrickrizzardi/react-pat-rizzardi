@@ -53,8 +53,8 @@
       >
         <RouterLink
           v-for="post in recent"
-          :key="post.slug"
-          :to="`/blog/${post.slug}`"
+          :key="post.frontmatter.slug"
+          :to="`/blog/${post.frontmatter.slug}`"
           class="group flex flex-col gap-2 py-6 sm:flex-row sm:items-baseline sm:gap-8"
           style="border-bottom: 1px solid var(--line-soft); text-decoration: none; transition: background 0.15s"
         >
