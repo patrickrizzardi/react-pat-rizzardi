@@ -1,9 +1,9 @@
 export const timeline = [
   {
     year: '2026',
-    label: 'Engineering Lead',
+    label: 'Principal Engineer',
     org: 'Cheddar / consulting',
-    detail: 'Independent CTO-track engagements.',
+    detail: 'Independent principal/staff and architecture engagements.',
   },
   {
     year: '2024',

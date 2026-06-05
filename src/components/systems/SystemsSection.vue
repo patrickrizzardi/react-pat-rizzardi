@@ -116,11 +116,6 @@
                 >
                 <div class="flex items-center gap-2">
                   <span
-                    v-if="p.since"
-                    style="font-family: var(--font-mono); font-size: 10px; color: var(--text-4); letter-spacing: 0.05em"
-                    >since {{ p.since }}</span
-                  >
-                  <span
                     class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1"
                     style="
                       font-family: var(--font-mono);

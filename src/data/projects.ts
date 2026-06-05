@@ -44,7 +44,6 @@ pub fn rope_forward_reshape(
       },
     ],
     repoUrl: null,
-    since: '2025',
   },
   {
     id: 'trading-v3',
@@ -101,7 +100,6 @@ pub fn rope_forward_reshape(
       },
     ],
     repoUrl: null,
-    since: '2024',
   },
   {
     id: 'yinz',
@@ -148,7 +146,6 @@ impl Diagnostic {
       },
     ],
     repoUrl: 'https://github.com/yinzers/yinz-lang',
-    since: '2025',
   },
   {
     id: 'vpm-solutions',
