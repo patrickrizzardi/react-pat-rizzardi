@@ -209,7 +209,6 @@
     :is="tag"
     v-bind="linkProps"
     :style="computedStyle"
-    :class="`app-btn app-btn--${variant}`"
     @mouseenter="hovered = true"
     @mouseleave="hovered = false"
     @click="$emit('click', $event as MouseEvent)"

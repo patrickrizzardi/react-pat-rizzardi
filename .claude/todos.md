@@ -53,6 +53,15 @@ Done in cheddar-site-overhaul Phase 4:
 - [x] Mobile menu full focus-trap — Reka UI Dialog (reka-ui ^2.9.9)
 - [x] Contact/CTA heading → "Looking for a Principal Engineer?" (was "Hiring a founding CTO?")
 
+## Audit backlog (2026-06-03 — full report `.analysis/AUDIT-SUMMARY.md`, 8 analyzers, security skipped)
+**Confirmed bugs (fix before cheddar-v1 → main merge):**
+- [ ] **P0** `WritingSection.vue:56-57` — `post.slug` → `post.frontmatter.slug` (home "recent posts" links currently render `/blog/undefined`; verified in `dist/`)
+- [ ] **P1** `useBlogPosts.ts:39` — `estimateReadingTime(path)` measures the file path → every post "1 min" + bad JSON-LD wordCount; pass raw content via a `?raw` glob
+- [ ] **Perf** move Shiki highlighting of `projects.ts` snippets to build-time (`CodeSnippet.vue`) — drops ~181 KB from every client (blog already does this)
+- [ ] Consolidation (your ask): extract `.section-heading`/`.mono-label`/`.chip` CSS classes + `utils/date.ts` (~104 LOC); see AUDIT §A
+- [ ] DECISION NEEDED: inline-`style` vs Tailwind standard (AUDIT §I) — sanction the exception in vue-standards.md or migrate
+- [ ] Rest (NeuronCanvas pause + magic-number extraction, active-section nav, copy-email, dead-code sweep, README, etc.) — see AUDIT-SUMMARY §H ranked
+
 Remaining (cross-workstream):
 - [ ] Resume content polish (Patrick edits the PDF source): headline → "Principal Engineer & Architect"; fold one infra bullet from devops cut; reframe "don't need managing"; drop weak "66+ tests" — see .analysis/resume-review.md
 - [ ] bugs.md: .gitignore it (personal scratch; currently fails cspell) or fix typos

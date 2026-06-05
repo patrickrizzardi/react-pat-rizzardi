@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, computed } from 'vue';
+  import { computed } from 'vue';
   import type { Project } from '@/types/project';
   import CodeSnippet from '@/components/projects/CodeSnippet.vue';
   import AppButton from '@/components/ui/AppButton.vue';
@@ -47,7 +47,6 @@
       .map((p) => ({ ...p, tag: secondaryTag(p), roleLabel: secondaryRole(p) })),
   );
 
-  const expandedCard = ref<string | null>(null);
   const tagColors: Record<string, string> = {
     live: 'oklch(0.74 0.21 145)',
     'open source': 'var(--text-3)',

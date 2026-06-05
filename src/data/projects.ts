@@ -179,7 +179,6 @@ impl Diagnostic {
     repoUrl: null,
     liveUrl: null,
     npmUrl: null,
-    extensionUrl: null,
   },
   {
     id: 'yinzerflow',
@@ -191,7 +190,6 @@ impl Diagnostic {
     repoUrl: 'https://github.com/yinzers/YinzerFlow',
     liveUrl: null,
     npmUrl: 'https://www.npmjs.com/package/yinzerflow',
-    extensionUrl: null,
   },
   {
     id: 'wow-inventory',
@@ -203,6 +201,5 @@ impl Diagnostic {
     repoUrl: 'https://github.com/patrickrizzardi/wow-inventory-management',
     liveUrl: null,
     npmUrl: null,
-    extensionUrl: null,
   },
 ] as const;

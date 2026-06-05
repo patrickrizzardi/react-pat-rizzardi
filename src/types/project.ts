@@ -32,7 +32,6 @@ export interface StandardProject extends ProjectBase {
   repoUrl: string | null;
   liveUrl: string | null;
   npmUrl: string | null;
-  extensionUrl: string | null;
 }
 
 export type Project = FeaturedProject | ExperienceProject | StandardProject;
