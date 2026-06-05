@@ -6,9 +6,11 @@ import tailwindcss from '@tailwindcss/vite';
 import markdown from 'unplugin-vue-markdown/vite';
 import shikiPlugin from '@shikijs/markdown-it';
 import generateSitemap from 'vite-ssg-sitemap';
+import shikiSnippets from './src/plugins/vite-plugin-shiki-snippets';
 
 export default defineConfig({
   plugins: [
+    shikiSnippets(),
     vue({ include: [/\.vue$/, /\.md$/] }),
     markdown({
       async markdownItSetup(md) {
