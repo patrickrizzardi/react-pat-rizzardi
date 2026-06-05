@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
   import type { Project } from '@/types/project';
   import CodeSnippet from '@/components/projects/CodeSnippet.vue';
   import AppButton from '@/components/ui/AppButton.vue';
@@ -38,6 +38,9 @@
         rank: String(i + 1).padStart(2, '0'),
         tagline: taglineMap[p.id] ?? '',
         status: statusMap[p.id] ?? 'open source',
+        // Resolved here (not in the template) so the CodeSnippet bindings need no non-null assertion.
+        // Reading getActiveSnippetIndex makes this recompute when a snippet tab is clicked.
+        activeSnippet: p.snippets[getActiveSnippetIndex(p.id)] ?? p.snippets[0] ?? null,
       })),
   );
 
@@ -54,6 +57,15 @@
     active: 'var(--burnt-hi)',
     training: 'oklch(0.74 0.21 145)',
     'in dev': 'var(--text-3)',
+  };
+
+  // Per-card active snippet index — keyed by project id so each card is independent.
+  const activeSnippetIndex = ref<Record<string, number>>({});
+
+  const getActiveSnippetIndex = (id: string): number => activeSnippetIndex.value[id] ?? 0;
+
+  const setActiveSnippetIndex = (id: string, index: number): void => {
+    activeSnippetIndex.value = { ...activeSnippetIndex.value, [id]: index };
   };
 </script>
 
@@ -102,26 +114,33 @@
                   "
                   >{{ p.rank }}</span
                 >
-                <span
-                  class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1"
-                  style="
-                    font-family: var(--font-mono);
-                    font-size: 10px;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                    letter-spacing: 0.1em;
-                    border: 1px solid;
-                  "
-                  :style="{
-                    color: tagColors[p.status] ?? 'var(--text-3)',
-                    borderColor: tagColors[p.status] ?? 'var(--line)',
-                    background:
-                      p.status === 'active' ? 'oklch(0.66 0.17 48 / 0.1)'
-                      : p.status === 'training' ? 'oklch(0.74 0.21 145 / 0.08)'
-                      : 'transparent',
-                  }"
-                  >{{ p.status }}</span
-                >
+                <div class="flex items-center gap-2">
+                  <span
+                    v-if="p.since"
+                    style="font-family: var(--font-mono); font-size: 10px; color: var(--text-4); letter-spacing: 0.05em"
+                    >since {{ p.since }}</span
+                  >
+                  <span
+                    class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1"
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 10px;
+                      font-weight: 600;
+                      text-transform: uppercase;
+                      letter-spacing: 0.1em;
+                      border: 1px solid;
+                    "
+                    :style="{
+                      color: tagColors[p.status] ?? 'var(--text-3)',
+                      borderColor: tagColors[p.status] ?? 'var(--line)',
+                      background:
+                        p.status === 'active' ? 'oklch(0.66 0.17 48 / 0.1)'
+                        : p.status === 'training' ? 'oklch(0.74 0.21 145 / 0.08)'
+                        : 'transparent',
+                    }"
+                    >{{ p.status }}</span
+                  >
+                </div>
               </div>
 
               <h3
@@ -194,13 +213,44 @@
 
             <!-- Right: code peek -->
             <div
-              v-if="p.tier === 'featured' && p.snippets[0]"
+              v-if="p.tier === 'featured' && p.snippets.length > 0"
               style="padding: 32px; background: var(--card-deep)"
             >
+              <!-- Snippet tabs — only rendered when there are 2+ snippets -->
+              <div
+                v-if="p.snippets.length > 1"
+                class="mb-4 flex gap-1"
+              >
+                <button
+                  v-for="(snippet, idx) in p.snippets"
+                  :key="snippet.label"
+                  type="button"
+                  class="rounded-md px-3 py-1.5 transition-colors duration-150"
+                  style="
+                    font-family: var(--font-mono);
+                    font-size: 10px;
+                    font-weight: 600;
+                    letter-spacing: 0.06em;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    border: 1px solid;
+                  "
+                  :style="{
+                    color: getActiveSnippetIndex(p.id) === idx ? 'var(--burnt-hi)' : 'var(--text-4)',
+                    borderColor: getActiveSnippetIndex(p.id) === idx ? 'var(--burnt)' : 'var(--line-soft)',
+                    background: getActiveSnippetIndex(p.id) === idx ? 'oklch(0.66 0.17 48 / 0.1)' : 'transparent',
+                  }"
+                  @click="setActiveSnippetIndex(p.id, idx)"
+                >
+                  {{ snippet.label }}
+                </button>
+              </div>
+
               <CodeSnippet
-                :code="p.snippets[0].code"
-                :language="p.snippets[0].language"
-                :label="p.snippets[0].label"
+                v-if="p.activeSnippet"
+                :code="p.activeSnippet.code"
+                :language="p.activeSnippet.language"
+                :label="p.activeSnippet.label"
               />
             </div>
           </div>

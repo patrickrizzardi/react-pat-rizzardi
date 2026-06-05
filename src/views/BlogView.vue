@@ -110,10 +110,40 @@
       v-else
       class="py-16 text-center"
     >
-      <p style="color: var(--text-4); font-family: var(--font-mono); font-size: 13px">No posts found for this tag.</p>
+      <p
+        style="font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--text); margin: 0 0 8px"
+      >
+        No posts tagged
+        <code
+          style="
+            font-family: var(--font-mono);
+            font-size: 17px;
+            color: var(--cheddar);
+            background: var(--bg-3);
+            border: 1px solid var(--line-soft);
+            border-radius: 6px;
+            padding: 2px 8px;
+          "
+          >{{ activeTag }}</code
+        >
+        yet.
+      </p>
+      <p style="color: var(--text-4); font-family: var(--font-mono); font-size: 12px; margin: 0 0 20px">
+        {{ posts.length }} post{{ posts.length === 1 ? '' : 's' }} published — browse all
+      </p>
+      <div class="mb-6 flex flex-wrap justify-center gap-2">
+        <AppButton
+          v-for="tag in allTags.filter((t) => t !== activeTag).slice(0, 3)"
+          :key="tag"
+          variant="chip"
+          size="sm"
+          @click="setTag(tag)"
+        >
+          {{ tag }}
+        </AppButton>
+      </div>
       <AppButton
         variant="text"
-        class="mt-4"
         @click="setTag(null)"
       >
         clear filter

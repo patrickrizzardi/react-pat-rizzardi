@@ -77,6 +77,16 @@
         />
 
         <AppButton
+          variant="nav"
+          block
+          as="a"
+          href="/resume.pdf"
+          download="patrick-rizzardi-resume.pdf"
+        >
+          resume ↗
+        </AppButton>
+
+        <AppButton
           variant="ghost"
           block
           @click="handleNavigate('contact')"

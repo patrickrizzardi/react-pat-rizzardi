@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { ArrowLeft, ArrowRight } from 'lucide-vue-next';
+  import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-vue-next';
   import type { BlogPost } from '@/types/blog';
 
   defineProps<{
@@ -44,7 +44,7 @@
             margin-bottom: 4px;
           "
         >
-          Previous
+          Newer
         </div>
         <div
           class="truncate"
@@ -80,7 +80,7 @@
             margin-bottom: 4px;
           "
         >
-          Next
+          Older
         </div>
         <div
           class="truncate"
@@ -96,4 +96,21 @@
       />
     </RouterLink>
   </nav>
+
+  <div
+    class="mt-10 flex justify-center"
+    style="border-top: 1px solid var(--line-soft); padding-top: 32px"
+  >
+    <RouterLink
+      to="/"
+      class="inline-flex items-center gap-1.5 transition-colors duration-150"
+      style="font-family: var(--font-mono); font-size: 11px; color: var(--text-4); text-decoration: none"
+    >
+      view full profile
+      <ArrowUpRight
+        :size="11"
+        style="color: var(--text-4)"
+      />
+    </RouterLink>
+  </div>
 </template>

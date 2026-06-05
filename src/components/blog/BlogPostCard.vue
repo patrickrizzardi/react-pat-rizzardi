@@ -1,9 +1,11 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
+  import { RouterLink, useRouter } from 'vue-router';
   import type { BlogPost } from '@/types/blog';
 
   const props = defineProps<{ post: BlogPost }>();
 
+  const router = useRouter();
   const hovered = ref(false);
 
   const formattedDate = computed(() => {
@@ -61,10 +63,13 @@
       </p>
 
       <div class="mt-auto flex flex-wrap gap-1.5">
-        <span
+        <!-- Buttons, not links: the card itself is an <a>, and an <a>-in-<a> is invalid HTML
+             (hydration mismatch). router.push gives the same tag-filter navigation. -->
+        <button
           v-for="tag in post.frontmatter.tags"
           :key="tag"
-          class="rounded-full px-2.5 py-1"
+          type="button"
+          class="cursor-pointer rounded-full px-2.5 py-1"
           style="
             font-family: var(--font-mono);
             font-size: 11px;
@@ -72,8 +77,10 @@
             background: var(--bg-3);
             border: 1px solid var(--line-soft);
           "
-          >{{ tag }}</span
+          @click.stop.prevent="router.push(`/blog?tag=${tag}`)"
         >
+          {{ tag }}
+        </button>
       </div>
     </article>
   </RouterLink>

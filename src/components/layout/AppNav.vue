@@ -6,11 +6,13 @@
   import MobileMenu from './MobileMenu.vue';
   import AppButton from '@/components/ui/AppButton.vue';
   import { scrollToSection } from '@/utils/scroll';
+  import { useActiveSection } from '@/composables/useActiveSection';
 
   const route = useRoute();
   const router = useRouter();
 
   const mobileOpen = ref(false);
+  const { activeSection } = useActiveSection();
 
   const navLinks = [
     { id: 'principles', label: 'principles' },
@@ -62,6 +64,7 @@
           v-for="link in navLinks"
           :key="link.id"
           variant="nav"
+          :active="link.id === activeSection"
           @click="goTo(link.id)"
         >
           {{ link.label }}

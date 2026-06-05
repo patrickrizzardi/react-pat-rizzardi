@@ -38,7 +38,9 @@
       // Stretches the button to full container width with left-aligned content.
       // For nav variant: also applies flex-start justify. For other variants: centers content.
       block?: boolean;
-      // Selected state — CHIP VARIANT ONLY (burnt fill, e.g. active filter tag); no-op on other variants.
+      // Selected state — chip variant: burnt fill (e.g. active filter tag).
+      //                  nav variant: burnt text color + aria-current="page".
+      //                  No-op on all other variants.
       active?: boolean;
       // Emphasis — CHIP VARIANT ONLY (burnt outline, e.g. a "live demo" link ranked above repo/npm); no-op on other variants.
       accent?: boolean;
@@ -89,6 +91,10 @@
   const ariaPressed = computed(() =>
     props.variant === 'chip' && props.as === 'button' ? String(props.active) : undefined,
   );
+
+  // Nav variant uses aria-current (landmark navigation) not aria-pressed (toggle).
+  // Chip variant keeps aria-pressed above — the two are mutually exclusive by variant.
+  const ariaCurrent = computed(() => (props.variant === 'nav' && props.active ? 'page' : undefined));
 
   const baseStyle: Record<string, string> = {
     fontFamily: 'var(--font-mono)',
@@ -180,11 +186,16 @@
     };
   });
 
-  // Selected state (e.g. active filter chip) — merged last so it wins over hover (stable when selected).
+  // Selected state — merged last so it wins over hover (stable when selected).
+  // chip: burnt fill (existing behavior, unchanged).
+  // nav:  burnt text color — no background change, keeps the nav feeling light.
   const activeStyle = computed((): Record<string, string> => {
     if (!props.active) return {};
     if (props.variant === 'chip') {
       return { color: 'var(--bg)', background: 'var(--burnt)', borderColor: 'var(--burnt)' };
+    }
+    if (props.variant === 'nav') {
+      return { color: 'var(--burnt)' };
     }
     return {};
   });
@@ -216,6 +227,7 @@
     v-bind="linkProps"
     :style="computedStyle"
     :aria-pressed="ariaPressed"
+    :aria-current="ariaCurrent"
     @mouseenter="hovered = true"
     @mouseleave="hovered = false"
     @click="$emit('click', $event as MouseEvent)"

@@ -34,11 +34,15 @@
   const copied = ref(false);
 
   const copyEmail = async (): Promise<void> => {
-    await navigator.clipboard.writeText(siteConfig.email);
-    copied.value = true;
-    setTimeout(() => {
-      copied.value = false;
-    }, 1500);
+    try {
+      await navigator.clipboard.writeText(siteConfig.email);
+      copied.value = true;
+      setTimeout(() => {
+        copied.value = false;
+      }, 1500);
+    } catch {
+      // Clipboard unavailable (denied permission / non-secure context) — leave UI unchanged.
+    }
   };
 </script>
 
