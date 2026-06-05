@@ -9,24 +9,11 @@
 
   const callsign = useDecoder('patrick.rizzardi', 200);
 
-  const clock = ref('');
   const metricVisible = ref(metrics.map(() => false));
 
-  let clockInterval = 0;
   const timeouts: Array<ReturnType<typeof setTimeout>> = [];
 
-  const updateClock = (): void => {
-    const t = new Date().toLocaleTimeString('en-US', {
-      hour12: false,
-      timeZone: 'America/New_York',
-    });
-    clock.value = `${t} ET`;
-  };
-
   onMounted(() => {
-    updateClock();
-    clockInterval = window.setInterval(updateClock, 1000);
-
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) {
       metricVisible.value = metrics.map(() => true);
@@ -45,7 +32,6 @@
   });
 
   onUnmounted(() => {
-    clearInterval(clockInterval);
     timeouts.forEach(clearTimeout);
   });
 </script>
@@ -132,7 +118,7 @@
           <span style="color: var(--text-2)">cheddar://</span>
           <span style="color: var(--text)">{{ callsign }}</span>
           <span style="color: var(--text-4); margin-left: 4px">·</span>
-          <span>{{ clock }}</span>
+          <span style="color: oklch(0.74 0.21 145)">open to work</span>
         </div>
 
         <AppButton

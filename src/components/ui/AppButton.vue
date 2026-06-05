@@ -84,6 +84,12 @@
     return { type: props.type };
   });
 
+  // Toggle state for chip filter BUTTONS only (e.g. the active blog tag). Links (a / RouterLink)
+  // are navigation, not toggles, so they get no aria-pressed.
+  const ariaPressed = computed(() =>
+    props.variant === 'chip' && props.as === 'button' ? String(props.active) : undefined,
+  );
+
   const baseStyle: Record<string, string> = {
     fontFamily: 'var(--font-mono)',
     borderRadius: 'var(--btn-radius)',
@@ -209,6 +215,7 @@
     :is="tag"
     v-bind="linkProps"
     :style="computedStyle"
+    :aria-pressed="ariaPressed"
     @mouseenter="hovered = true"
     @mouseleave="hovered = false"
     @click="$emit('click', $event as MouseEvent)"
