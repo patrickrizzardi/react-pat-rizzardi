@@ -21,8 +21,7 @@
 <template>
   <RouterLink
     :to="`/blog/${post.frontmatter.slug}`"
-    class="group block"
-    style="text-decoration: none"
+    class="group block no-underline"
   >
     <article
       class="relative flex h-full flex-col overflow-hidden rounded-2xl border transition-colors duration-200"
@@ -35,30 +34,16 @@
       @mouseenter="hovered = true"
       @mouseleave="hovered = false"
     >
-      <div
-        class="mb-3 flex items-center gap-4"
-        style="font-family: var(--font-mono); font-size: 11px; color: var(--color-fg-4)"
-      >
+      <div class="mb-3 flex items-center gap-4 font-mono text-[11px] text-fg-4">
         <span>{{ formattedDate }}</span>
         <span>{{ post.readingTime }} min</span>
       </div>
 
-      <h3
-        class="mb-3 flex-1"
-        style="
-          font-family: var(--font-display);
-          font-weight: 700;
-          font-size: 18px;
-          letter-spacing: -0.01em;
-          line-height: 1.3;
-          color: var(--color-fg);
-          margin: 0 0 12px;
-        "
-      >
+      <h3 class="mb-[12px] flex-1 font-display text-[18px] leading-[1.3] font-bold tracking-[-0.01em] text-fg">
         {{ post.frontmatter.title }}
       </h3>
 
-      <p style="font-size: 13px; line-height: 1.65; color: var(--color-fg-3); margin: 0 0 16px">
+      <p class="mb-[16px] text-[13px] leading-[1.65] text-fg-3">
         {{ post.frontmatter.description }}
       </p>
 
@@ -69,14 +54,7 @@
           v-for="tag in post.frontmatter.tags"
           :key="tag"
           type="button"
-          class="cursor-pointer rounded-full px-2.5 py-1"
-          style="
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--color-fg-3);
-            background: var(--color-surface-3);
-            border: 1px solid var(--color-line-soft);
-          "
+          class="cursor-pointer rounded-full border border-line-soft bg-surface-3 px-2.5 py-1 font-mono text-[11px] text-fg-3"
           @click.stop.prevent="router.push(`/blog?tag=${tag}`)"
         >
           {{ tag }}

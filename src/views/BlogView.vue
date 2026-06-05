@@ -55,26 +55,15 @@
 </script>
 
 <template>
-  <div
-    class="mx-auto max-w-4xl px-6"
-    style="padding-top: 120px; padding-bottom: 96px"
-  >
+  <div class="mx-auto max-w-4xl px-6 pt-[120px] pb-[96px]">
     <header class="mb-16">
       <div class="eyebrow mb-5">engineering log</div>
       <h1
-        style="
-          font-family: var(--font-display);
-          font-weight: 800;
-          font-size: clamp(40px, 5vw, 64px);
-          letter-spacing: -0.03em;
-          line-height: 1.05;
-          color: var(--color-fg);
-          margin: 0 0 16px;
-        "
+        class="mb-[16px] font-display text-[clamp(40px,5vw,64px)] leading-[1.05] font-extrabold tracking-[-0.03em] text-fg"
       >
         blog
       </h1>
-      <p style="font-size: 17px; color: var(--color-fg-2); line-height: 1.6; max-width: 480px">
+      <p class="max-w-[480px] text-[17px] leading-[1.6] text-fg-2">
         Engineering leadership, architecture, and lessons from building systems at scale.
       </p>
     </header>
@@ -110,31 +99,15 @@
       v-else
       class="py-16 text-center"
     >
-      <p
-        style="
-          font-family: var(--font-display);
-          font-weight: 700;
-          font-size: 20px;
-          color: var(--color-fg);
-          margin: 0 0 8px;
-        "
-      >
+      <p class="mb-[8px] font-display text-[20px] font-bold text-fg">
         No posts tagged
         <code
-          style="
-            font-family: var(--font-mono);
-            font-size: 17px;
-            color: var(--color-cheddar);
-            background: var(--color-surface-3);
-            border: 1px solid var(--color-line-soft);
-            border-radius: 6px;
-            padding: 2px 8px;
-          "
+          class="rounded-[6px] border border-line-soft bg-surface-3 px-[8px] py-[2px] font-mono text-[17px] text-cheddar"
           >{{ activeTag }}</code
         >
         yet.
       </p>
-      <p style="color: var(--color-fg-4); font-family: var(--font-mono); font-size: 12px; margin: 0 0 20px">
+      <p class="mb-[20px] font-mono text-[12px] text-fg-4">
         {{ posts.length }} post{{ posts.length === 1 ? '' : 's' }} published — browse all
       </p>
       <div class="mb-6 flex flex-wrap justify-center gap-2">

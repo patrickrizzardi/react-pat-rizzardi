@@ -72,21 +72,12 @@
 <template>
   <section
     id="systems"
-    class="relative"
-    style="padding: 120px 0"
+    class="relative py-[120px]"
   >
     <div class="mx-auto max-w-6xl px-6">
       <div class="eyebrow mb-5">systems</div>
       <h2
-        style="
-          font-family: var(--font-display);
-          font-weight: 800;
-          font-size: clamp(32px, 4vw, 56px);
-          letter-spacing: -0.03em;
-          line-height: 1.05;
-          color: var(--color-fg);
-          margin: 0 0 64px;
-        "
+        class="mb-[64px] font-display text-[clamp(32px,4vw,56px)] leading-[1.05] font-extrabold tracking-[-0.03em] text-fg"
       >
         what I've built
       </h2>
@@ -96,40 +87,18 @@
         <div
           v-for="p in featured"
           :key="p.id"
-          class="rounded-2xl border"
-          style="
-            background: var(--color-card);
-            border-color: var(--color-line);
-            box-shadow: var(--card-shadow);
-            overflow: hidden;
-          "
+          class="overflow-hidden rounded-2xl border border-line bg-card"
+          style="box-shadow: var(--card-shadow)"
         >
           <div class="grid grid-cols-1 lg:grid-cols-2">
             <!-- Left: info -->
-            <div style="padding: 40px 40px 40px 40px; border-right: 1px solid var(--color-line)">
+            <div class="border-r border-line p-[40px]">
               <!-- Rank + status -->
               <div class="mb-6 flex items-center justify-between">
-                <span
-                  style="
-                    font-family: var(--font-mono);
-                    font-size: 11px;
-                    font-weight: 700;
-                    color: var(--color-fg-4);
-                    letter-spacing: 0.1em;
-                  "
-                  >{{ p.rank }}</span
-                >
+                <span class="font-mono text-[11px] font-bold tracking-[0.1em] text-fg-4">{{ p.rank }}</span>
                 <div class="flex items-center gap-2">
                   <span
-                    class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1"
-                    style="
-                      font-family: var(--font-mono);
-                      font-size: 10px;
-                      font-weight: 600;
-                      text-transform: uppercase;
-                      letter-spacing: 0.1em;
-                      border: 1px solid;
-                    "
+                    class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] font-semibold tracking-[0.1em] uppercase"
                     :style="{
                       color: tagColors[p.status] ?? 'var(--color-fg-3)',
                       borderColor: tagColors[p.status] ?? 'var(--color-line)',
@@ -143,22 +112,13 @@
                 </div>
               </div>
 
-              <h3
-                style="
-                  font-family: var(--font-display);
-                  font-weight: 800;
-                  font-size: 28px;
-                  letter-spacing: -0.02em;
-                  color: var(--color-fg);
-                  margin: 0 0 8px;
-                "
-              >
+              <h3 class="mb-2 font-display text-[28px] font-extrabold tracking-[-0.02em] text-fg">
                 {{ p.title }}
               </h3>
-              <p style="font-family: var(--font-mono); font-size: 13px; color: var(--color-burnt-hi); margin: 0 0 20px">
+              <p class="mb-5 font-mono text-[13px] text-burnt-hi">
                 {{ p.tagline }}
               </p>
-              <p style="font-size: 14px; line-height: 1.7; color: var(--color-fg-2); margin: 0 0 24px">
+              <p class="mb-6 text-[14px] leading-[1.7] text-fg-2">
                 {{ p.description }}
               </p>
 
@@ -167,14 +127,7 @@
                 <span
                   v-for="t in p.tech"
                   :key="t"
-                  class="rounded-full px-2.5 py-1"
-                  style="
-                    font-family: var(--font-mono);
-                    font-size: 11px;
-                    color: var(--color-fg-3);
-                    background: var(--color-surface-3);
-                    border: 1px solid var(--color-line-soft);
-                  "
+                  class="rounded-full border border-line-soft bg-surface-3 px-2.5 py-1 font-mono text-[11px] text-fg-3"
                   >{{ t }}</span
                 >
               </div>
@@ -182,16 +135,10 @@
               <!-- Architecture note -->
               <div
                 v-if="p.tier === 'featured'"
-                class="rounded-lg px-4 py-3"
-                style="background: var(--color-surface-3); border-left: 2px solid var(--color-burnt)"
+                class="rounded-lg border-l-2 border-burnt bg-surface-3 px-4 py-3"
               >
-                <div
-                  class="eyebrow mb-2"
-                  style="color: var(--color-burnt); font-size: 10px"
-                >
-                  architecture note
-                </div>
-                <p style="font-size: 13px; line-height: 1.6; color: var(--color-fg-3); margin: 0">{{ p.archNotes }}</p>
+                <div class="eyebrow mb-2 text-[10px] text-burnt">architecture note</div>
+                <p class="m-0 text-[13px] leading-[1.6] text-fg-3">{{ p.archNotes }}</p>
               </div>
 
               <!-- Featured repo link (only when a public repo exists) -->
@@ -214,7 +161,7 @@
             <!-- Right: code peek -->
             <div
               v-if="p.tier === 'featured' && p.snippets.length > 0"
-              style="padding: 32px; background: var(--color-card-deep)"
+              class="bg-card-deep p-8"
             >
               <!-- Snippet tabs — only rendered when there are 2+ snippets -->
               <div
@@ -225,16 +172,7 @@
                   v-for="(snippet, idx) in p.snippets"
                   :key="snippet.label"
                   type="button"
-                  class="rounded-md px-3 py-1.5 transition-colors duration-150"
-                  style="
-                    font-family: var(--font-mono);
-                    font-size: 10px;
-                    font-weight: 600;
-                    letter-spacing: 0.06em;
-                    text-transform: uppercase;
-                    cursor: pointer;
-                    border: 1px solid;
-                  "
+                  class="cursor-pointer rounded-md border px-3 py-1.5 font-mono text-[10px] font-semibold tracking-[0.06em] uppercase transition-colors duration-150"
                   :style="{
                     color: getActiveSnippetIndex(p.id) === idx ? 'var(--color-burnt-hi)' : 'var(--color-fg-4)',
                     borderColor: getActiveSnippetIndex(p.id) === idx ? 'var(--color-burnt)' : 'var(--color-line-soft)',
@@ -262,37 +200,15 @@
         <div
           v-for="p in secondary"
           :key="p.id"
-          class="flex flex-col gap-4 rounded-xl border"
-          style="
-            padding: 24px;
-            background: var(--color-card);
-            border-color: var(--color-line);
-            box-shadow: var(--card-shadow);
-          "
+          class="flex flex-col gap-4 rounded-xl border border-line bg-card p-6"
+          style="box-shadow: var(--card-shadow)"
         >
           <div class="flex items-start justify-between gap-2">
-            <h3
-              style="
-                font-family: var(--font-display);
-                font-weight: 700;
-                font-size: 16px;
-                letter-spacing: -0.01em;
-                color: var(--color-fg);
-                margin: 0;
-              "
-            >
+            <h3 class="m-0 font-display text-[16px] font-bold tracking-[-0.01em] text-fg">
               {{ p.title }}
             </h3>
             <span
-              class="shrink-0 rounded-full px-2 py-0.5"
-              style="
-                font-family: var(--font-mono);
-                font-size: 10px;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-                border: 1px solid;
-              "
+              class="shrink-0 rounded-full border px-2 py-0.5 font-mono text-[10px] font-semibold tracking-[0.08em] uppercase"
               :style="{
                 color: tagColors[p.tag] ?? 'var(--color-fg-3)',
                 borderColor: tagColors[p.tag] ?? 'var(--color-line)',
@@ -301,11 +217,11 @@
             >
           </div>
 
-          <p style="font-family: var(--font-mono); font-size: 11px; color: var(--color-fg-4); margin: 0">
+          <p class="m-0 font-mono text-[11px] text-fg-4">
             {{ p.roleLabel }}
           </p>
 
-          <p style="font-size: 13px; line-height: 1.6; color: var(--color-fg-3); margin: 0; flex: 1">
+          <p class="m-0 flex-1 text-[13px] leading-[1.6] text-fg-3">
             {{ p.description }}
           </p>
 

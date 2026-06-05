@@ -11,26 +11,17 @@
   <section
     id="leadership"
     ref="sectionRef"
-    class="reveal relative"
+    class="reveal relative bg-surface-2 py-[120px]"
     :class="{ 'is-revealed': revealed }"
-    style="padding: 120px 0; background: var(--color-surface-2)"
   >
     <div class="mx-auto max-w-6xl px-6">
       <div class="eyebrow mb-5">leadership</div>
       <h2
-        style="
-          font-family: var(--font-display);
-          font-weight: 800;
-          font-size: clamp(32px, 4vw, 56px);
-          letter-spacing: -0.03em;
-          line-height: 1.05;
-          color: var(--color-fg);
-          margin: 0 0 16px;
-        "
+        class="mb-[16px] font-display text-[clamp(32px,4vw,56px)] leading-[1.05] font-extrabold tracking-[-0.03em] text-fg"
       >
         how I operate
       </h2>
-      <p style="font-size: 17px; line-height: 1.6; color: var(--color-fg-2); max-width: 560px; margin: 0 0 72px">
+      <p class="mb-[72px] max-w-[560px] text-[17px] leading-[1.6] text-fg-2">
         Self-taught. National Guard NCO. A decade of progressively harder problems — and I still prefer the hard ones.
       </p>
 
@@ -38,10 +29,7 @@
       <div class="grid grid-cols-1 gap-16 lg:grid-cols-2">
         <!-- Timeline -->
         <div>
-          <div
-            class="relative"
-            style="padding-left: 28px; border-left: 1px solid var(--color-line)"
-          >
+          <div class="relative border-l border-line pl-[28px]">
             <div
               v-for="entry in timeline"
               :key="entry.year"
@@ -49,86 +37,40 @@
             >
               <!-- Rail dot -->
               <div
-                class="absolute"
-                style="
-                  left: -34px;
-                  top: 4px;
-                  width: 12px;
-                  height: 12px;
-                  border-radius: 50%;
-                  background: var(--color-surface-2);
-                  border: 1px solid var(--color-burnt);
-                "
+                class="absolute top-[4px] left-[-34px] h-[12px] w-[12px] rounded-full border border-burnt bg-surface-2"
               />
 
-              <div
-                style="
-                  font-family: var(--font-mono);
-                  font-size: 11px;
-                  color: var(--color-burnt);
-                  letter-spacing: 0.1em;
-                  margin-bottom: 4px;
-                  text-transform: uppercase;
-                "
-              >
+              <div class="mb-[4px] font-mono text-[11px] tracking-[0.1em] text-burnt uppercase">
                 {{ entry.year }}
               </div>
-              <div
-                style="
-                  font-family: var(--font-display);
-                  font-weight: 700;
-                  font-size: 16px;
-                  color: var(--color-fg);
-                  margin-bottom: 2px;
-                "
-              >
+              <div class="mb-[2px] font-display text-[16px] font-bold text-fg">
                 {{ entry.label }}
               </div>
-              <div style="font-family: var(--font-mono); font-size: 12px; color: var(--color-fg-3); margin-bottom: 6px">
+              <div class="mb-[6px] font-mono text-[12px] text-fg-3">
                 {{ entry.org }}
               </div>
-              <p style="font-size: 13px; line-height: 1.6; color: var(--color-fg-3); margin: 0">{{ entry.detail }}</p>
+              <p class="m-0 text-[13px] leading-[1.6] text-fg-3">{{ entry.detail }}</p>
             </div>
           </div>
         </div>
 
         <!-- Stack table -->
         <div>
-          <div
-            class="eyebrow mb-6"
-            style="color: var(--color-fg-3)"
-          >
-            stack
-          </div>
+          <div class="eyebrow mb-6 text-fg-3">stack</div>
           <div class="flex flex-col gap-4">
             <div
               v-for="row in stack"
               :key="row.category"
               class="flex items-baseline gap-4"
             >
-              <div
-                style="
-                  font-family: var(--font-mono);
-                  font-size: 11px;
-                  color: var(--color-fg-4);
-                  min-width: 80px;
-                  flex-shrink: 0;
-                "
-              >
+              <div class="min-w-[80px] shrink-0 font-mono text-[11px] text-fg-4">
                 {{ row.category }}
               </div>
               <div class="flex flex-wrap gap-1.5">
                 <span
                   v-for="item in row.items"
                   :key="item"
-                  class="rounded-full px-2.5 py-1"
-                  style="
-                    font-family: var(--font-mono);
-                    font-size: 11px;
-                    color: var(--color-fg-2);
-                    background: var(--color-surface-3);
-                    border: 1px solid var(--color-line-soft);
-                  "
+                  class="rounded-full border border-line-soft bg-surface-3 px-2.5 py-1 font-mono text-[11px] text-fg-2"
                   >{{ item }}</span
                 >
               </div>

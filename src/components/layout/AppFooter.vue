@@ -10,10 +10,7 @@
 </script>
 
 <template>
-  <footer
-    class="border-t py-8"
-    style="border-color: var(--color-line-soft); background: var(--color-surface-2)"
-  >
+  <footer class="border-t border-line-soft bg-surface-2 py-8">
     <div class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6">
       <div class="flex gap-6">
         <a
@@ -31,13 +28,10 @@
           />
         </a>
       </div>
-      <p
-        class="text-sm"
-        style="color: var(--color-fg-4)"
-      >
+      <p class="text-sm text-fg-4">
         &copy; {{ new Date().getFullYear() }} {{ siteConfig.name }}
         &nbsp;&middot;&nbsp;
-        <span style="color: var(--color-fg-3)">shipped with intent · not by accident</span>
+        <span class="text-fg-3">shipped with intent · not by accident</span>
       </p>
     </div>
   </footer>

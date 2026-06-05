@@ -13,10 +13,7 @@
 </script>
 
 <template>
-  <nav
-    class="mt-16 grid gap-4 pt-8 sm:grid-cols-2"
-    style="border-top: 1px solid var(--color-line-soft)"
-  >
+  <nav class="mt-16 grid gap-4 border-t border-line-soft pt-8 sm:grid-cols-2">
     <RouterLink
       v-if="prev"
       :to="`/blog/${prev.frontmatter.slug}`"
@@ -38,21 +35,10 @@
         }"
       />
       <div class="min-w-0">
+        <div class="mb-[4px] font-mono text-[10px] tracking-[0.1em] text-fg-4 uppercase">Newer</div>
         <div
-          style="
-            font-family: var(--font-mono);
-            font-size: 10px;
-            color: var(--color-fg-4);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 4px;
-          "
-        >
-          Newer
-        </div>
-        <div
-          class="truncate"
-          style="font-size: 13px; font-weight: 600; transition: color 0.15s"
+          class="truncate text-[13px] font-semibold"
+          style="transition: color 0.15s"
           :style="{ color: prevHover ? 'var(--color-fg)' : 'var(--color-fg-2)' }"
         >
           {{ prev.frontmatter.title }}
@@ -74,21 +60,10 @@
       @mouseleave="nextHover = false"
     >
       <div class="min-w-0">
+        <div class="mb-[4px] font-mono text-[10px] tracking-[0.1em] text-fg-4 uppercase">Older</div>
         <div
-          style="
-            font-family: var(--font-mono);
-            font-size: 10px;
-            color: var(--color-fg-4);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 4px;
-          "
-        >
-          Older
-        </div>
-        <div
-          class="truncate"
-          style="font-size: 13px; font-weight: 600; transition: color 0.15s"
+          class="truncate text-[13px] font-semibold"
+          style="transition: color 0.15s"
           :style="{ color: nextHover ? 'var(--color-fg)' : 'var(--color-fg-2)' }"
         >
           {{ next.frontmatter.title }}
@@ -105,19 +80,15 @@
     </RouterLink>
   </nav>
 
-  <div
-    class="mt-10 flex justify-center"
-    style="border-top: 1px solid var(--color-line-soft); padding-top: 32px"
-  >
+  <div class="mt-10 flex justify-center border-t border-line-soft pt-[32px]">
     <RouterLink
       to="/"
-      class="inline-flex items-center gap-1.5 transition-colors duration-150"
-      style="font-family: var(--font-mono); font-size: 11px; color: var(--color-fg-4); text-decoration: none"
+      class="inline-flex items-center gap-1.5 font-mono text-[11px] text-fg-4 no-underline transition-colors duration-150"
     >
       view full profile
       <ArrowUpRight
         :size="11"
-        style="color: var(--color-fg-4)"
+        class="text-fg-4"
       />
     </RouterLink>
   </div>

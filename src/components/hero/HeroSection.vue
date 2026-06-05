@@ -42,19 +42,18 @@
 <template>
   <section
     id="top"
-    class="relative flex min-h-screen items-center overflow-hidden"
-    style="padding-top: 120px; padding-bottom: 80px"
+    class="relative flex min-h-screen items-center overflow-hidden pt-[120px] pb-[80px]"
   >
     <NeuronCanvas />
 
     <!-- Dark veil -->
     <div
-      class="pointer-events-none absolute inset-0"
-      style="background: oklch(0.14 0.012 55 / 0.55); z-index: 1"
+      class="pointer-events-none absolute inset-0 z-[1]"
+      style="background: oklch(0.14 0.012 55 / 0.55)"
     />
     <!-- Radial vignette -->
     <div
-      class="pointer-events-none absolute inset-0"
+      class="pointer-events-none absolute inset-0 z-[1]"
       style="
         background: radial-gradient(
           ellipse 70% 60% at 50% 45%,
@@ -62,33 +61,17 @@
           oklch(0.12 0.01 50 / 0.55) 70%,
           oklch(0.1 0.01 50 / 0.85) 100%
         );
-        z-index: 1;
       "
     />
 
-    <div
-      class="scan-grid"
-      style="z-index: 1"
-    />
+    <div class="scan-grid z-[1]" />
 
     <!-- Content container -->
-    <div
-      class="relative mx-auto w-full max-w-6xl px-6"
-      style="z-index: 2"
-    >
+    <div class="relative z-[2] mx-auto w-full max-w-6xl px-6">
       <!-- Vertical side label (desktop only) -->
       <div
-        class="absolute hidden md:block"
-        style="
-          right: 24px;
-          top: 0;
-          font-family: var(--font-mono);
-          font-size: 11px;
-          color: var(--color-fg-4);
-          text-transform: uppercase;
-          letter-spacing: 0.18em;
-          writing-mode: vertical-rl;
-        "
+        class="absolute top-0 right-6 hidden font-mono text-[11px] tracking-[0.18em] text-fg-4 uppercase md:block"
+        style="writing-mode: vertical-rl"
       >
         cheddar / 2026 — engineering log
       </div>
@@ -96,17 +79,8 @@
       <!-- Callsign + GitHub chip row -->
       <div class="flex flex-wrap items-center gap-3">
         <div
-          class="inline-flex items-center gap-2.5"
-          style="
-            font-family: var(--font-mono);
-            font-size: 12px;
-            color: var(--color-fg-3);
-            padding: 6px 12px;
-            border: 1px solid var(--color-line);
-            border-radius: 999px;
-            background: var(--color-card);
-            backdrop-filter: blur(8px);
-          "
+          class="inline-flex items-center gap-2.5 rounded-full border border-line bg-card px-3 py-1.5 font-mono text-[12px] text-fg-3"
+          style="backdrop-filter: blur(8px)"
         >
           <span
             style="
@@ -118,9 +92,9 @@
               flex-shrink: 0;
             "
           />
-          <span style="color: var(--color-fg-2)">cheddar://</span>
-          <span style="color: var(--color-fg)">{{ callsign }}</span>
-          <span style="color: var(--color-fg-4); margin-left: 4px">·</span>
+          <span class="text-fg-2">cheddar://</span>
+          <span class="text-fg">{{ callsign }}</span>
+          <span class="ml-1 text-fg-4">·</span>
           <span style="color: oklch(0.74 0.21 145)">open to work</span>
         </div>
 
@@ -137,27 +111,10 @@
 
       <!-- Headline -->
       <h1
-        style="
-          font-family: var(--font-display);
-          font-weight: 800;
-          font-size: clamp(40px, 6vw, 88px);
-          line-height: 1;
-          letter-spacing: -0.04em;
-          color: var(--color-fg);
-          margin: 24px 0 0;
-        "
+        class="mt-[24px] font-display text-[clamp(40px,6vw,88px)] leading-none font-extrabold tracking-[-0.04em] text-fg"
       >
         I architect
-        <span
-          style="
-            font-family: var(--font-accent);
-            font-style: italic;
-            font-weight: 400;
-            color: var(--color-burnt-hi);
-            letter-spacing: -0.02em;
-          "
-          >backend</span
-        ><br />
+        <span class="font-accent font-normal tracking-[-0.02em] text-burnt-hi italic">backend</span><br />
         systems built
         <span
           style="
@@ -171,17 +128,14 @@
       </h1>
 
       <!-- Subhead -->
-      <p style="margin-top: 28px; max-width: 680px; font-size: 19px; line-height: 1.55; color: var(--color-fg-2)">
+      <p class="mt-[28px] max-w-[680px] text-[19px] leading-[1.55] text-fg-2">
         Principal Engineer &amp; Architect. Leading a team of 4 at a $2M/mo platform, while building a Rust LLVM
         compiler and an LLM from bare metal, solo. Leadership creates alignment&thinsp;—&thinsp;engineering creates
         leverage.
       </p>
 
       <!-- CTA row -->
-      <div
-        class="flex flex-wrap items-center gap-3.5"
-        style="margin-top: 40px"
-      >
+      <div class="mt-[40px] flex flex-wrap items-center gap-3.5">
         <AppButton
           variant="primary"
           @click="scrollToSection('systems')"
@@ -194,7 +148,7 @@
             fill="none"
             stroke="currentColor"
             stroke-width="2.5"
-            style="margin-left: 10px"
+            class="ml-[10px]"
           >
             <path d="M5 12h14M13 5l7 7-7 7" />
           </svg>
@@ -207,19 +161,13 @@
           let's talk ↗
         </AppButton>
 
-        <span
-          class="ml-2"
-          style="font-family: var(--font-mono); font-size: 12px; color: var(--color-fg-3)"
-        >
+        <span class="ml-2 font-mono text-[12px] text-fg-3">
           ↳ open to · principal/staff · founding eng · contract
         </span>
       </div>
 
       <!-- Metrics row -->
-      <div
-        class="grid grid-cols-2 gap-7 md:grid-cols-4"
-        style="margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--color-line-soft)"
-      >
+      <div class="mt-[80px] grid grid-cols-2 gap-7 border-t border-line-soft pt-[28px] md:grid-cols-4">
         <div
           v-for="(metric, i) in metrics"
           :key="metric.label"
@@ -229,28 +177,10 @@
             transition: 'opacity 0.6s, transform 0.6s',
           }"
         >
-          <div
-            style="
-              font-family: var(--font-display);
-              font-weight: 700;
-              font-size: 40px;
-              line-height: 1;
-              letter-spacing: -0.03em;
-              color: var(--color-cheddar-hi);
-            "
-          >
+          <div class="font-display text-[40px] leading-none font-bold tracking-[-0.03em] text-cheddar-hi">
             {{ metric.value }}
           </div>
-          <div
-            style="
-              margin-top: 8px;
-              font-family: var(--font-mono);
-              font-size: 11px;
-              text-transform: uppercase;
-              letter-spacing: 0.14em;
-              color: var(--color-fg-3);
-            "
-          >
+          <div class="mt-2 font-mono text-[11px] tracking-[0.14em] text-fg-3 uppercase">
             {{ metric.label }}
           </div>
         </div>

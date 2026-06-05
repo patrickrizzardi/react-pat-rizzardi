@@ -151,22 +151,27 @@ body::after {
   background: var(--color-burnt);
 }
 
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--color-fg-3);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
+/* In @layer components so Tailwind utilities (e.g. text-burnt, text-[10px]) win over these
+   defaults — an .eyebrow with a utility override (the arch-note label, principle ordinals)
+   must take the utility, not this base rule. */
+@layer components {
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-fg-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-.eyebrow::before {
-  content: '';
-  width: 18px;
-  height: 1px;
-  background: var(--color-burnt);
+  .eyebrow::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: var(--color-burnt);
+  }
 }
 
 a {

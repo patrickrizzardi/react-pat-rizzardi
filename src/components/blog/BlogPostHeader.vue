@@ -34,37 +34,25 @@
   <div class="mb-12">
     <RouterLink
       to="/blog"
-      class="mb-8 inline-flex items-center gap-1.5 transition-colors duration-150"
-      style="font-family: var(--font-mono); font-size: 12px; color: var(--color-fg-4); text-decoration: none"
+      class="mb-8 inline-flex items-center gap-1.5 font-mono text-[12px] text-fg-4 no-underline transition-colors duration-150"
     >
       <ArrowLeft :size="12" />
       back to blog
     </RouterLink>
 
     <h1
-      style="
-        font-family: var(--font-display);
-        font-weight: 800;
-        font-size: clamp(28px, 4vw, 48px);
-        letter-spacing: -0.03em;
-        line-height: 1.1;
-        color: var(--color-fg);
-        margin: 0 0 20px;
-      "
+      class="mb-[20px] font-display text-[clamp(28px,4vw,48px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-fg"
     >
       {{ post.frontmatter.title }}
     </h1>
 
-    <div
-      class="flex flex-wrap items-center gap-4"
-      style="font-family: var(--font-mono); font-size: 12px; color: var(--color-fg-4); margin-bottom: 16px"
-    >
+    <div class="mb-[16px] flex flex-wrap items-center gap-4 font-mono text-[12px] text-fg-4">
       <span>{{ formattedDate }}</span>
-      <span style="color: var(--color-line)">·</span>
+      <span class="text-line">·</span>
       <span>{{ post.readingTime }} min read</span>
       <span
         v-if="post.frontmatter.author"
-        style="color: var(--color-line)"
+        class="text-line"
         >·</span
       >
       <span v-if="post.frontmatter.author">{{ post.frontmatter.author }}</span>
@@ -83,8 +71,7 @@
       <button
         type="button"
         :aria-label="copied ? 'Link copied to clipboard' : 'Copy link to this post'"
-        class="ml-1 flex cursor-pointer items-center gap-1.5 transition-colors duration-150"
-        style="font-family: var(--font-mono); font-size: 11px; background: none; border: none; padding: 0"
+        class="ml-1 flex cursor-pointer items-center gap-1.5 border-0 bg-transparent p-0 font-mono text-[11px] transition-colors duration-150"
         @click="copyLink"
       >
         <span
@@ -100,9 +87,6 @@
       </button>
     </div>
 
-    <hr
-      class="mt-10"
-      style="border-color: var(--color-line-soft)"
-    />
+    <hr class="mt-10 border-line-soft" />
   </div>
 </template>

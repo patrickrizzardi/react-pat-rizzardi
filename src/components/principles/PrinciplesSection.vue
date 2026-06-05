@@ -8,21 +8,12 @@
 <template>
   <section
     id="principles"
-    class="relative"
-    style="padding: 120px 0; background: var(--color-surface-2)"
+    class="relative bg-surface-2 py-[120px]"
   >
     <div class="mx-auto max-w-6xl px-6">
       <div class="eyebrow mb-5">operating principles</div>
       <h2
-        style="
-          font-family: var(--font-display);
-          font-weight: 800;
-          font-size: clamp(32px, 4vw, 56px);
-          letter-spacing: -0.03em;
-          line-height: 1.05;
-          color: var(--color-fg);
-          margin: 0 0 64px;
-        "
+        class="mb-[64px] font-display text-[clamp(32px,4vw,56px)] leading-[1.05] font-extrabold tracking-[-0.03em] text-fg"
       >
         06 principles
       </h2>
@@ -30,8 +21,7 @@
       <!-- Grid lines via gap-px over a line-colored container: correct at any column count
            (1/2/3 across breakpoints) with no per-cell nth-child math. -->
       <div
-        class="grid grid-cols-1 gap-px overflow-hidden md:grid-cols-2 lg:grid-cols-3"
-        style="border: 1px solid var(--color-line); border-radius: var(--radius); background: var(--color-line)"
+        class="grid grid-cols-1 gap-px overflow-hidden rounded-[var(--radius)] border border-line bg-line md:grid-cols-2 lg:grid-cols-3"
       >
         <div
           v-for="p in principles"
@@ -47,25 +37,13 @@
           @mouseenter="hovered = p.ordinal"
           @mouseleave="hovered = null"
         >
-          <div
-            class="eyebrow mb-5"
-            style="color: var(--color-burnt)"
-          >
+          <div class="eyebrow mb-5 text-burnt">
             {{ p.ordinal }}
           </div>
-          <h3
-            style="
-              font-family: var(--font-display);
-              font-weight: 700;
-              font-size: 17px;
-              letter-spacing: -0.01em;
-              color: var(--color-fg);
-              margin: 0 0 12px;
-            "
-          >
+          <h3 class="mb-3 font-display text-[17px] font-bold tracking-[-0.01em] text-fg">
             {{ p.title }}
           </h3>
-          <p style="font-size: 14px; line-height: 1.65; color: var(--color-fg-3); margin: 0">
+          <p class="m-0 text-[14px] leading-[1.65] text-fg-3">
             {{ p.body }}
           </p>
         </div>

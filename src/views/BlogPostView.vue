@@ -43,8 +43,7 @@
 <template>
   <div
     v-if="post"
-    class="mx-auto max-w-3xl px-6"
-    style="padding-top: 120px; padding-bottom: 96px"
+    class="mx-auto max-w-3xl px-6 pt-[120px] pb-[96px]"
   >
     <BlogJsonLd :post="post" />
     <BlogPostHeader :post="post" />

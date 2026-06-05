@@ -11,22 +11,14 @@
 <template>
   <section
     id="writing"
-    style="padding: 120px 0"
+    class="py-[120px]"
   >
     <div class="mx-auto max-w-6xl px-6">
       <div class="mb-16 flex flex-wrap items-end justify-between gap-4">
         <div>
           <div class="eyebrow mb-5">writing</div>
           <h2
-            style="
-              font-family: var(--font-display);
-              font-weight: 800;
-              font-size: clamp(32px, 4vw, 56px);
-              letter-spacing: -0.03em;
-              line-height: 1.05;
-              color: var(--color-fg);
-              margin: 0;
-            "
+            class="m-0 font-display text-[clamp(32px,4vw,56px)] leading-[1.05] font-extrabold tracking-[-0.03em] text-fg"
           >
             engineering log
           </h2>
@@ -41,54 +33,37 @@
 
       <div
         v-if="recent.length === 0"
-        style="font-family: var(--font-mono); font-size: 13px; color: var(--color-fg-4)"
+        class="font-mono text-[13px] text-fg-4"
       >
         No posts yet. First drop coming soon.
       </div>
 
       <div
         v-else
-        class="flex flex-col"
-        style="border-top: 1px solid var(--color-line)"
+        class="flex flex-col border-t border-line"
       >
         <RouterLink
           v-for="post in recent"
           :key="post.frontmatter.slug"
           :to="`/blog/${post.frontmatter.slug}`"
-          class="group flex flex-col gap-2 py-6 sm:flex-row sm:items-baseline sm:gap-8"
-          style="border-bottom: 1px solid var(--color-line-soft); text-decoration: none; transition: background 0.15s"
+          class="group flex flex-col gap-2 border-b border-line-soft py-6 no-underline sm:flex-row sm:items-baseline sm:gap-8"
+          style="transition: background 0.15s"
         >
-          <div
-            style="
-              font-family: var(--font-mono);
-              font-size: 11px;
-              color: var(--color-fg-4);
-              min-width: 80px;
-              flex-shrink: 0;
-            "
-          >
+          <div class="min-w-[80px] shrink-0 font-mono text-[11px] text-fg-4">
             {{ new Date(post.frontmatter.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) }}
           </div>
           <div class="min-w-0 flex-1">
             <div
-              style="
-                font-family: var(--font-display);
-                font-weight: 600;
-                font-size: 16px;
-                color: var(--color-fg);
-                margin-bottom: 4px;
-                transition: color 0.15s;
-              "
+              class="mb-[4px] font-display text-[16px] font-semibold text-fg"
+              style="transition: color 0.15s"
             >
               {{ post.frontmatter.title }}
             </div>
-            <div style="font-size: 13px; color: var(--color-fg-3); line-height: 1.5">
+            <div class="text-[13px] leading-[1.5] text-fg-3">
               {{ post.frontmatter.description }}
             </div>
           </div>
-          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--color-fg-4); flex-shrink: 0">
-            {{ post.readingTime }} min
-          </div>
+          <div class="shrink-0 font-mono text-[11px] text-fg-4">{{ post.readingTime }} min</div>
         </RouterLink>
       </div>
     </div>

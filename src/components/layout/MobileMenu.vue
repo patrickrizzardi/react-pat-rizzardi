@@ -55,8 +55,7 @@
         <!-- Explicit close: reliable on touch (backdrop-tap can be swallowed) + discoverable. -->
         <DialogClose
           aria-label="Close menu"
-          class="mb-1 cursor-pointer self-end p-1"
-          style="color: var(--color-fg-3)"
+          class="mb-1 cursor-pointer self-end p-1 text-fg-3"
         >
           <X :size="16" />
         </DialogClose>
@@ -71,10 +70,7 @@
           {{ link.label }}
         </AppButton>
 
-        <div
-          class="my-3 h-px"
-          style="background: var(--color-line-soft)"
-        />
+        <div class="my-3 h-px bg-line-soft" />
 
         <AppButton
           variant="nav"

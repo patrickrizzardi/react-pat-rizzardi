@@ -49,43 +49,29 @@
 <template>
   <section
     id="contact"
-    style="padding: 120px 0; background: var(--color-surface-2)"
+    class="bg-surface-2 py-[120px]"
   >
     <div class="mx-auto max-w-6xl px-6">
       <div class="eyebrow mb-5">contact</div>
       <h2
-        style="
-          font-family: var(--font-display);
-          font-weight: 800;
-          font-size: clamp(32px, 4vw, 56px);
-          letter-spacing: -0.03em;
-          line-height: 1.05;
-          color: var(--color-fg);
-          margin: 0 0 16px;
-        "
+        class="mb-[16px] font-display text-[clamp(32px,4vw,56px)] leading-[1.05] font-extrabold tracking-[-0.03em] text-fg"
       >
         Looking for a Principal Engineer?
       </h2>
-      <p style="font-size: 17px; color: var(--color-fg-2); margin: 0 0 56px; max-width: 480px; line-height: 1.6">
+      <p class="mb-[56px] max-w-[480px] text-[17px] leading-[1.6] text-fg-2">
         Open to principal/staff roles, founding-engineer engagements, and high-leverage contracts. Distributed systems,
         TypeScript/Node, compilers, and everything in between.
       </p>
 
       <!-- Glow card -->
       <div
-        class="max-w-xl rounded-2xl border"
-        style="
-          background: var(--color-card);
-          border-color: var(--color-line);
-          box-shadow: var(--card-shadow-hi);
-          overflow: hidden;
-        "
+        class="max-w-xl overflow-hidden rounded-2xl border border-line bg-card"
+        style="box-shadow: var(--card-shadow-hi)"
       >
         <div
           v-for="link in links"
           :key="link.label"
-          class="relative border-b last:border-b-0"
-          style="border-color: var(--color-line-soft)"
+          class="relative border-b border-line-soft last:border-b-0"
         >
           <a
             :href="link.href"
@@ -110,27 +96,12 @@
               }"
             />
             <div class="min-w-0 flex-1">
-              <div
-                style="
-                  font-family: var(--font-mono);
-                  font-size: 11px;
-                  color: var(--color-fg-4);
-                  margin-bottom: 2px;
-                  text-transform: uppercase;
-                  letter-spacing: 0.1em;
-                "
-              >
+              <div class="mb-[2px] font-mono text-[11px] tracking-[0.1em] text-fg-4 uppercase">
                 {{ link.label }}
               </div>
               <div
-                style="
-                  font-size: 14px;
-                  font-weight: 500;
-                  transition: color 0.15s;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  white-space: nowrap;
-                "
+                class="truncate text-[14px] font-medium"
+                style="transition: color 0.15s"
                 :style="{ color: hovered === link.label ? 'var(--color-fg)' : 'var(--color-fg-2)' }"
               >
                 {{ link.text }}
@@ -138,8 +109,8 @@
             </div>
             <span
               v-if="link.label !== 'Email'"
+              class="text-[16px]"
               style="
-                font-size: 16px;
                 transition:
                   transform 0.15s,
                   opacity 0.15s;
@@ -156,8 +127,7 @@
             v-if="link.label === 'Email'"
             type="button"
             :aria-label="copied ? 'Email copied to clipboard' : 'Copy email address'"
-            class="absolute top-1/2 right-6 flex -translate-y-1/2 cursor-pointer items-center gap-1.5"
-            style="font-family: var(--font-mono); font-size: 11px"
+            class="absolute top-1/2 right-6 flex -translate-y-1/2 cursor-pointer items-center gap-1.5 font-mono text-[11px]"
             @click="copyEmail"
           >
             <span
