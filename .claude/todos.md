@@ -53,17 +53,27 @@ Done in cheddar-site-overhaul Phase 4:
 - [x] Mobile menu full focus-trap — Reka UI Dialog (reka-ui ^2.9.9)
 - [x] Contact/CTA heading → "Looking for a Principal Engineer?" (was "Hiring a founding CTO?")
 
-## Audit backlog (2026-06-03 — full report `.analysis/AUDIT-SUMMARY.md`, 8 analyzers, security skipped)
-**Confirmed bugs (fix before cheddar-v1 → main merge):**
-- [ ] **P0** `WritingSection.vue:56-57` — `post.slug` → `post.frontmatter.slug` (home "recent posts" links currently render `/blog/undefined`; verified in `dist/`)
-- [ ] **P1** `useBlogPosts.ts:39` — `estimateReadingTime(path)` measures the file path → every post "1 min" + bad JSON-LD wordCount; pass raw content via a `?raw` glob
-- [ ] **Perf** move Shiki highlighting of `projects.ts` snippets to build-time (`CodeSnippet.vue`) — drops ~181 KB from every client (blog already does this)
-- [ ] Consolidation (your ask): extract `.section-heading`/`.mono-label`/`.chip` CSS classes + `utils/date.ts` (~104 LOC); see AUDIT §A
-- [ ] DECISION NEEDED: inline-`style` vs Tailwind standard (AUDIT §I) — sanction the exception in vue-standards.md or migrate
-- [ ] Rest (NeuronCanvas pause + magic-number extraction, active-section nav, copy-email, dead-code sweep, README, etc.) — see AUDIT-SUMMARY §H ranked
+## Audit (2026-06-03/05 — full report `.analysis/AUDIT-SUMMARY.md`, 8 analyzers, security skipped) — COMPLETE
+Shipped on `cheddar-v1`, all build-green + reviewer-gated + browser-verified (11 commits, f4d72ad→553f1ea):
+- [x] **P0** broken home "recent posts" links (/blog/undefined) + **P1** reading time always "1 min" — `f4d72ad`
+- [x] Dead code: extensionUrl, expandedCard, app-btn classes, orphaned cheddar-emblem.png — `7ec7334`
+- [x] NeuronCanvas perf: off-screen/hidden pause + O(n) spatial-grid + fanOut cleanup + CANVAS constants — `ce0cc67`
+- [x] a11y/ux: reduced-motion guard, responsive principles grid, doc-relative scroll, CTA, footer/canvas a11y — `2fd4323`
+- [x] availability badge (clock removed), copy-email, aria-pressed — `76f062f`
+- [x] active-section nav, interactive blog tags, snippet tabs, share, mobile resume, empty-state — `c910828`
+- [x] **Shiki → build-time** (−401 KB client JS; was ~181 KB est) — `616b696`
+- [x] README + naming/magic-number cleanup — `635320a`
+- [x] content: leadership "CTO-track" → Principal-Engineer; dropped placeholder `since` — `12f911e`
+- [x] **Tailwind migration**: clean `@theme` token system (phase A `06d94bb`) + inline `style=`→utilities across 14 components (phase B `553f1ea`); pixel-verified zero visual change
+- [x] Content decisions: Tessa corpus kept 3.85B (English-Base); $65.8M hero metric kept; CTO-track aligned
+
+**Remaining DRY follow-ups (redundancy §A — NOT done; the Tailwind migration consolidated tokens, not these repeated patterns):**
+- [ ] `src/utils/date.ts` — extract the byte-identical `formattedDate` computed (BlogPostCard + BlogPostHeader) + WritingSection short form (~14 LOC)
+- [ ] `<SectionHeading>` component — the 6 section `<h2>` now share an identical `font-display ... text-[clamp(32px,4vw,56px)] ...` utility string; extract to one component
+- [ ] `<Chip>` / `.mono-label` shared component — repeated tag-chip + mono-label utility strings across systems/leadership/blog
+- [ ] `useHover` composable — BlogPostCard/BlogPostNav/ContactSection each reinvent a hover ref + mouseenter/leave
 
 Remaining (cross-workstream):
-- [ ] Resume content polish (Patrick edits the PDF source): headline → "Principal Engineer & Architect"; fold one infra bullet from devops cut; reframe "don't need managing"; drop weak "66+ tests" — see .analysis/resume-review.md
+- [ ] Resume content polish (Patrick edits the PDF source): headline → "Principal Engineer & Architect"; see .analysis/resume-review.md
 - [ ] bugs.md: .gitignore it (personal scratch; currently fails cspell) or fix typos
 - [ ] Rename GitHub repo from react-pat-rizzardi
-- [ ] (Patrick's call — see plan Final Review Findings Log) leadership.ts "Engineering Lead / CTO-track" vs Principal-Engineer positioning; Tessa corpus 3.85B→12.4B; $65.8M hero metric slot
