@@ -215,7 +215,7 @@
           variant="ghost"
           @click="scrollToSection('contact')"
         >
-          open a thread
+          let's talk ↗
         </AppButton>
 
         <span

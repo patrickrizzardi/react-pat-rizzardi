@@ -23,10 +23,7 @@
           :aria-label="link.label"
           target="_blank"
           rel="noopener noreferrer"
-          class="transition-colors duration-200"
-          style="color: var(--text-4)"
-          @mouseenter="($event.currentTarget as HTMLElement).style.color = 'var(--burnt)'"
-          @mouseleave="($event.currentTarget as HTMLElement).style.color = 'var(--text-4)'"
+          class="text-[var(--text-4)] transition-colors duration-200 hover:text-[var(--burnt)]"
         >
           <component
             :is="link.icon"

@@ -21,5 +21,8 @@ export const scrollToSection = (id: string): void => {
   }
   const el = document.getElementById(id);
   if (!el) return;
-  window.scrollTo({ top: el.offsetTop - navBarHeight() - NAV_SCROLL_GAP, behavior: 'smooth' });
+  // getBoundingClientRect().top + scrollY = document-relative position. offsetTop is relative
+  // to the nearest positioned ancestor, and sections are position:relative, so it undershoots.
+  const top = el.getBoundingClientRect().top + window.scrollY - navBarHeight() - NAV_SCROLL_GAP;
+  window.scrollTo({ top, behavior: 'smooth' });
 };

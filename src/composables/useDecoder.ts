@@ -6,6 +6,11 @@ export const useDecoder = (final: string, delay = 400): Readonly<Ref<string>> =>
   let rafId = 0;
 
   onMounted(() => {
+    // Respect reduced-motion: skip the scramble, show the final text immediately.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      output.value = final;
+      return;
+    }
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789_.';
     const start = performance.now() + delay;
 

@@ -27,20 +27,22 @@
         06 principles
       </h2>
 
+      <!-- Grid lines via gap-px over a line-colored container: correct at any column count
+           (1/2/3 across breakpoints) with no per-cell nth-child math. -->
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-        style="border: 1px solid var(--line); border-radius: var(--radius)"
+        class="grid grid-cols-1 gap-px overflow-hidden md:grid-cols-2 lg:grid-cols-3"
+        style="border: 1px solid var(--line); border-radius: var(--radius); background: var(--line)"
       >
         <div
-          v-for="(p, i) in principles"
+          v-for="p in principles"
           :key="p.n"
           class="relative cursor-default"
           :style="{
             padding: '36px 32px',
-            borderRight: i % 3 !== 2 ? '1px solid var(--line)' : 'none',
-            borderBottom: i < 3 ? '1px solid var(--line)' : 'none',
-            background: hovered === p.n ? 'oklch(0.66 0.17 48 / 0.06)' : 'transparent',
-            transition: 'background 0.2s ease',
+            background: 'var(--bg-2)',
+            boxShadow:
+              hovered === p.n ? 'inset 0 0 0 999px oklch(0.66 0.17 48 / 0.06)' : 'inset 0 0 0 999px transparent',
+            transition: 'box-shadow 0.2s ease',
           }"
           @mouseenter="hovered = p.n"
           @mouseleave="hovered = null"

@@ -571,6 +571,7 @@
 
 <template>
   <div
+    aria-hidden="true"
     class="pointer-events-none absolute inset-0 z-0"
     style="
       mask-image: radial-gradient(ellipse 95% 75% at 50% 45%, #000 40%, transparent 85%);
